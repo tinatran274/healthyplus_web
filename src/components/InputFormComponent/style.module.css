@@ -1,0 +1,8 @@
+.input{
+    border: 1px solid gainsboro;
+    outline: none;
+    box-shadow: none;
+    margin: 5px 0;
+    padding: 10px 15px;
+    border-radius: 10px;
+}

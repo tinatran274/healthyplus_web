@@ -1,0 +1,25 @@
+
+.notify{
+    width: 140px;
+}
+.search{
+    margin-top: 15px;
+}
+.cart_icon{
+    font-size: 20px;
+    padding: 20px;
+    color: #1A8C03;
+}
+.user_icon{
+    font-size: 20px;
+}
+.info{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    gap: 10px
+}
+.signin, .signout{
+    cursor: pointer;
+}

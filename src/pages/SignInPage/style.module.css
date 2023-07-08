@@ -1,0 +1,64 @@
+.backgrround_inp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--while);
+}
+.signin_form{
+    width: 50%;
+    height: 430px;
+    border-radius: 10px;
+    background-color: var(--white);
+    padding: 40px;
+    margin: 50px 0;
+    box-shadow: 1px 1px 3px rgba(125, 123, 123, 0.2);
+}
+.signin_btn{
+    background-color: var(--green_main);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    padding: 12px 20px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 40px 0;
+    float: right;
+}
+.sign_in:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
+}
+.img_logo{
+    width: 140px;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.forgot_password{
+    color: var(--green_main);
+    float: left;
+    font-size: 14px;
+}
+.flex2{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.signup{
+    color: var(--green_main);
+    cursor: pointer;
+}
+.show_pass{
+    z-index: 10;
+    position: absolute;
+    top: 15px;
+    right: 15px
+}

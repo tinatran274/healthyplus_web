@@ -1,0 +1,29 @@
+.info_product{
+    position: relative;
+}
+.product_name{
+    margin: 0 0 2px 0;
+}
+.supplier{
+    font-weight: 500;
+    margin: 2px 0;
+    color: var(--green_main);
+}
+.cost{
+    margin: 2px 0;
+}
+.add_btn{
+    background-color: var(--green_main);
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+}
+
+.icon{
+    color: var(--white);
+}
+ .add_btn:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
+ }

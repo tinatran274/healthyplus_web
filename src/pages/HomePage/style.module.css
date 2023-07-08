@@ -1,0 +1,24 @@
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 100px 10px 20px 10px;
+    align-items: center;
+    gap: 20px;
+}
+.more_btn{
+    background-color: var(--green_main);
+    color: var(--white);
+    outline: none;
+    border: none;
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 20px 400px;
+    width: 400px;
+}
+.more_btn:hover{
+    background-color: var(--white);
+    color: var(--green_main);
+    box-shadow: 1px 1px 4px #6cc65a;
+}

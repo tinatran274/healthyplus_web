@@ -1,0 +1,31 @@
+
+.topnav {
+    margin: 0 50px 100px 50px;
+    padding: 0 20px;
+    overflow: hidden;
+    float: right;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(125, 123, 123, 0.2);
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+    .icon{
+        padding: 0 5px;
+    }
+}
+ 
+  .topnav a:hover, .dropdown:hover .dropbtn {
+    color: var(--red_dedo);
+    cursor: pointer;
+  }
+  a:hover {
+    color: var(--red_dedo);
+  }
+  .dropdown:hover .dropdown_content {
+    display: block;
+  }
+  .topnav:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
+  }
