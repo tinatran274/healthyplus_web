@@ -86,6 +86,19 @@ export const updateInfoUser = async (uid, nage, ngender, nheight, nweight, nexer
         exercise: nexercise,
     });
 }
+export const getUserCalories = async (uid, date) => {
+    const uRef = doc(db, "statistic", uid);
+    const caloRef = doc (uRef, "dailyData", date)
+
+    const docSnap = await getDoc(caloRef);
+    if (docSnap.exists()) {
+        const ucalo = docSnap.data();
+        console.log(ucalo)
+        return ucalo
+    } else {
+        return null
+    }
+}
 export const updateUserCalories = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
@@ -100,61 +113,72 @@ export const updateUserCalories = async (uid, date, calo) => {
     }
 }
 
-export const getUserCalories = async (uid, date) => {
-    const uRef = doc(db, "statistic", uid);
-    const caloRef = doc (uRef, "dailyData", date)
-
-    const docSnap = await getDoc(caloRef);
-    if (docSnap.exists()) {
-        const ucalo = docSnap.data();
-        console.log(ucalo)
-        return ucalo
-    } else {
-        return null
-    }
-}
 export const updateUserMorning = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {morning: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 
 export const updateUserNoon = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {noon: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 export const updateUserDinner = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {dinner: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 export const updateUserSnack = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {snack: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 export const updateUserExercise = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {exercise: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 export const updateUserWater = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
     const caloRef = doc (uRef, "dailyData", date)
 
+    const docSnap = await getDoc(caloRef);
     const dataToUpdate = {water: parseInt(calo)};
-    await updateDoc(caloRef, dataToUpdate);
+    if (docSnap.exists()) 
+        await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
 }
 
 

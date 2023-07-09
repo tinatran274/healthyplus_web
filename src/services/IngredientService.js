@@ -5,18 +5,18 @@ import { getFirestore, setDoc, doc, getDocs, collection, getDoc, updateDoc, dele
 const db = getFirestore(app);
 
 export const getAllIngredient = async () => {
-    const listProduct = [];
+    const listIngredient = [];
     const querySnapshot = await getDocs(collection(db, "ingredient"));
     querySnapshot.forEach((doc) => {
-        const product = doc.data();
-        listProduct.push(product);
+        const ingredient = doc.data();
+        listIngredient.push(ingredient);
     });
-    return listProduct;
+    return listIngredient;
 }
 
 export const getIngredientById = async (id) => {
     const docRef = doc(db, "ingredient", id);
     const docSnap = await getDoc(docRef);
-    const product=docSnap.data();
-    return product;
+    const ingredient=docSnap.data();
+    return ingredient;
 }

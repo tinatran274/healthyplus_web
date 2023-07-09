@@ -58,19 +58,30 @@ const ChangCaloriesComponent = () => {
                 const userCalories = await UserService.getUserCalories(user.uid, getDateToday());
                 setUserData(userData)
                 setTDEE(userData.getTDEE())
+                let userCalo = 0;
                 if(userData && userCalories){
-                    setTotalCalories(parseInt(userCalories.calories))
-                    if(userCalories.morning)
+                    if(userCalories.morning) {
                         setMorningSeted(parseInt(userCalories.morning))
-                    if(userCalories.noon)
+                        userCalo+=userCalories.morning;
+                    }
+                    if(userCalories.noon) {
                         setNoonSeted(parseInt(userCalories.noon))
-                    if(userCalories.dinner)
+                        userCalo += userCalories.noon;
+                    }
+                    if(userCalories.dinner) {
                         setDinnerSeted(parseInt(userCalories.dinner))
-                    if(userCalories.snack)
+                        userCalo += userCalories.dinner;
+                    }
+                    if(userCalories.snack) {
                         setSnackSeted(parseInt(userCalories.snack))
-                    if(userCalories.exercise)
+                        userCalo += userCalories.snack;
+                    }
+                    if(userCalories.exercise) {
                         setExerciseSeted(parseInt(userCalories.exercise))
-                    setChangPercent(userCalories.calories, userData.getTDEE());
+                        userCalo -= userCalories.exercise;
+                    }
+                    setTotalCalories(userCalo)
+                    setChangPercent(userCalo, userData.getTDEE());
                 }
             }
             else
@@ -86,7 +97,7 @@ const ChangCaloriesComponent = () => {
         setChangPercent(100, tdee);
         const currentTime = new Date();
         const hours = currentTime.getHours();
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 100);
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 100);
         if(hours<=10){
             UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 100);
             setMorningSeted(morningSeted + 100)
@@ -106,7 +117,7 @@ const ChangCaloriesComponent = () => {
         setChangPercent(200, tdee);
         const currentTime = new Date();
         const hours = currentTime.getHours();
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 200);
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 200);
         if(hours<=10){
             UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 200);
             setMorningSeted(morningSeted + 200)
@@ -138,7 +149,7 @@ const ChangCaloriesComponent = () => {
     const handleAddMorning = () => {
         setTotalCalories(totalCalories + parseInt(morning));
         setChangPercent(morning, tdee);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(morning));
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(morning));
         UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + parseInt(morning));
         setMorningSeted(morningSeted + parseInt(morning))
         setMorning(0)
@@ -146,7 +157,7 @@ const ChangCaloriesComponent = () => {
     const handleAddNoon = () => {
         setTotalCalories(totalCalories + parseInt(noon));
         setChangPercent(noon, tdee);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(noon));
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(noon));
         UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + parseInt(noon));
         setNoonSeted(noonSeted + parseInt(noon))
         setNoon(0)
@@ -154,7 +165,7 @@ const ChangCaloriesComponent = () => {
     const handleAddDinner = () => {
         setTotalCalories(totalCalories + parseInt(dinner));
         setChangPercent(dinner, tdee);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(dinner));
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(dinner));
         UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + parseInt(dinner));
         setDinnerSeted(dinnerSeted + parseInt(dinner))
         setDinner(0)
@@ -162,7 +173,7 @@ const ChangCaloriesComponent = () => {
     const handleAddSnack = () => {
         setTotalCalories(totalCalories + parseInt(snack));
         setChangPercent(snack, tdee);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(snack));
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(snack));
         UserService.updateUserSnack(userData.id, getDateToday(), snackSeted + parseInt(snack));
         setSnackSeted(snackSeted + parseInt(snack))
         setSnack(0)
@@ -170,7 +181,7 @@ const ChangCaloriesComponent = () => {
     const handleAddExercise = () => {
         setTotalCalories(totalCalories - parseInt(exercise));
         setChangPercent((-1)*exercise, tdee);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories - parseInt(exercise));
+        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories - parseInt(exercise));
         UserService.updateUserExercise(userData.id, getDateToday(), exerciseSeted + parseInt(exercise));
         setExerciseSeted(exerciseSeted + parseInt(exercise))
         setExercise(0)
@@ -179,7 +190,6 @@ const ChangCaloriesComponent = () => {
 
         const aim = userData.aim
         const temp = parseInt(tdee - totalCalories);
-        console.log(temp)
         if(aim=='Tăng cân'){
             if(temp > 0)
                 return `Để đạt được mục tiêu tăng cân bạn cần nạp nhiều hơn ${temp} kcal`;

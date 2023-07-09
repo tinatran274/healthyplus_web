@@ -9,6 +9,9 @@ import CartPage from '../pages/CartPage/CartPage'
 import ControlCaloriesPage from '../pages/ControlCaloriesPage/ControlCaloriesPage'
 import ControlWaterPage from '../pages/ControlWaterPage/ControlWaterPage'
 import IngredientPage from '../pages/IngredientPage/IngredientPage'
+import DetailIngredientPage from '../pages/DetailIngredientPage/DetailIngredientPage'
+import DishPage from '../pages/DishPage/DishPage'
+import DetailDishPage from '../pages/DetailDishPage/DetailDishPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
@@ -55,6 +58,18 @@ export const routes = [
     {
         path: '/ingredient',
         page: IngredientPage
+    },
+    {
+        path: '/detail_ingredient/:id',
+        page: DetailIngredientPage
+    },
+    {
+        path: '/Dish',
+        page: DishPage
+    },
+    {
+        path: '/detail_dish/:id',
+        page: DetailDishPage
     },
     {
         path: '*',

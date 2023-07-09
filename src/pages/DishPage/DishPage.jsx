@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
-import CardIngredientComponent from "../../components/CardIngredientComponent/CardIngredientComponent";
+import CardDishComponent from "../../components/CardDishComponent/CardDishComponent.jsx";
 import styles from './style.module.css'
-import * as IngredientService from '../../services/IngredientService'
+import * as DishService from '../../services/DishService.js'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { Col, Input, message, Popconfirm  } from 'antd'
 
-const IngredientPage = () => {
+const DishPage = () => {
+
+    const auth = getAuth(app);
 
     const { Search } = Input;
     const onSearch = (value) => console.log(value);
-    const auth = getAuth(app);
     const [userData, setUserData] = useState(null);
-    const [listIngredient, setListIngredient] = useState([]);
+    const [listDish, setListDish] = useState([]);
 
-    const getListIngredient = async () => {
-        setListIngredient( await IngredientService.getAllIngredient());
+    const getListDish = async () => {
+        setListDish( await DishService.getAllDish());
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
@@ -30,32 +31,34 @@ const IngredientPage = () => {
                 console.log("Chưa đăng nhập");
         });
     }
-    if(listIngredient) {
-        var newArray = listIngredient.map(function(item) {
-            return item.name;
-          });
-        console.log(newArray);
+    const handleAddDish = async () => {
+        console.log('add')
+        await DishService.addDish();
     }
-
     useEffect(() => {
         handleAuth()
-        getListIngredient()
+        getListDish()
     }, [])
-
+    if(listDish)
+        console.log(listDish)
     return(
         <div>
             <HeaderComponent/>
             <NavComponent/>
             <div className={styles.wrap}>
                 <div className={styles.list}>
-                    {listIngredient.map((ingredient) => {
+                    {listDish.map((dish) => {
                         return (
-                            <CardIngredientComponent
-                                key={ingredient.id}
-                                id={ingredient.id}
-                                name={ingredient.name}
-                                calo={ingredient.calo}
-                                img={ingredient.img}
+                            <CardDishComponent
+                                key={dish.id}
+                                id={dish.id}
+                                name={dish.name}
+                                calo={dish.calo}
+                                carb={dish.carb}
+                                fat={dish.fat}
+                                protein={dish.protein}
+                                img={dish.img}
+                                
                             />
                         )
                     })}
@@ -69,4 +72,4 @@ const IngredientPage = () => {
         </div>
     )
 }
-export default IngredientPage
+export default DishPage
