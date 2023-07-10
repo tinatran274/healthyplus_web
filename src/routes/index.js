@@ -12,6 +12,9 @@ import IngredientPage from '../pages/IngredientPage/IngredientPage'
 import DetailIngredientPage from '../pages/DetailIngredientPage/DetailIngredientPage'
 import DishPage from '../pages/DishPage/DishPage'
 import DetailDishPage from '../pages/DetailDishPage/DetailDishPage'
+import FavoriteDishPage from '../pages/FavoriteDishPage/FavoriteDishPage'
+import SuggestDishPage from '../pages/SuggestDishPage/SuggestDishPage'
+import DishFromSuggestPage from '../pages/DishFromSuggestPage/DishFromSuggestPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
@@ -64,12 +67,24 @@ export const routes = [
         page: DetailIngredientPage
     },
     {
-        path: '/Dish',
+        path: '/dish',
         page: DishPage
     },
     {
         path: '/detail_dish/:id',
         page: DetailDishPage
+    },
+    {
+        path: '/favorite_dish',
+        page: FavoriteDishPage
+    },
+    {
+        path: '/suggest_dish',
+        page: SuggestDishPage
+    },
+    {
+        path: '/dish_from_suggest/:list',
+        page: DishFromSuggestPage
     },
     {
         path: '*',

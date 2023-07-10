@@ -20,3 +20,13 @@ export const getIngredientById = async (id) => {
     const ingredient=docSnap.data();
     return ingredient;
 }
+
+export const getListIngredientNameById = async (listId) => {
+    const listIngredient = [];
+    listId.forEach(async (id) => {
+        const docSnap = await getDoc(doc(db, "ingredient", id));
+        const ingredient=docSnap.data().name;
+        listIngredient.push(ingredient);
+    });
+    return listIngredient;
+}

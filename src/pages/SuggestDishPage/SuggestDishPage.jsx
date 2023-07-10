@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
-import LishDishComponent from "../../components/LishDishComponent/LishDishComponent";
+import ListIngredientForComponent from "../../components/ListIngredientForComponent/ListIngredientForComponent.jsx";
 import styles from './style.module.css'
-import * as DishService from '../../services/DishService.js'
+import * as IngredientService from '../../services/IngredientService'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { Col, Input, message, Popconfirm  } from 'antd'
-import { useNavigate } from 'react-router-dom';
 
-const DishPage = () => {
+const SuggestDishPage = () => {
 
     const auth = getAuth(app);
-    const navigate = useNavigate()
-    const { Search } = Input;
-    const onSearch = (value) => console.log(value);
     const [userData, setUserData] = useState(null);
 
     const handleAuth = () => {
@@ -28,15 +24,17 @@ const DishPage = () => {
                 console.log("Chưa đăng nhập");
         });
     }
+
     useEffect(() => {
         handleAuth()
     }, [])
+
     return(
         <div>
             <HeaderComponent/>
             <NavComponent/>
-            <LishDishComponent/>
+            <ListIngredientForComponent/>
         </div>
     )
 }
-export default DishPage
+export default SuggestDishPage

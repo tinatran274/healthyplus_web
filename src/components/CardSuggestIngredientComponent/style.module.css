@@ -1,0 +1,26 @@
+.info_ingr{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px;
+}
+.ingr_img{
+    width: 90px;
+    height: 80px;
+    border-radius: 20px;
+    margin: 0 50px;
+}
+.ingr_name{
+    font-weight: 700;
+    margin: 0 80px 0 50px;
+    width: 100px;
+}
+.ingr_calo{
+    font-weight: 700;
+    font-size: large;
+    margin: 0 5px 0 30px;
+    color: var(--green_main);
+}
+.deco{
+    margin-right: 80px;
+}

@@ -15,14 +15,20 @@ import imgNutri from '../../image/img_nutrition.png'
 import imgIngr from '../../image/img_ingre.png'
 import imgRecipe from '../../image/img_recipe_book.png'
 import imgExer from '../../image/img_exercise.png'
+import imgFavo from '../../image/img_favo.png'
+import imgUnfavo from '../../image/img_unfavo.png'
 
 const DetailDishComponent = ({idDish}) => {
 
     const auth = getAuth(app);
     const [userData, setUserData] = useState(null);
     const [dish, setDish] = useState([]);
+    const [listFavo, setListFavo] = useState([]);
     const navigate = useNavigate()
 
+    const isFavoriteDish = () => {
+        return listFavo.includes(idDish);
+    }
     const getDish = async () => {
         setDish( await DishService.getDishtById(idDish));
     }
@@ -30,15 +36,19 @@ const DetailDishComponent = ({idDish}) => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userData = await UserService.getDetailUser(user.uid);
+                const userFavo = await DishService.getDishFavo(user.uid);
                 setUserData(userData)
+                setListFavo(userFavo)
             }
             else
                 console.log("Chưa đăng nhập");
+                
         });
     }
     useEffect(() => {
         handleAuth()
         getDish()
+
     }, [])
     function calTimeBicycle(calories) {    
         const time = (calories / 7).toFixed(2);    
@@ -56,6 +66,23 @@ const DetailDishComponent = ({idDish}) => {
         const time = (calories / 12).toFixed(2);    
         return time;
     }
+    const handleSetFavo = async () => {
+        console.log('favo')
+        if (userData){
+            await DishService.deleteDishFavo(userData.id, idDish);
+            // setIsUserFavo(false)
+            handleAuth()
+        }
+    }
+    const handleSetUnFavo = async () => {
+        console.log('unfavo')
+        if (userData){
+            await DishService.addDishFavo(userData.id, idDish);
+            console.log('favo')
+            // setIsUserFavo(true)
+            handleAuth()
+        }
+    }
 
     return(
         <div className={styles.main_pro}>
@@ -66,7 +93,14 @@ const DetailDishComponent = ({idDish}) => {
                     </Col>
                     <Col span={14}>
                         <div className={styles.wrap_detail_product}>
-                            <h1 className={styles.name}>{dish.name}</h1>
+                            <div className={styles.wrap}>
+                                <h1 className={styles.name}>{dish.name}</h1>
+                                {isFavoriteDish() ? 
+                                    <img className={styles.img_favo} alt="favo" src={imgFavo} onClick={handleSetFavo}/>
+                                    :
+                                    <img className={styles.img_favo} alt="unfavo" src={imgUnfavo} onClick={handleSetUnFavo}/>
+                                }
+                            </div>
                             <div className={styles.flex2}>
                                 <img className={styles.img_deco1} alt="example" src={imgNutri} />
                                 <p className={styles.txt}>Thông tin dinh dưỡng tính trên một khẩu phần ăn</p>
@@ -105,7 +139,7 @@ const DetailDishComponent = ({idDish}) => {
                 <Card hoverable>
                     {dish.ingredient? dish.ingredient.map((ingredient) => {
                         return (
-                            <p className={styles.txt_ingr}>{ingredient}</p>
+                            <p key={ingredient} className={styles.txt_ingr}>{ingredient}</p>
                         )
                     }) : ""}
                 </Card>
@@ -117,7 +151,7 @@ const DetailDishComponent = ({idDish}) => {
                 <Card hoverable>
                     {dish.recipe? dish.recipe.map((recipe) => {
                         return (
-                            <p className={styles.txt_ingr}>{recipe}</p>
+                            <p key={recipe} className={styles.txt_ingr}>{recipe}</p>
                         )
                     }) : ""}
                 </Card>

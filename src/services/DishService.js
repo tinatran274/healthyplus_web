@@ -42,3 +42,55 @@ export const getDishtById = async (id) => {
     const dish=docSnap.data();
     return dish;
 }
+
+export const addDishFavo = async (uid, did) => {
+    const dataToUpdate = {};
+    dataToUpdate[did] = 0;
+    const favoRef = doc(db, "favorite", uid);
+    const docSnap = await getDoc(favoRef);
+
+    if (docSnap.exists()) {
+        await updateDoc(favoRef, dataToUpdate);
+    } else {
+        console.log("No such document!");
+        await setDoc(favoRef, dataToUpdate);
+    }
+}
+export const getDishFavo = async (uid) => {
+    const listFavo = [];
+    const favoRef = doc(db, "favorite", uid);
+    const favoSnap = await getDoc(favoRef);
+    console.log()
+    if (favoSnap.exists()) {
+        const dish=favoSnap.data()
+        for (const key in dish) {
+            listFavo.push(key);
+        }
+        return listFavo;
+    }
+}
+export const deleteDishFavo = async (uid, did) => {
+    const favoRef = doc(db, "favorite", uid);
+    const dataToUpdate = {};
+    dataToUpdate[did] = deleteField();
+    await updateDoc(favoRef, dataToUpdate);
+}
+
+export const getDetailDishFavo = async (uid) => {
+
+    const listFavo = [];
+    const favoRef = doc(db, "favorite", uid);
+    const favoSnap = await getDoc(favoRef);
+    const userFavo = favoSnap.data();
+    
+    for (const key in userFavo) {
+        if (userFavo.hasOwnProperty(key)) {
+            const docRef = doc(db, "dish", key);
+            const docSnap = await getDoc(docRef);
+            const dish = docSnap.data();
+
+            listFavo.push(dish)
+        }
+      }
+    return listFavo
+}
