@@ -51,7 +51,6 @@ const ChangeWaterComponent = () => {
                     setTotalCalories(parseInt(userCalories.calories))
                     if(userCalories.water)
                         setWaterSeted(parseInt(userCalories.water))
-                    console.log(userCalories.water, userData.getWater()*1000)
                     setChangPercent(userCalories.water, userData.getWater()*1000);
                 }
             }
@@ -65,21 +64,18 @@ const ChangeWaterComponent = () => {
     const decrease100Calories = () => {
         setTotalCalories(totalCalories - 100);
         setChangPercent(-100, need);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories);
         UserService.updateUserWater(userData.id, getDateToday(), waterSeted - 100);
         setWaterSeted(waterSeted - 100)
     };
     const increase100Calories = () => {
         setTotalCalories(totalCalories + 100);
         setChangPercent(100, need);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories);
         UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 100);
         setWaterSeted(waterSeted + 100)
     };
     const increase200Calories = () => {
         setTotalCalories(totalCalories + 200);
         setChangPercent(200, need);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories);
         UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 200);
         setWaterSeted(waterSeted + 200)
 
@@ -90,7 +86,6 @@ const ChangeWaterComponent = () => {
     const handleAddWater = () => {
         setTotalCalories(totalCalories + parseInt(water));
         setChangPercent(water, need);
-        UserService.updateUserCalories(userData.id, getDateToday(), totalCalories);
         UserService.updateUserWater(userData.id, getDateToday(), waterSeted + parseInt(water));
         setWaterSeted(waterSeted + parseInt(water))
         setWater(0)
@@ -99,7 +94,6 @@ const ChangeWaterComponent = () => {
 
         const aim = userData.aim
         const temp = parseInt(need - waterSeted);
-        console.log(temp)
         if(temp > 0)
             return `Bạn cần uống thêm ${temp} ml nước trong ngày hôm nay`;
         else
@@ -121,16 +115,6 @@ const ChangeWaterComponent = () => {
                         <Button onClick={increase200Calories} icon={<PlusOutlined />} >200</Button>
                     </Button.Group>
                 </div>
-                <div className={styles.info}>
-                    <p>Hôm nay là ngày: {getDateToday()}</p>
-                    <p>Lượng nước bạn đã uống trong ngày: <span className={styles.text}>{waterSeted}</span> ml</p>
-                    
-                    <div className={styles.tip}>
-                        <img className={styles.tip_img} alt="example" src={imgTip} />
-                        <span className={styles.text}>{userData ? handleAdvice(): ''}</span>
-                    </div>
-                
-                </div>
             </div>
             <div className={styles.change}>
                 <Card className={styles.card}>
@@ -142,6 +126,16 @@ const ChangeWaterComponent = () => {
                     <InputFormComponent id="moring" placeholder="Nhập calories bữa sáng" type="number" value={water} onChange={handleOnchangeWater} />
                     <button className={styles.pay_m} onClick={handleAddWater}>Thêm</button >
                 </Card>
+                <div className={styles.info}>
+                    <p>Hôm nay là ngày: {getDateToday()}</p>
+                    <p>Lượng nước bạn đã uống trong ngày: <span className={styles.text}>{waterSeted}</span> ml</p>
+                    
+                    <div className={styles.tip}>
+                        <img className={styles.tip_img} alt="example" src={imgTip} />
+                        <span className={styles.text}>{userData ? handleAdvice(): ''}</span>
+                    </div>
+                
+                </div>
                 
             </div>
         </div>

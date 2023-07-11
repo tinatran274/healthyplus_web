@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import CardIngredientComponent from "../../components/CardIngredientComponent/CardIngredientComponent";
+import CardProductComponent from "../../components/CardProductComponent/CardProductComponent";
 import styles from './style.module.css'
-import * as IngredientService from '../../services/IngredientService'
+import * as ProductService from '../../services/ProductService'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { Col, Input, message, Popconfirm , Card, Pagination } from 'antd'
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import { SearchOutlined} from '@ant-design/icons';
-import { Col, Input, message, Popconfirm , Card, Pagination } from 'antd'
 
-const ListIngredientComponent = () => {
+const ListProductComponent = () => {
 
     const auth = getAuth(app);
+
     const [userData, setUserData] = useState(null);
-    const [listIngredient, setListIngredient] = useState([]);
+    const [listProduct, setListProduct] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10); // Set the initial page size
 
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    const paginatedData = listIngredient.slice(startIndex, endIndex);
+    const paginatedData = listProduct.slice(startIndex, endIndex);
 
-    const getListIngredient = async () => {
-        setListIngredient( await IngredientService.getAllIngredient());
+    const getListProduct = async () => {
+        setListProduct( await ProductService.getAllProduct());
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userData = await UserService.getDetailUser(user.uid);
                 setUserData(userData)
-                console.log(user)
             }
             else
                 console.log("Chưa đăng nhập");
@@ -39,7 +39,7 @@ const ListIngredientComponent = () => {
 
     useEffect(() => {
         handleAuth()
-        getListIngredient()
+        getListProduct()
     }, [])
 
     const handleOnchangeSearchTerm = (value) => {
@@ -54,33 +54,36 @@ const ListIngredientComponent = () => {
         setPageSize(size);
     }
 
+
     return(
         <div>
             <div className={styles.wrap}>
                 <div className={styles.list}>
                     {paginatedData
-                    .filter((ingredient) => {
+                    .filter((product) => {
                         if(searchTerm == ""){
-                            return ingredient;
-                        } else if(ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                            return ingredient;
+                            return product;
+                        } else if(product.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                            return product;
                         }
                     })
-                    .map((ingredient) => {
+                    .map((product) => {
                         return (
-                            <CardIngredientComponent
-                                key={ingredient.id}
-                                id={ingredient.id}
-                                name={ingredient.name}
-                                calo={ingredient.calo}
-                                img={ingredient.img}
+                            <CardProductComponent
+                                key={product.getId()}
+                                id={product.getId()}
+                                name={product.getName()}
+                                cost={product.getCost()}
+                                img={product.getImg()}
+                                supplier={product.getSupplier()}
+                                
                             />
                         )
                     })}
                 </div>
                 <div>   
                     <div className={styles.search}>
-                        <InputFormComponent id="ingr" type="text" placeholder="Nhập nguyên liệu cần tìm" value={searchTerm} onChange={handleOnchangeSearchTerm} />
+                        <InputFormComponent id="ingr" type="text" placeholder="Nhập sản phẩm cần tìm" value={searchTerm} onChange={handleOnchangeSearchTerm} />
                         <SearchOutlined />
                     </div>
                 </div >
@@ -89,10 +92,11 @@ const ListIngredientComponent = () => {
                 current={currentPage}
                 onChange={handlePageChange}
                 onShowSizeChange={handlePageSizeChange}
-                total={listIngredient.length}
+                total={listProduct.length}
                 showSizeChanger
             />
+            
         </div>
     )
 }
-export default ListIngredientComponent
+export default ListProductComponent

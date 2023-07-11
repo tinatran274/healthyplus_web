@@ -7,16 +7,23 @@ import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9
 import InputFormComponent from "../InputFormComponent/InputFormComponent";
 import { SearchOutlined} from '@ant-design/icons';
 import {useNavigate } from 'react-router-dom'
-import { Col, Input, message, Popconfirm , Card } from 'antd'
+import { Col, Input, message, Popconfirm , Card, Pagination } from 'antd'
 
 const ListIngredientForComponent = () => {
 
     const auth = getAuth(app);
+    const navigate = useNavigate()
     const [userData, setUserData] = useState(null);
     const [listIngredient, setListIngredient] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [listChecked, setListChecked] = useState([]);
-    const navigate = useNavigate()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10); // Set the initial page size
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = listIngredient.slice(startIndex, endIndex);
+
 
     const getListIngredient = async () => {
         setListIngredient( await IngredientService.getAllIngredient());
@@ -53,12 +60,19 @@ const ListIngredientForComponent = () => {
     const handleSuggestDish = (list) => {
         navigate(`/dish_from_suggest/${encodeURIComponent(JSON.stringify(list))}`)
     }
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+    const handlePageSizeChange = (current, size) => {
+        setCurrentPage(1);
+        setPageSize(size);
+    }
 
     return(
         <div>
             <div className={styles.wrap}>
                 <div className={styles.list}>
-                    {listIngredient
+                    {paginatedData
                     .filter((ingredient) => {
                         if(searchTerm == ""){
                             return ingredient;
@@ -87,6 +101,13 @@ const ListIngredientForComponent = () => {
                     </div>
                 </div>
             </div>
+            <Pagination className={styles.pagin}
+                current={currentPage}
+                onChange={handlePageChange}
+                onShowSizeChange={handlePageSizeChange}
+                total={listIngredient.length}
+                showSizeChanger
+            />
             
         </div>
     )

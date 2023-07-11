@@ -33,3 +33,6 @@
     color: var(--green_main);
     box-shadow: 1px 1px 4px #6cc65a;
 }
+.pagin{
+    margin: 50px;
+}

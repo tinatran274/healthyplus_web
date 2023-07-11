@@ -99,19 +99,19 @@ export const getUserCalories = async (uid, date) => {
         return null
     }
 }
-export const updateUserCalories = async (uid, date, calo) => {
-    const uRef = doc(db, "statistic", uid);
-    const caloRef = doc (uRef, "dailyData", date)
+// export const updateUserCalories = async (uid, date, calo) => {
+//     const uRef = doc(db, "statistic", uid);
+//     const caloRef = doc (uRef, "dailyData", date)
 
-    const docSnap = await getDoc(caloRef);
-    const dataToUpdate = {calories: parseInt(calo)};
-    if (docSnap.exists()) {
-        await updateDoc(caloRef, dataToUpdate);
-    } else {
-        console.log("No such document!");
-        await setDoc(caloRef, dataToUpdate);
-    }
-}
+//     const docSnap = await getDoc(caloRef);
+//     const dataToUpdate = {calories: parseInt(calo)};
+//     if (docSnap.exists()) {
+//         await updateDoc(caloRef, dataToUpdate);
+//     } else {
+//         console.log("No such document!");
+//         await setDoc(caloRef, dataToUpdate);
+//     }
+// }
 
 export const updateUserMorning = async (uid, date, calo) => {
     const uRef = doc(db, "statistic", uid);
@@ -179,6 +179,61 @@ export const updateUserWater = async (uid, date, calo) => {
         await updateDoc(caloRef, dataToUpdate);
     else
         await setDoc(caloRef, dataToUpdate);
+}
+
+export const getWaterInWeek = async (uid, date) => {
+
+    const uRef = doc(db, "statistic", uid);
+    const caloRef = doc (uRef, "dailyData", date)
+    const docSnap = await getDoc(caloRef);
+    const uwater=docSnap.data();
+    if (docSnap.exists() && uwater.water) {
+        const dataReturn = {
+            date: date,
+            water: uwater.water
+        }
+        return dataReturn
+    }
+}
+
+export const getCaloriesInWeek = async (uid, date) => {
+    const uRef = doc(db, "statistic", uid);
+    const caloRef = doc (uRef, "dailyData", date)
+    const docSnap = await getDoc(caloRef);
+    const u=docSnap.data();
+
+    if (docSnap.exists()) {
+        let sumc=0;
+        if(u.morning)
+            sumc+=u.morning
+        if(u.noon)
+            sumc+=u.noon
+        if(u.dinner)
+            sumc+=u.dinner
+        if(u.snack)
+            sumc+=u.snack
+        if(u.exercise)
+            sumc-=u.exercise
+        const dataReturn = {
+            date: date,
+            calories: sumc
+        }
+        return dataReturn
+    }
+}
+
+export const getExerciseInWeek = async (uid, date) => {
+    const uRef = doc(db, "statistic", uid);
+    const caloRef = doc (uRef, "dailyData", date)
+    const docSnap = await getDoc(caloRef);
+    const u=docSnap.data();
+    if (docSnap.exists() && u.exercise) {
+        const dataReturn = {
+            date: date,
+            water: u.exercise
+        }
+        return dataReturn
+    }
 }
 
 

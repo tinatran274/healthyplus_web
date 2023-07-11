@@ -6,7 +6,7 @@ import * as UserService from '../../services/UserService'
 import * as IngredientService from '../../services/IngredientService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { Col, Input, message, Popconfirm  } from 'antd'
+import { Col, Input, message, Popconfirm , Card, Pagination } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import { SearchOutlined} from '@ant-design/icons';
@@ -25,7 +25,12 @@ const LishDishSuggestComponent = () => {
     const [listIngredientName, setListIngredientName] = useState([]);
     const [listFavo, setListFavo] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10); // Set the initial page size
     
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = listDish.slice(startIndex, endIndex);
 
     const getListIngredientName = async () => { 
         setListIngredientName(await IngredientService.getListIngredientNameById(parsedList))
@@ -75,6 +80,13 @@ const LishDishSuggestComponent = () => {
         console.log(value)
         setSearchTerm(value)
     }
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+    const handlePageSizeChange = (current, size) => {
+        setCurrentPage(1);
+        setPageSize(size);
+    }
     if(listDish){
         console.log('list: ',listDish)
     }
@@ -82,7 +94,7 @@ const LishDishSuggestComponent = () => {
         <div>
             <div className={styles.wrap}>
                 <div className={styles.list}>
-                    {listDish
+                    {paginatedData
                     .filter((dish) => {
                         if(searchTerm == ""){
                             return dish;
@@ -114,7 +126,13 @@ const LishDishSuggestComponent = () => {
                     </div>
                 </div >
             </div>
-            <button className={styles.more_btn}>Xem thêm</button>
+            <Pagination className={styles.pagin}
+                current={currentPage}
+                onChange={handlePageChange}
+                onShowSizeChange={handlePageSizeChange}
+                total={listDish.length}
+                showSizeChanger
+            />
             
         </div>
     )

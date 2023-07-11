@@ -10,6 +10,24 @@ const NavComponent = () => {
     const handleHome = () => {  
         navigate('/')
     }
+    const handleControlCalories = () => {  
+        navigate('/control_calories')
+    }
+    const handleControlWater = () => {  
+        navigate('/control_water')
+    }
+    const handleIngredientPage = () => {  
+        navigate('/ingredient')
+    }
+    const handleDishPage = () => {  
+        navigate('/dish')
+    }
+    const handleSuggestDishPage = () => {  
+        navigate('/suggest_dish')
+    }
+    const handleProductPage = () => {  
+        navigate('/product')
+    }
     return(
         <div>
             <div className={styles.topnav} id="myTopnav">
@@ -19,8 +37,8 @@ const NavComponent = () => {
                 <CaretDownOutlined className={styles.icon}/>
                 </WrapperDropButton>
                 <WrapperDropContent className={styles.dropdown_content}>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Calories</WrapperLink>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Nước</WrapperLink>
+                    <WrapperLink onClick={handleControlCalories}><CaretRightOutlined className={styles.icon}/>Calories</WrapperLink>
+                    <WrapperLink onClick={handleControlWater}><CaretRightOutlined className={styles.icon}/>Nước</WrapperLink>
                 </WrapperDropContent>
                 </div>
                 <div className={styles.dropdown}>
@@ -28,19 +46,19 @@ const NavComponent = () => {
                     <CaretDownOutlined className={styles.icon}/>
                     </WrapperDropButton>
                     <WrapperDropContent className={styles.dropdown_content}>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Món ăn</WrapperLink>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Nguyên liệu</WrapperLink>
+                    <WrapperLink onClick={handleDishPage}><CaretRightOutlined className={styles.icon}/>Món ăn</WrapperLink>
+                    <WrapperLink onClick={handleIngredientPage}><CaretRightOutlined className={styles.icon}/>Nguyên liệu</WrapperLink>
                     </WrapperDropContent>
                 </div>
-                <WrapperLink href="#">Gợi ý món</WrapperLink>
-                <WrapperLink href="#">Vận động</WrapperLink>
-                <WrapperLink href="#">Cộng đồng</WrapperLink>
+                <WrapperLink onClick={handleSuggestDishPage}>Gợi ý món</WrapperLink>
+                <WrapperLink>Vận động</WrapperLink>
+                <WrapperLink>Cộng đồng</WrapperLink>
                 <div className={styles.dropdown}>
                     <WrapperDropButton className={styles.dropbtn}>Sản phẩm
                     <CaretDownOutlined className={styles.icon}/>
                     </WrapperDropButton>
                     <WrapperDropContent className={styles.dropdown_content}>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Thực phẩm</WrapperLink>
+                    <WrapperLink  onClick={handleProductPage}><CaretRightOutlined className={styles.icon}/>Thực phẩm</WrapperLink>
                     <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Đồ công nghệ</WrapperLink>
                     </WrapperDropContent>
                 </div>

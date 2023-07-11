@@ -1,5 +1,5 @@
 .wrap{
-    margin: 150px 10px 20px 10px;
+    margin: 150px 10px 30px 10px;
     display: flex;
     flex-direction: row;
 }
@@ -7,24 +7,16 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 20px;
-    width: 72%;
-    margin: 0 0 0 30px;
-}
-.list_favo{
-    font-weight: 700;
-    color:rgb(196, 53, 53);
-    margin: 20px 0 30px 0;
-    cursor: pointer;
-}
-.search_wrap{
-    width: 25%;
+    gap: 25px;
+    width: 70%;
+    margin: 0 30px;
 }
 .search{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
+    width: 100%;
 }
 .more_btn{
     background-color: var(--green_main);
