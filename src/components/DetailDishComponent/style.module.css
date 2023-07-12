@@ -67,3 +67,6 @@
     font-weight: 700;
     color: var(--green_main);
 }
+.num_rate{
+    margin: 0 20px;
+}

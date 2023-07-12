@@ -60,7 +60,8 @@ const LishDishComponent = () => {
     }, [])
 
     const isFavoriteDish = (did) => {
-        return listFavo.includes(did);
+        if(listFavo)
+            return listFavo.includes(did);
     }
     const handleListFavo = () => {
         navigate('/favorite_dish')

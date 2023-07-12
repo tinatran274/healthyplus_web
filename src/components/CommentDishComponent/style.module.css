@@ -1,0 +1,24 @@
+.test{
+    margin: 120px 80px;
+}
+.txt{
+    font-weight: 500;
+}
+.rate{
+    margin: 0 40px
+}
+.pay{
+    background-color: var(--green_main);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    margin: 20px 0;
+    padding: 12px 20px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.pay:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
+}

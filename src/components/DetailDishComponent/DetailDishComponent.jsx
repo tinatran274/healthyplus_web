@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Image, Button, Progress, Card} from 'antd';
+import { Col, Row, Image, Button, Progress, Card, Rate} from 'antd';
 import { PlusOutlined, MinusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import * as DishService from '../../services/DishService'
 import * as UserService from '../../services/UserService'
@@ -24,13 +24,18 @@ const DetailDishComponent = ({idDish}) => {
     const [userData, setUserData] = useState(null);
     const [dish, setDish] = useState([]);
     const [listFavo, setListFavo] = useState([]);
+    const [aveRating, setAveRating] = useState(0);
+    const [numRating, setNumRating] = useState(0);
     const navigate = useNavigate()
 
     const isFavoriteDish = () => {
-        return listFavo.includes(idDish);
+        if (listFavo)
+            return listFavo.includes(idDish);
     }
     const getDish = async () => {
         setDish( await DishService.getDishtById(idDish));
+        setAveRating (parseInt(await UserService.getAllRating(idDish)));
+        setNumRating (await UserService.getNumRating(idDish));
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
@@ -101,6 +106,10 @@ const DetailDishComponent = ({idDish}) => {
                                     <img className={styles.img_favo} alt="unfavo" src={imgUnfavo} onClick={handleSetUnFavo}/>
                                 }
                             </div>
+                            <span className={styles.rate}>
+                                <Rate disabled value={aveRating} />
+                                <span className={styles.num_rate}>{numRating} lượt đánh giá</span>
+                            </span>
                             <div className={styles.flex2}>
                                 <img className={styles.img_deco1} alt="example" src={imgNutri} />
                                 <p className={styles.txt}>Thông tin dinh dưỡng tính trên một khẩu phần ăn</p>

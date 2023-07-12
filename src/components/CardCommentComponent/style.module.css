@@ -1,0 +1,17 @@
+.wrap{
+    margin: 50px 0;
+}
+.uid{
+    font-weight: 500;
+}
+.date {
+    font-size: 12px;
+    margin: 0 20px;
+    color: rgb(169, 169, 169);
+}
+.content{
+    background-color: rgb(249, 249, 249);
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: fit-content;
+}
