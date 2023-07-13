@@ -4,13 +4,13 @@ import { PlusOutlined } from '@ant-design/icons';
 import styles from './style.module.css'
 import { useNavigate } from 'react-router-dom'
 
-const CardProductComponent = (props) => {
+const CardTechnologyProductComponent = (props) => {
 
     const { id, name, cost, img, supplier } = props
     const navigate = useNavigate()
 
     const handleDetailsProduct = (id) => {
-        navigate(`/detail_product/${id}`)
+        navigate(`/detail_technology_product/${id}`)
     }
 
     return(
@@ -28,4 +28,4 @@ const CardProductComponent = (props) => {
         </Card>
     )
 }
-export default CardProductComponent
+export default CardTechnologyProductComponent

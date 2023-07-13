@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Image, Button, Rate} from 'antd';
 import { PlusOutlined, MinusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import * as ProductService from '../../services/ProductService'
+import * as TechnologyProductService from '../../services/TechnologyProductService'
 import * as UserService from '../../services/UserService'
 import styles from './style.module.css'
 import app from '../../config/firebase'
@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import * as message from '../../components/MessageComponent/MessageComponent'
 
-const DetailProductComponent = ({idProduct}) => {
+const DetailTechnologyProductComponent = ({idProduct}) => {
 
     const auth = getAuth(app);
     const [userData, setUserData] = useState(null);
@@ -20,9 +20,9 @@ const DetailProductComponent = ({idProduct}) => {
     const navigate = useNavigate()
 
     const getProduct = async () => {
-        setProduct( await ProductService.getProductById(idProduct));
-        setAveRating (parseInt(await ProductService.getAllRatingProduct(idProduct)));
-        setNumRating (await ProductService.getNumRatingProduct(idProduct));
+        setProduct( await TechnologyProductService.getTechnologyProductById(idProduct));
+        setAveRating (parseInt(await TechnologyProductService.getAllRatingTechnologyProduct(idProduct)));
+        setNumRating (await TechnologyProductService.getNumRatingTechnologyProduct(idProduct));
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
@@ -53,7 +53,7 @@ const DetailProductComponent = ({idProduct}) => {
     }
     const handleAddToCart = (value) => {
         console.log(product.id)
-        ProductService.addProductToCart(userData.id, product.id, numProduct);
+        TechnologyProductService.addTechnologyProductToCart(userData.id, product.id, numProduct);
         handleAuth()
         message.success()
     }
@@ -92,4 +92,4 @@ const DetailProductComponent = ({idProduct}) => {
         </div>
     )
 }
-export default DetailProductComponent
+export default DetailTechnologyProductComponent

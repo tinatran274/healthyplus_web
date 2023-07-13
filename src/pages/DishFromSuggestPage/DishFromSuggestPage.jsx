@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
 import LishDishSuggestComponent from "../../components/LishDishSuggestComponent/LishDishSuggestComponent";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 
 import { useParams } from 'react-router-dom';
 
@@ -12,6 +13,7 @@ const DishFromSuggestPage = () => {
       <HeaderComponent/>
       <NavComponent/>
       <LishDishSuggestComponent/>
+      <FooterComponent/>
     </div>
   );
 }

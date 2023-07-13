@@ -6,6 +6,7 @@ import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import * as UserService from '../../services/UserService'
+import * as ProductService from '../../services/ProductService'
 import imgNuoc from '../../image/img_nuoc.png'
 import imgTip from '../../image/img_tip.png'
 
@@ -100,6 +101,10 @@ const ChangeWaterComponent = () => {
             return `Cảnh báo nguy cơ sỏi thận, bạn đã uống quá lượng nước cần thiết trong ngày`
     }
 
+    const add = () => {
+        ProductService.addP();
+    }
+
     return(
         <div className={styles.control}>
             <div className={styles.control_title}>
@@ -119,7 +124,7 @@ const ChangeWaterComponent = () => {
             <div className={styles.change}>
                 <Card className={styles.card}>
                     <div className={styles.flex1}>
-                        <img className={styles.srcion} alt="example" src={imgNuoc} />
+                        <img className={styles.srcion} alt="example" src={imgNuoc} onClick={add}/>
                         <p  className={styles.txt}>Bữa sáng</p>
                         <p>{waterSeted}</p>
                     </div>

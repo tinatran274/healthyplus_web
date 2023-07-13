@@ -34,8 +34,8 @@ const DetailDishComponent = ({idDish}) => {
     }
     const getDish = async () => {
         setDish( await DishService.getDishtById(idDish));
-        setAveRating (parseInt(await UserService.getAllRating(idDish)));
-        setNumRating (await UserService.getNumRating(idDish));
+        setAveRating (parseInt(await DishService.getAllRatingDish(idDish)));
+        setNumRating (await DishService.getNumRatingDish(idDish));
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {

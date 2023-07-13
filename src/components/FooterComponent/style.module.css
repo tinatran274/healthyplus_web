@@ -1,0 +1,36 @@
+.wrap{
+    background-color: var(--green_main);
+    padding: 50px;
+    margin-top: 120px;
+}
+.info{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.txt{
+    margin-left: 20px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+.txt1{
+    margin-left: 20px;
+    color: white;
+    font-weight: 500;
+    width: 400px;
+    cursor: pointer;
+}
+.social{
+    margin: 50px 0;
+}
+.icon{
+    width: 100px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+.down{
+    display: flex;
+    flex-direction: row;
+}

@@ -28,6 +28,9 @@ const NavComponent = () => {
     const handleProductPage = () => {  
         navigate('/product')
     }
+    const handleTechnologyProductPage = () => {  
+        navigate('/technology_product')
+    }
     return(
         <div>
             <div className={styles.topnav} id="myTopnav">
@@ -59,7 +62,7 @@ const NavComponent = () => {
                     </WrapperDropButton>
                     <WrapperDropContent className={styles.dropdown_content}>
                     <WrapperLink  onClick={handleProductPage}><CaretRightOutlined className={styles.icon}/>Thực phẩm</WrapperLink>
-                    <WrapperLink href="#"><CaretRightOutlined className={styles.icon}/>Đồ công nghệ</WrapperLink>
+                    <WrapperLink onClick={handleTechnologyProductPage}><CaretRightOutlined className={styles.icon}/>Đồ công nghệ</WrapperLink>
                     </WrapperDropContent>
                 </div>
                 <div className={styles.dropdown}>

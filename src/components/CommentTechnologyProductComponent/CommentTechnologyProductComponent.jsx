@@ -2,21 +2,21 @@ import styles from './style.module.css'
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Card, Input, Rate} from 'antd';
 import * as UserService from '../../services/UserService'
-import * as DishService from '../../services/DishService'
+import * as TechnologyProductService from '../../services/TechnologyProductService'
 import app from '../../config/firebase'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import * as message from '../../components/MessageComponent/MessageComponent'
-import CardCommentComponent from "../../components/CardCommentComponent/CardCommentComponent.jsx";
+import * as message from '../MessageComponent/MessageComponent'
+import CardCommentComponent from "../CardCommentComponent/CardCommentComponent.jsx";
 const { TextArea } = Input;
 
-const CommentDishComponent = ({idDish}) => {
+const CommentTechnologyProductComponent = ({idProduct}) => {
 
     const auth = getAuth(app);
     const [value, setValue] = useState('');
     const [rating, setRating] = useState(0);
     const [userData, setUserData] = useState(null);
-    const [dish, setDish] = useState([]);
+    const [product, setProduct] = useState([]);
     const [listCmtDetail, setListCmtDetail] = useState([]);
     const desc = ['Quá tệ', 'Tệ', 'Bình thường', 'Ngon', 'Tuyệt vời'];
 
@@ -29,15 +29,15 @@ const CommentDishComponent = ({idDish}) => {
         return formattedDate
     }
 
-    const getDish = async () => {
-        setDish (await DishService.getDishtById(idDish));
-        setListCmtDetail (await DishService.getCommentDish(idDish));
+    const getProduct = async () => {
+        setProduct (await TechnologyProductService.getTechnologyProductById(idProduct));
+        setListCmtDetail (await TechnologyProductService.getTechnologyProductComment(idProduct));
     }
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userData = await UserService.getDetailUser(user.uid);
-                const userRating = await DishService.getUserRatingDish(user.uid, idDish);
+                const userRating = await TechnologyProductService.getUserRatingTechnologyProduct(user.uid, idProduct);
                 setUserData(userData)
                 if (userRating)
                     setRating(userRating.rating)
@@ -48,15 +48,15 @@ const CommentDishComponent = ({idDish}) => {
     }
     useEffect(() => {
         handleAuth()
-        getDish()
+        getProduct()
     }, [])
     const handleAddCmt = () => {
-        DishService.addCommentDish(userData.id, dish.id, getDateToday(), value);
+        TechnologyProductService.addCommentTechnologyProduct(userData.id, product.id, getDateToday(), value);
         setValue("")
         message.success()
     }
     const handleAddRating = () => {
-        DishService.addRatingDish(userData.id, dish.id, rating);
+        TechnologyProductService.addRatingTechnologyProduct(userData.id, product.id, rating);
         message.success()
     }
 
@@ -95,4 +95,4 @@ const CommentDishComponent = ({idDish}) => {
         </div>
     )
 }
-export default CommentDishComponent
+export default CommentTechnologyProductComponent

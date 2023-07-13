@@ -9,6 +9,7 @@
     height: 80px;
     border-radius: 20px;
     margin: 0 50px;
+    object-fit: cover;
 }
 .ingr_name{
     font-weight: 700;

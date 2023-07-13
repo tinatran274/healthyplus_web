@@ -8,10 +8,12 @@
     width: 90px;
     height: 80px;
     border-radius: 20px;
+    object-fit: cover;
 }
 .ingr_name{
     font-weight: 700;
     margin: 0 20px;
+    width: 60px;
 }
 .ingr_calo{
     font-weight: 700;

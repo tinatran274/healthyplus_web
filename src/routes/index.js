@@ -1,9 +1,11 @@
 import HomePage from '../pages/HomePage/HomePage'
 import OrderPage from '../pages/OrderPage/OrderPage'
 import ProductPage from '../pages/ProductPage/ProductPage'
+import TechnologyProductPage from '../pages/TechnologyProductPage/TechnologyProductPage'
 import SignInPage from '../pages/SignInPage/SignInPage'
 import SignUpPage from '../pages/SignUpPage/SignUpPage'
 import DetailProductPage from '../pages/DetailProductPage/DetailProductPage'
+import DetailTechnologyProductPage from '../pages/DetailTechnologyProductPage/DetailTechnologyProductPage.jsx'
 import DetailUserPage from '../pages/DetailUserPage/DetailUserPage'
 import CartPage from '../pages/CartPage/CartPage'
 import ControlCaloriesPage from '../pages/ControlCaloriesPage/ControlCaloriesPage'
@@ -31,6 +33,10 @@ export const routes = [
         page: ProductPage
     },
     {
+        path: '/technology_product',
+        page: TechnologyProductPage
+    },
+    {
         path: '/sign_in',
         page: SignInPage
     },
@@ -41,6 +47,10 @@ export const routes = [
     {
         path: '/detail_product/:id',
         page: DetailProductPage
+    },
+    {
+        path: '/detail_technology_product/:id',
+        page: DetailTechnologyProductPage
     },
     {
         path: '/detail_user',

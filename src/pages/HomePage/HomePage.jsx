@@ -6,6 +6,7 @@ import slider1 from '../../image/slider1.png'
 import slider2 from '../../image/slider2.png'
 import slider3 from '../../image/slider3.png'
 import ListProductComponent from "../../components/ListProductComponent/ListProductComponent";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 import * as ProductService from '../../services/ProductService'
 import * as UserService from '../../services/UserService'
@@ -38,7 +39,7 @@ const HomePage = () => {
             <NavComponent/>
             <SliderComponent arrImage={[slider1, slider2, slider3]}/>
             <ListProductComponent/>
-            
+            <FooterComponent/>
         </div>
     )
 }

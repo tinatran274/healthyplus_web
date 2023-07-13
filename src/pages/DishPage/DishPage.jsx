@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
 import LishDishComponent from "../../components/LishDishComponent/LishDishComponent";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 import * as DishService from '../../services/DishService.js'
 import * as UserService from '../../services/UserService'
@@ -36,6 +37,7 @@ const DishPage = () => {
             <HeaderComponent/>
             <NavComponent/>
             <LishDishComponent/>
+            <FooterComponent/>
         </div>
     )
 }

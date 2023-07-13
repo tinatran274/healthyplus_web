@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
 import ListIngredientComponent from "../../components/ListIngredientComponent/ListIngredientComponent";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
@@ -28,7 +29,8 @@ const IngredientPage = () => {
         <div>
             <HeaderComponent/>
             <NavComponent/>
-            <ListIngredientComponent/>          
+            <ListIngredientComponent/>  
+            <FooterComponent/>       
         </div>
     )
 }

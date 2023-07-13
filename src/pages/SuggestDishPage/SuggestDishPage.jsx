@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
 import ListIngredientForComponent from "../../components/ListIngredientForComponent/ListIngredientForComponent.jsx";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 import * as IngredientService from '../../services/IngredientService'
 import * as UserService from '../../services/UserService'
@@ -34,6 +35,7 @@ const SuggestDishPage = () => {
             <HeaderComponent/>
             <NavComponent/>
             <ListIngredientForComponent/>
+            <FooterComponent/>
         </div>
     )
 }

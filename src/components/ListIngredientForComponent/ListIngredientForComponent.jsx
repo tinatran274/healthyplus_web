@@ -87,7 +87,7 @@ const ListIngredientForComponent = () => {
                                     <input type="checkbox" value={ingredient.id}  onChange={(e) => onChange(ingredient.id)}></input>
                                     <img className={styles.ingr_img} alt="ingredient_img" src={ingredient.img} />
                                     <p className={styles.ingr_name} >{ingredient.name}</p>
-                                    <p className={styles.deco}><span className={styles.ingr_calo}>{ingredient.scalo}kcal</span>/100g</p>
+                                    <p className={styles.deco}><span className={styles.ingr_calo}>{ingredient.calo}kcal</span>/100g</p>
                                 </div>
                             </Card>
                         )

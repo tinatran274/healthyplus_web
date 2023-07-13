@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Input, message, Popconfirm  } from 'antd'
-import { UserOutlined,  ShoppingCartOutlined } from '@ant-design/icons';
-import { WrapperHeader } from './style'
-import logo from '../../image/Picture1.png'
+import { Row, Col, Input, message, Popconfirm  } from 'antd'
+import { GithubOutlined, AndroidOutlined, AppleOutlined} from '@ant-design/icons';
 import styles from './style.module.css'
 import * as UserService from '../../services/UserService'
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +10,6 @@ import { getAuth, signOut, onAuthStateChanged} from "https://www.gstatic.com/fir
 
 const HeaderComponent = () => {
 
-    const { Search } = Input;
-    const onSearch = (value) => console.log(value);
     const auth = getAuth(app);
     const [currentUser, setCurrentUser] = useState(null);
 
@@ -66,23 +62,25 @@ const HeaderComponent = () => {
         message.error('Hủy đăng xuất');
       };
     return(
-
-        <div>
-            <WrapperHeader>
-                <Col span={4}>
-                    <img className={styles.notify} src= {logo} onClick={handleHome} alt="notify"/>
+        <Row className={styles.wrap}> 
+                <Col span={6}>
+                    <p className={styles.txt}>Trang chủ</p>
+                    <p className={styles.txt}>Kiểm soát Calories</p>
+                    <p className={styles.txt}>Kiểm soát lượng nước</p>
+                    <p className={styles.txt}>Gợi ý món</p>
+                    <p className={styles.txt}>Vận động</p>
+                    <p className={styles.txt}>Cộng đồng</p>
+                    <p className={styles.txt}>Liên hệ</p>
                 </Col>
-                <Col span={12}>
-                    <Search id="search" className={styles.search} placeholder="input search text" allowClear onSearch={onSearch} />
+                <Col span={10}>
+                    <p className={styles.txt}>Hotline: +84 67676926</p>
+                    <p className={styles.txt1}>Địa chỉ: Trường Đại học Công nghệ thông tin - Đại học Quốc gia Thành phố Hồ Chí Minh</p>
+                    <p className={styles.txt}>Email: 21522438@gm.uit.edu.vn</p>
                 </Col>
-                <Col span={3}>
-                    <div onClick={handleCart}><ShoppingCartOutlined className={styles.cart_icon}/></div>
-                </Col>
-                <Col span={5}>
+                <Col span={8}>
                     {currentUser ? ( 
                         <div className={styles.info}>
-                            <div onClick={handleDetailUser}><UserOutlined className={styles.user_icon}/></div>
-                            <span className={styles.sign} onClick={handleDetailUser}>Cá nhân</span>
+                            <span className={styles.txt} onClick={handleDetailUser}>Cá nhân</span>
                             <Popconfirm
                                 title="Đăng xuất"
                                 description="Bạn muốn đăng xuất?"
@@ -91,20 +89,26 @@ const HeaderComponent = () => {
                                 okText="Xác nhận"
                                 cancelText="Hủy bỏ"
                             >
-                                <div className={styles.sign}><span>Đăng xuất</span></div>
+                                <div className={styles.signout}><span className={styles.txt}>Đăng xuất</span></div>
                             </Popconfirm>
                             
                         </div> ) : (
-                        <div className={styles.info}>
-                            <div><UserOutlined className={styles.user_icon}/></div>
-                            <div onClick={handleSignin} className={styles.sign}><span>Đăng nhập</span></div>
+                        <div>
+                            <div onClick={handleSignin} className={styles.signin}><span className={styles.txt}>Đăng nhập</span></div>
                         </div>
                     )}
+                    <div className={styles.social}>
+                        <span className={styles.txt} >Kết nối với chúng tôi tại</span>
+                        <GithubOutlined className={styles.icon}/>
+                    </div>
+                    <div className={styles.down}>
+                        <AndroidOutlined className={styles.icon}/>
+                        <AppleOutlined className={styles.icon}/>
+                    </div>
         
 
                 </Col>
-            </WrapperHeader>
-        </div>
+        </Row>
     )
 }
 export default HeaderComponent

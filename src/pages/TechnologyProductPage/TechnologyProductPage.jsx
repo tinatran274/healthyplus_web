@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
-import ListProductComponent from "../../components/ListProductComponent/ListProductComponent";
+import ListTechnologyProductComponent from "../../components/ListTechnologyProductComponent/ListTechnologyProductComponent.jsx";
 import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
-import * as ProductService from '../../services/ProductService'
+import * as TechnologyProductService from '../../services/TechnologyProductService.js'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-const ProductPage = () => {
+const TechnologyProductPage = () => {
 
     const auth = getAuth(app);
     const [userData, setUserData] = useState(null);
@@ -33,9 +33,9 @@ const ProductPage = () => {
         <div>
             <HeaderComponent/>
             <NavComponent/>
-            <ListProductComponent/>
+            <ListTechnologyProductComponent/>
             <FooterComponent/>
         </div>
     )
 }
-export default ProductPage
+export default TechnologyProductPage

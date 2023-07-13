@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react'
 import HeaderComponent from '../../components/HeaderComponent/HeaderComponent'
 import NavComponent from "../../components/NavComponent/NavComponent";
 import ListItemCartComponent from "../../components/ListItemCartComponent/ListItemCartComponent";
+import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 import { PlusOutlined, MinusOutlined, DeleteOutlined  } from '@ant-design/icons';
 import { Button, Card, Image } from 'antd';
@@ -37,7 +38,6 @@ const CartPage = () => {
             <HeaderComponent/>
             <NavComponent/>
             <ListItemCartComponent/>
-            
         </div>
     )
 }
