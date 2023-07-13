@@ -31,6 +31,9 @@ const NavComponent = () => {
     const handleTechnologyProductPage = () => {  
         navigate('/technology_product')
     }
+    const handleExercisePage = () => {  
+        navigate('/exercise')
+    }
     return(
         <div>
             <div className={styles.topnav} id="myTopnav">
@@ -54,7 +57,7 @@ const NavComponent = () => {
                     </WrapperDropContent>
                 </div>
                 <WrapperLink onClick={handleSuggestDishPage}>Gợi ý món</WrapperLink>
-                <WrapperLink>Vận động</WrapperLink>
+                <WrapperLink onClick={handleExercisePage}>Vận động</WrapperLink>
                 <WrapperLink>Cộng đồng</WrapperLink>
                 <div className={styles.dropdown}>
                     <WrapperDropButton className={styles.dropbtn}>Sản phẩm

@@ -1,0 +1,72 @@
+.main_pro{
+    margin: 150px 80px 50px 80px;
+    display: flex;
+    flex-direction: row;
+}
+.left{
+    width: 60%;
+}
+.info{
+    margin: 0 60px 20px 0;
+}
+.info_ex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.img_deco{
+    width: 80px;
+    margin: 0 40px;
+}
+.active{
+    color: var(--green_main);
+    font-weight: 500;
+    margin: 0 50px;
+    width: 180px;
+}
+
+.pay{
+    background-color: var(--green_main);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    padding: 12px 20px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+.pay1{
+    background-color: rgb(237, 26, 26);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    padding: 12px 20px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+.pay2{
+    background-color: rgb(133, 132, 132);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    padding: 12px 20px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+.save{
+    color: var(--green_main);
+    margin-left: 20px;
+    font-size: smaller;
+    cursor: pointer;
+}

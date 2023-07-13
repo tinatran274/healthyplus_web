@@ -17,6 +17,7 @@ import DetailDishPage from '../pages/DetailDishPage/DetailDishPage'
 import FavoriteDishPage from '../pages/FavoriteDishPage/FavoriteDishPage'
 import SuggestDishPage from '../pages/SuggestDishPage/SuggestDishPage'
 import DishFromSuggestPage from '../pages/DishFromSuggestPage/DishFromSuggestPage'
+import ExercisePage from '../pages/ExercisePage/ExercisePage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
@@ -95,6 +96,10 @@ export const routes = [
     {
         path: '/dish_from_suggest/:list',
         page: DishFromSuggestPage
+    },
+    {
+        path: '/exercise',
+        page: ExercisePage
     },
     {
         path: '*',

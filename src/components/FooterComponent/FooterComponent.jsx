@@ -8,7 +8,7 @@ import app from '../../config/firebase'
 import { getAuth, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
 
-const HeaderComponent = () => {
+const FooterComponent = () => {
 
     const auth = getAuth(app);
     const [currentUser, setCurrentUser] = useState(null);
@@ -111,4 +111,4 @@ const HeaderComponent = () => {
         </Row>
     )
 }
-export default HeaderComponent
+export default FooterComponent

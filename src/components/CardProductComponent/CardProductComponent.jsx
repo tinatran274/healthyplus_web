@@ -12,6 +12,19 @@ const CardProductComponent = (props) => {
     const handleDetailsProduct = (id) => {
         navigate(`/detail_product/${id}`)
     }
+    const addDotsToNumber = (number) => {
+        const numberString = number.toString();
+        const length = numberString.length;
+        let result = "";
+      
+        for (let i = 0; i < length; i++) {
+          result += numberString[i];
+          if ((length - i - 1) % 3 === 0 && i !== length - 1) {
+            result += ".";
+          }
+        }
+        return result;
+    }
 
     return(
         <Card
@@ -22,7 +35,7 @@ const CardProductComponent = (props) => {
             <div className={styles.info_product}>
                 <p className={styles.product_name} >{name}</p>
                 <p className={styles.supplier}>{supplier}</p>
-                <h3 className={styles.cost}>{cost}</h3>
+                <h3 className={styles.cost}>{addDotsToNumber(parseInt(cost))}</h3>
                 <Button className={styles.add_btn} shape="circle" icon={<PlusOutlined className={styles.icon}/>}></Button>
             </div>
         </Card>

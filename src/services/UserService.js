@@ -93,7 +93,6 @@ export const getUserCalories = async (uid, date) => {
     const docSnap = await getDoc(caloRef);
     if (docSnap.exists()) {
         const ucalo = docSnap.data();
-        console.log(ucalo)
         return ucalo
     } else {
         return null
@@ -166,6 +165,22 @@ export const updateUserExercise = async (uid, date, calo) => {
     const dataToUpdate = {exercise: parseInt(calo)};
     if (docSnap.exists()) 
         await updateDoc(caloRef, dataToUpdate);
+    else
+        await setDoc(caloRef, dataToUpdate);
+}
+export const updateUserPractice = async (uid, date, calo) => {
+    const uRef = doc(db, "statistic", uid);
+    const caloRef = doc (uRef, "dailyData", date)
+
+    const docSnap = await getDoc(caloRef);
+    const dataToUpdate = {exercise: parseInt(calo)};
+    if (docSnap.exists()) {
+        const ucalo = docSnap.data();
+        if(ucalo.exercise)
+            await updateDoc(caloRef,  {exercise: ucalo.exercise + parseInt(calo)});
+        else
+        await updateDoc(caloRef, dataToUpdate);
+    }
     else
         await setDoc(caloRef, dataToUpdate);
 }

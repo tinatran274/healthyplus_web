@@ -57,6 +57,19 @@ const DetailProductComponent = ({idProduct}) => {
         handleAuth()
         message.success()
     }
+    const addDotsToNumber = (number) => {
+        const numberString = number.toString();
+        const length = numberString.length;
+        let result = "";
+      
+        for (let i = 0; i < length; i++) {
+          result += numberString[i];
+          if ((length - i - 1) % 3 === 0 && i !== length - 1) {
+            result += ".";
+          }
+        }
+        return result;
+    }
     return(
         <div className={styles.main_pro}>
             <div>
@@ -72,7 +85,7 @@ const DetailProductComponent = ({idProduct}) => {
                                 <span className={styles.num_rate}>{numRating} lượt đánh giá</span>
                             </span>
                             <p className={styles.supplier}>{product.supplier}</p>
-                            <h2 className={styles.cost}>{product.cost}</h2>
+                            <h2 className={styles.cost}>{addDotsToNumber(parseInt(product.cost))}</h2>
                             <div className={styles.wrap_num}>
                                 <p>Số Lượng</p>
                                 <div className={styles.num}>

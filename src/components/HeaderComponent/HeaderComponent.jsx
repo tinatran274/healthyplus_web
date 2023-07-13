@@ -57,12 +57,10 @@ const HeaderComponent = () => {
     }
 
     const confirmLogout = (e) => {
-        console.log(e);
         handleSignout();
         message.success('Đăng xuất');
       };
       const cancelLogout = (e) => {
-        console.log(e);
         message.error('Hủy đăng xuất');
       };
     return(
