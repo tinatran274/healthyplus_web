@@ -57,14 +57,27 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
         handleAuth()
         message.success()
     }
+    const addDotsToNumber = (number) => {
+        const numberString = number.toString();
+        const length = numberString.length;
+        let result = "";
+      
+        for (let i = 0; i < length; i++) {
+          result += numberString[i];
+          if ((length - i - 1) % 3 === 0 && i !== length - 1) {
+            result += ".";
+          }
+        }
+        return result;
+    }
     return(
         <div className={styles.main_pro}>
             <div>
-                <Row>
-                    <Col span={10}>
+                <div className={styles.flexr}>
+                    <div className={styles.pimg}>
                     <Image src={product.img} alt="img" preview={false}/>
-                    </Col>
-                    <Col span={14}>
+                    </div>
+                    <div>
                         <div className={styles.wrap_detail_product}>
                             <h1 className={styles.name}>{product.name}</h1>
                             <span className={styles.rate}>
@@ -72,7 +85,7 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
                                 <span className={styles.num_rate}>{numRating} lượt đánh giá</span>
                             </span>
                             <p className={styles.supplier}>{product.supplier}</p>
-                            <h2 className={styles.cost}>{product.cost}</h2>
+                            <h2 className={styles.cost}>{addDotsToNumber(parseInt(product.cost))}</h2>
                             <div className={styles.wrap_num}>
                                 <p>Số Lượng</p>
                                 <div className={styles.num}>
@@ -86,8 +99,8 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
                                 <button className={styles.pay} >Thanh toán</button >
                             </div>
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         </div>
     )

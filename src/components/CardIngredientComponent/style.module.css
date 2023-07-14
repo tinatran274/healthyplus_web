@@ -13,11 +13,26 @@
 .ingr_name{
     font-weight: 700;
     margin: 0 20px;
-    width: 60px;
+    width: 50px;
 }
 .ingr_calo{
     font-weight: 700;
     font-size: large;
     margin: 0 5px 0 20px;
     color: var(--green_main);
+}
+@media (max-width: 768px) {
+
+    .card{
+        width: 330px;
+        margin: 5px 0 0 5px;
+    }
+    .ingr_name{
+        width: 40px;
+    }
+    .ingr_calo{
+        font-size: medium;
+        margin: 0 5px 0 10px;
+        color: var(--green_main);
+    }
 }

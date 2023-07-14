@@ -16,13 +16,13 @@
 }
 .img_deco{
     width: 80px;
-    margin: 0 40px;
+    margin: 0 20px;
 }
 .active{
     color: var(--green_main);
     font-weight: 500;
     margin: 0 50px;
-    width: 180px;
+    width: 150px;
 }
 
 .pay{
@@ -69,4 +69,32 @@
     margin-left: 20px;
     font-size: smaller;
     cursor: pointer;
+}
+@media (max-width: 768px) {
+
+    .main_pro{
+        margin: 20px 80px 50px 40px;
+        flex-direction: column-reverse;
+    }
+    .left{
+        width: 100%;
+    }
+    .right{
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .img_deco{
+        width: 80px;
+        margin: 0 10px 0 20px;
+    }
+    .info{
+        margin: 0 10px 10px 0;
+    }
+    .active{
+        color: var(--green_main);
+        font-weight: 500;
+        margin: 0 40px;
+        width: 80px;
+    }
+
 }

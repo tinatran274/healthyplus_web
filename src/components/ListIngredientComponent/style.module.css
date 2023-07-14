@@ -16,23 +16,29 @@
     align-items: center;
     gap: 20px;
 }
-.more_btn{
-    background-color: var(--green_main);
-    color: var(--white);
-    outline: none;
-    border: none;
-    font-weight: bolder;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 20px 400px;
-    width: 400px;
-}
-.more_btn:hover{
-    background-color: var(--white);
-    color: var(--green_main);
-    box-shadow: 1px 1px 4px #6cc65a;
-}
+
 .pagin{
     margin: 50px;
+}
+@media (max-width: 768px) {
+
+    .wrap{
+      flex-direction: column-reverse;
+      margin: 40px 5px 30px 10px;
+    }
+    .list_favo{
+        margin: 20px 0 20px 30px;
+        cursor: pointer;
+    }
+    .search_wrap{
+        width: 100%;
+    }
+    .search{
+        margin: 0 20px 30px 30px;
+    }
+    .list{
+        gap: 15px;
+        width: 100%;
+        margin-left: 20px;
+    }
 }

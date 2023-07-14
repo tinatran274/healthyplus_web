@@ -38,3 +38,17 @@
 .pagin{
     margin: 50px;
 }
+@media (max-width: 768px) {
+
+    .wrap{
+      flex-direction: column-reverse;
+      margin: 40px 5px 30px 5px;
+    }
+    .search{
+        margin: 0 20px 30px 30px;
+    }
+    .list{
+        gap: 15px;
+        width: 100%;
+    }
+}

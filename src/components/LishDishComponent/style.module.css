@@ -46,3 +46,26 @@
 .pagin{
     margin: 50px;
 }
+
+@media (max-width: 768px) {
+
+    .wrap{
+      flex-direction: column-reverse;
+      margin: 20px 5px 30px 5px;
+    }
+    .list_favo{
+        margin: 20px 0 20px 30px;
+        cursor: pointer;
+    }
+    .search_wrap{
+        width: 100%;
+    }
+    .search{
+        margin: 0 20px 30px 30px;
+    }
+    .list{
+        gap: 15px;
+        width: 100%;
+        margin: 0 0 0 10px;
+    }
+}

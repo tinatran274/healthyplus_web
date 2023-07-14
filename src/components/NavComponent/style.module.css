@@ -4,7 +4,6 @@
     padding: 0 20px;
     overflow: hidden;
     float: right;
-    border-radius: 10px;
     box-shadow: 1px 1px 3px rgba(125, 123, 123, 0.2);
 }
 
@@ -29,3 +28,72 @@
   .topnav:hover{
     box-shadow: 1px 1px 4px #6cc65a;
   }
+
+  .res{
+    display:none;
+  }
+  .pay{
+    background-color: var(--green_main);
+    color: var(--white);
+    width: auto;
+    height: auto;
+    padding: 12px 15px;
+    outline: none;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.pay:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
+}
+  .navres{
+    margin: 10px 0;
+    box-shadow: 1px 1px 3px rgba(125, 123, 123, 0.2);
+  }
+  .content{
+    display: none;
+  }
+  .drop{
+    margin: 0;
+  }
+  .drop:hover .content{
+    display: block;
+  }
+  .link{
+    font-weight: 500;
+    color: var(--green_main);
+    padding: 10px 20px;
+  }
+  .btn{
+    font-weight: 500;
+    color: var(--green_main);
+    padding: 10px 20px;
+  }
+  .link:hover{
+    background-color: var(--green_main);
+    color: white;
+  }
+  .btn:hover{
+    background-color: var(--green_main);
+    color: white;
+  }
+
+
+  @media (max-width: 768px) {
+
+    .nores{
+      display: none
+    }
+    .res{
+      display:block
+    }
+    .topnav{
+      border: none;
+      box-shadow: none;
+      float: none;
+      margin: 0 0 100px 10px;
+    }
+    .topnav:hover{
+      box-shadow: none;
+    }
+}

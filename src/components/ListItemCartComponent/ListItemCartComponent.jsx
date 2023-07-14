@@ -35,27 +35,23 @@ const ListItemCartComponent = () => {
         handleAuth()
     }, [])
 
-
     const handleChangeCount = async (type, pid, cost, num) => {
-        const productChecked = {
-            id: pid,
-            cost: cost,
-            num: num
-        };
-        const attributeList = listChecked.map(obj => obj.id);
-        // if(attributeList.includes(pid)){
-        //     const newListChecked = listChecked.filter((item) => item.id !== pid)
-        //     setListChecked(newListChecked)
-        //     setListChecked([...listChecked, productChecked])
-        // }
-
         if(type === 'increase') {
             await ProductService.increaseProductCart(userData.id, pid, num);
+            const newList = listProduct;
+            const foundIndex = newList.findIndex(obj => obj.id == pid);
+            newList[foundIndex].num += 1;
+            setListProduct(newList)
+            
         }else {
-            if(num>0)
+            if(num>0) {
                 await ProductService.decreaseProductCart(userData.id, pid, num);
+                const newList = listProduct;
+                const foundIndex = newList.findIndex(obj => obj.id == pid);
+                newList[foundIndex].num -=1;
+                setListProduct(newList)
+            }
         }
-        handleAuth()
     }
     const onChange = (isChecked, pid, pcost, pnum) => {
         const productChecked = {
@@ -89,13 +85,17 @@ const ListItemCartComponent = () => {
 
     const priceMemo = useMemo(() => {
         const total = listChecked.reduce((total, cur) => {
-            console.log("csc");
-          return total + ((cur.cost * cur.num))
+            return total + ((cur.cost * cur.num))
         },0)
         return total
-      },[listChecked])
+    },[listChecked])
 
-    console.log(listChecked)
+
+    console.log(listProduct)
+ 
+    const render = async () => {
+        
+    }
 
     return(
         <div>

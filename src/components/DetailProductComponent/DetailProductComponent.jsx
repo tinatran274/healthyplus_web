@@ -73,11 +73,11 @@ const DetailProductComponent = ({idProduct}) => {
     return(
         <div className={styles.main_pro}>
             <div>
-                <Row>
-                    <Col span={10}>
-                    <Image src={product.img} alt="img" preview={false}/>
-                    </Col>
-                    <Col span={14}>
+                <div className={styles.flexr}>
+                    <div className={styles.pimg}>
+                        <Image src={product.img} alt="img" preview={false}/>
+                    </div>
+                    <div>
                         <div className={styles.wrap_detail_product}>
                             <h1 className={styles.name}>{product.name}</h1>
                             <span className={styles.rate}>
@@ -99,8 +99,8 @@ const DetailProductComponent = ({idProduct}) => {
                                 <button className={styles.pay} >Thanh toán</button >
                             </div>
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         </div>
     )

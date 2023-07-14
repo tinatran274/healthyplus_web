@@ -92,11 +92,11 @@ const DetailDishComponent = ({idDish}) => {
     return(
         <div className={styles.main_pro}>
             <div>
-                <Row>
-                    <Col span={10}>
+                <div className={styles.flexr}>
+                    <div>
                         <Image src={dish.img} alt="img" preview={false}/>
-                    </Col>
-                    <Col span={14}>
+                    </div>
+                    <div>
                         <div className={styles.wrap_detail_product}>
                             <div className={styles.wrap}>
                                 <h1 className={styles.name}>{dish.name}</h1>
@@ -139,8 +139,8 @@ const DetailDishComponent = ({idDish}) => {
                                 </div>
                             </div>
                         </div>
-                    </Col>    
-                </Row>
+                    </div>    
+                </div>
                 <div className={styles.flex1}>
                     <img className={styles.img_deco1} alt="example" src={imgIngr} />
                     <p className={styles.txt}>Nguyên liệu</p>

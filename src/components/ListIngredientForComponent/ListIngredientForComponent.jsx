@@ -94,11 +94,12 @@ const ListIngredientForComponent = () => {
                     })}
                 </div>
                 <div>
-                    <button className={styles.more_btn} onClick={() =>  handleSuggestDish(listChecked)}>Tìm kiếm món ăn</button>
+                    
                     <div className={styles.search}>
                         <InputFormComponent id="ingr" type="text" placeholder="Nhập nguyên liệu cần tìm" value={searchTerm} onChange={handleOnchangeSearchTerm} />
                         <SearchOutlined />
                     </div>
+                    <button className={styles.more_btn} onClick={() =>  handleSuggestDish(listChecked)}>Tìm kiếm món ăn</button>
                 </div>
             </div>
             <Pagination className={styles.pagin}

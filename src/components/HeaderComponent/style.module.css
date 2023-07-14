@@ -6,15 +6,12 @@
 .search{
     margin-top: 15px;
 }
-.cart_icon{
-    font-size: 22px;
-    padding: 20px;
-    color: #1A8C03;
-    cursor: pointer;
-}
+
 .user_icon{
     font-size: 20px;
     cursor: pointer;
+    margin-right: 10px;
+    display: none;
 }
 .info{
     display: flex;
@@ -27,4 +24,13 @@
 .sign{
     cursor: pointer;
     margin-right: 20px;
+}
+@media (max-width: 768px) {
+
+    .user_icon{
+        display: block;
+    }
+    .sign, .search{
+        display: none;
+    }
 }

@@ -62,7 +62,7 @@ const FooterComponent = () => {
         message.error('Hủy đăng xuất');
       };
     return(
-        <Row className={styles.wrap}> 
+        <div className={styles.wrap}> 
                 <Col span={6}>
                     <p className={styles.txt}>Trang chủ</p>
                     <p className={styles.txt}>Kiểm soát Calories</p>
@@ -108,7 +108,7 @@ const FooterComponent = () => {
         
 
                 </Col>
-        </Row>
+        </div>
     )
 }
 export default FooterComponent

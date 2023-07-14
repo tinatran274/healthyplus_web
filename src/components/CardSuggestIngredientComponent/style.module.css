@@ -25,3 +25,18 @@
 .deco{
     margin-right: 80px;
 }
+@media (max-width: 768px) {
+
+    .card{
+        width: 330px;
+        margin: 5px 0 0 5px;
+    }
+    .ingr_name{
+        width: 40px;
+    }
+    .ingr_calo{
+        font-size: medium;
+        margin: 0 5px 0 10px;
+        color: var(--green_main);
+    }
+}

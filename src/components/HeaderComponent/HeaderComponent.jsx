@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Input, message, Popconfirm  } from 'antd'
-import { UserOutlined,  ShoppingCartOutlined } from '@ant-design/icons';
+import { UserOutlined,  ShoppingCartOutlined, LogoutOutlined, LoginOutlined } from '@ant-design/icons';
 import { WrapperHeader } from './style'
 import logo from '../../image/Picture1.png'
 import styles from './style.module.css'
@@ -70,17 +70,20 @@ const HeaderComponent = () => {
                 <Col span={4}>
                     <img className={styles.notify} src= {logo} onClick={handleHome} alt="notify"/>
                 </Col>
-                <Col span={12}>
+                <Col span={14}>
                     <Search id="search" className={styles.search} placeholder="input search text" allowClear onSearch={onSearch} />
                 </Col>
-                <Col span={3}>
-                    <div onClick={handleCart}><ShoppingCartOutlined className={styles.cart_icon}/></div>
-                </Col>
-                <Col span={5}>
+                <Col span={6}>
                     {currentUser ? ( 
                         <div className={styles.info}>
-                            <div onClick={handleDetailUser}><UserOutlined className={styles.user_icon}/></div>
-                            <span className={styles.sign} onClick={handleDetailUser}>Cá nhân</span>
+                            <div onClick={handleCart}>
+                                <ShoppingCartOutlined className={styles.user_icon}/>
+                                <span className={styles.sign}>Giỏ hàng</span>
+                            </div>
+                            <div onClick={handleDetailUser}>
+                                <UserOutlined className={styles.user_icon}/>
+                                <span className={styles.sign}>Cá nhân</span>
+                            </div>
                             <Popconfirm
                                 title="Đăng xuất"
                                 description="Bạn muốn đăng xuất?"
@@ -89,13 +92,14 @@ const HeaderComponent = () => {
                                 okText="Xác nhận"
                                 cancelText="Hủy bỏ"
                             >
+                                <LogoutOutlined className={styles.user_icon}/>
                                 <div className={styles.sign}><span>Đăng xuất</span></div>
                             </Popconfirm>
                             
                         </div> ) : (
-                        <div className={styles.info}>
-                            <div><UserOutlined className={styles.user_icon}/></div>
-                            <div onClick={handleSignin} className={styles.sign}><span>Đăng nhập</span></div>
+                        <div className={styles.info} onClick={handleSignin}>
+                            <div><LoginOutlined className={styles.user_icon}/></div>
+                            <div className={styles.sign}><span>Đăng nhập</span></div>
                         </div>
                     )}
         

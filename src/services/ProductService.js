@@ -78,10 +78,19 @@ export const getProductInCart = async (uid) => {
             const docRef = doc(db, "product", key);
             const docSnap = await getDoc(docRef);
             const product = docSnap.data();
-            product.num = userCart[key]
-
-            //const data = {pid: key, num: userCart[key]};
-            listProduct.push(product)
+            if (docSnap.exists()) {
+                product.num = userCart[key]
+                listProduct.push(product)
+            }
+        }
+        if (userCart.hasOwnProperty(key)) {
+            const docRef = doc(db, "technology_product", key);
+            const docSnap = await getDoc(docRef);
+            const product = docSnap.data();
+            if (docSnap.exists()) {
+                product.num = userCart[key]
+                listProduct.push(product)
+            }
         }
       }
     return listProduct

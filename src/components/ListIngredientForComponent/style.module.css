@@ -65,3 +65,43 @@
 .pagin{
     margin: 50px;
 }
+@media (max-width: 768px) {
+
+    .wrap{
+      flex-direction: column-reverse;
+      margin: 40px 5px 30px 5px;
+    }
+    .more_btn{
+        margin-left: 30px;
+        margin-bottom: 50px;
+    }
+    .search_wrap{
+        width: 100%;
+    }
+    .search{
+        margin: 0 20px 0 30px;
+    }
+    .list{
+        gap: 15px;
+        width: 80%;
+        margin: 0 20px;
+    }
+    .ingr_img{
+        width: 90px;
+        height: 80px;
+        border-radius: 20px;
+        margin: 0 30px;
+    }
+    .ingr_name{
+        font-weight: 700;
+        margin: 0 20px 0 20px;
+        width: 50px;
+    }
+    .ingr_calo{
+        font-size: medium;
+        margin: 0 0px 0 20px;
+    }
+    .deco{
+        margin-right: 10px;
+    }
+}

@@ -12,7 +12,7 @@ const CardIngredientComponent = (props) => {
         navigate(`/detail_ingredient/${id}`)
     }
     return(
-        <Card hoverable  onClick={() =>  handleDetailsIngredient(id)}>
+        <Card hoverable className={styles.card} onClick={() =>  handleDetailsIngredient(id)}>
             <div className={styles.info_ingr}>
                 <img className={styles.ingr_img} alt="ingredient_img" src={img} />
                 <p className={styles.ingr_name} >{name}</p>

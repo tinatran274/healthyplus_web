@@ -10,7 +10,7 @@ const CardSuggestIngredientComponent = (props) => {
     
 
     return(
-        <Card hoverable >
+        <Card hoverable className={styles.card}>
             <div className={styles.info_ingr}>
                 <input type="checkbox" value={id}></input>
                 <img className={styles.ingr_img} alt="ingredient_img" src={img} />

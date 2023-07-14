@@ -57,11 +57,11 @@ const DetailIngredientComponent = ({idIngredient}) => {
     return(
         <div className={styles.main_pro}>
             <div>
-                <Row>
-                    <Col span={10}>
+                <div className={styles.flexr}>
+                    <div>
                         <Image src={ingredient.img} alt="img" preview={false}/>
-                    </Col>
-                    <Col span={14}>
+                    </div>
+                    <div>
                         <div className={styles.wrap_detail_product}>
                             <h1 className={styles.name}>{ingredient.name}</h1>
                             <div className={styles.flex1}>
@@ -92,8 +92,8 @@ const DetailIngredientComponent = ({idIngredient}) => {
                                 </div>
                             </div>
                         </div>
-                    </Col>    
-                </Row>
+                    </div>    
+                </div>
                 <div className={styles.flex1}>
                     <img className={styles.img_deco1} alt="example" src={imgExer} />
                     <p className={styles.txt}>Để tiêu thụ {ingredient.calo} kcal</p>

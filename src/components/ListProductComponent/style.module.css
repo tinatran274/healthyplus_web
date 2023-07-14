@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
     width: 70%;
     margin: 0 30px;
 }
@@ -18,23 +18,21 @@
     gap: 20px;
     width: 100%;
 }
-.more_btn{
-    background-color: var(--green_main);
-    color: var(--white);
-    outline: none;
-    border: none;
-    font-weight: bolder;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 20px 400px;
-    width: 400px;
-}
-.more_btn:hover{
-    background-color: var(--white);
-    color: var(--green_main);
-    box-shadow: 1px 1px 4px #6cc65a;
-}
 .pagin{
     margin: 50px;
+}
+
+@media (max-width: 768px) {
+
+    .wrap{
+      flex-direction: column-reverse;
+      margin: 40px 5px 30px 5px;
+    }
+    .search{
+        margin: 0 20px 30px 30px;
+    }
+    .list{
+        gap: 15px;
+        width: 100%;
+    }
 }

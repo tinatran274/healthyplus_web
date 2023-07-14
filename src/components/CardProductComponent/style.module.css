@@ -1,3 +1,6 @@
+.card{
+    width: 250px;
+}
 .info_product{
     position: relative;
 }
@@ -26,10 +29,16 @@
     right: 5px;
     bottom: 0px;
 }
-
 .icon{
     color: var(--white);
 }
  .add_btn:hover{
     box-shadow: 1px 1px 4px #6cc65a;
  }
+
+ @media (max-width: 768px) {
+
+    .card{
+        width: 200px;
+    }
+}

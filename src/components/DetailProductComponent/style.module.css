@@ -4,9 +4,16 @@
 .wrap_detail_product{
     margin-left: 50px;
 }
+.flexr{
+    display: flex;
+    flex-direction: row;
+}
+.pimg{
+    width: 50%;
+}
 .wrap_num{
     display: flex;
-    flex-direction: columns;
+    flex-direction: row;
 }
 .num{
     display: flex;
@@ -63,4 +70,22 @@
 }
 .num_rate{
     margin: 0 20px;
+}
+@media (max-width: 768px) {
+
+    .main_pro{
+        margin: 50px 40px 50px 40px;
+    }
+    .flexr{
+        flex-direction: column;
+    }
+    .wrap_detail_product{
+        margin-left: 10px;
+    }
+    .pimg{
+        width: 100%;
+    }
+
+   
+
 }

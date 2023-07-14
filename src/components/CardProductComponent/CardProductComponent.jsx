@@ -27,10 +27,9 @@ const CardProductComponent = (props) => {
     }
 
     return(
-        <Card
+        <Card className={styles.card}
             onClick={() => handleDetailsProduct(id)}
             hoverable
-            style={{ width: 250 }}
             cover={<img className={styles.img_product} alt="example" src={img} />}>
             <div className={styles.info_product}>
                 <p className={styles.product_name} >{name}</p>

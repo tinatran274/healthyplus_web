@@ -7,6 +7,10 @@
 .deco1{
     width: 100px;
 }
+.flexr{
+    display: flex;
+    flex-direction: row;
+}
 .nutri{
     display: flex;
     flex-direction: row;
@@ -46,4 +50,32 @@
     font-size: larger;
     font-weight: 700;
     color: var(--green_main);
+}
+@media (max-width: 768px) {
+
+    .main_pro{
+        margin: 50px 40px 50px 40px;
+    }
+    .flexr{
+        flex-direction: column;
+    }
+    .wrap_detail_product{
+        margin: 10px 0 50px 30px;
+    }
+    .info_ingr{
+        font-size: medium;
+        margin: 0 20px;
+    }
+    .nutri{
+        gap: 10px;
+    }
+    .img_deco{
+        width: 80%;
+        margin: 10px;
+    }
+    .time{
+        font-size: medium;
+    }
+   
+
 }

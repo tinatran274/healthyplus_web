@@ -126,7 +126,7 @@ const ExerciseComponent = ({idProduct}) => {
                 </Card>
             </div>
             {exercise?
-                <div>
+                <div className={styles.right}>
                     <Spin spinning={running} delay={500}>
                         <h2>{running?"Bạn đang" : "Bắt đầu" } {exercise} 
                             <span className={styles.save} onClick={handleSave}>Lưu kết quả</span>
