@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
-import { WrapperButton, WrapperWhiteText, WrapperIndexText, WrapperFlexRow } from './style'
+import { WrapperButton, WrapperWhiteText, WrapperIndexText, WrapperFlexRow} from './style'
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
-import { Col, Row, Input, Dropdown, Space, Select} from 'antd';
+import { Col, Row, Input, Dropdown, Space, message, Popconfirm, Select} from 'antd';
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import * as UserService from '../../services/UserService'
 import bmiImg from '../../image/img_bmi.png'
 import questionImg from '../../image/img_question.png'
-import * as message from '../../components/MessageComponent/MessageComponent'
 
 const UserInfoComponent = () => {
 
@@ -64,12 +63,6 @@ const UserInfoComponent = () => {
     const handleOnchangeGender = (value) => {
         setGender(value)
     }
-    // const handleSetMale = () => {
-    //     setGender("Nam")
-    // }
-    // const handleSetFemale = () => {
-    //     setGender("Nữ")
-    // }
     const handleOnchangeHeight = (value) => {
         setHeight(value)
     }
@@ -86,22 +79,36 @@ const UserInfoComponent = () => {
     const handleUpdateName = () => {
         UserService.updateNameUser(userData.id, name);
         handleAuth()
-        message.success()
     }
     const handleUpdateInfo = () => {
         UserService.updateInfoUser(userData.id, age, gender, height, weight, exercise);
         handleAuth()
-        message.success()
     }
     const handleUpdateAim = (value) => {
         UserService.updateAimUser(userData.id, aim);
         handleAuth()
-        message.success()
     }
-    // const items = [
-    //     { key: '1', label: (<p onClick={handleSetMale}>Nam</p>) , icon: <SmileOutlined />},
-    //     { key: '2', label: (<p onClick={handleSetFemale}>Nữ</p>), icon: <SmileOutlined /> }
-    //   ];
+    const confirmAccount = (e) => {
+        handleUpdateName();
+        message.success('Cập nhật thành công');
+    };
+    const cancelAccount = (e) => {
+        message.error('Hủy cập nhật');
+    };
+    const confirmInfo = (e) => {
+        handleUpdateInfo();
+        message.success('Cập nhật thành công');
+    };
+    const cancelInfo = (e) => {
+        message.error('Hủy cập nhật');
+    };
+    const confirmAim = (e) => {
+        handleUpdateAim();
+        message.success('Cập nhật thành công');
+    };
+    const cancelAim = (e) => {
+        message.error('Hủy cập nhật');
+    };
     return(
         <div className={styles.info_user}>
             <Row>
@@ -119,7 +126,16 @@ const UserInfoComponent = () => {
                         <span>Email</span>
                         <Input disabled className={styles.inp} placeholder="2345@gmail.com"/>
                         <div className={styles.flex3}>
-                            <WrapperButton onClick={handleUpdateName}>Cập nhật tài khoản </WrapperButton>
+                            <Popconfirm
+                                title="Cập nhật tài khoản"
+                                description="Xác nhận cập nhật tài khoản?"
+                                onConfirm={confirmAccount}
+                                onCancel={cancelAccount}
+                                okText="Xác nhận"
+                                cancelText="Hủy bỏ"
+                            >
+                                <WrapperButton>Cập nhật tài khoản </WrapperButton>
+                            </Popconfirm>
                             <WrapperButton>Đổi mật khẩu</WrapperButton>
                         </div>
                     </Col>
@@ -162,7 +178,17 @@ const UserInfoComponent = () => {
                         <span>Cân nặng</span>
                         <InputFormComponent className={styles.inp} placeholder="" type="number" value={weight} onChange={handleOnchangeWeight}/>
                         <div className={styles.flex3}>
-                            <WrapperButton onClick={handleUpdateInfo} >Cập nhật tài khoản </WrapperButton>
+                        <Popconfirm
+                                title="Cập nhật thông tin cá nhân"
+                                description="Xác nhận cập nhật thông tin cá nhân?"
+                                onConfirm={confirmInfo}
+                                onCancel={cancelInfo}
+                                okText="Xác nhận"
+                                cancelText="Hủy bỏ"
+                            >
+                                <WrapperButton >Cập nhật tài khoản </WrapperButton>
+                            </Popconfirm>
+                        
                         </div>
                     </Col>
                 </Row>
@@ -181,7 +207,17 @@ const UserInfoComponent = () => {
                             ]}
                         />
                         <div className={styles.flex5}>
-                            <WrapperButton onClick={handleUpdateAim} >Cập nhật mục tiêu </WrapperButton>
+                        <Popconfirm
+                                title="Cập nhật mục tiêu"
+                                description="Xác nhận cập nhật mục tiêu?"
+                                onConfirm={confirmAim}
+                                onCancel={cancelAim}
+                                okText="Xác nhận"
+                                cancelText="Hủy bỏ"
+                            >
+                                <WrapperButton>Cập nhật mục tiêu </WrapperButton>
+                            </Popconfirm>
+                        
                         </div>
                     </div>
                     <WrapperFlexRow>

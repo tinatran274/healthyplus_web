@@ -5,15 +5,15 @@ import UserInfoComponent from "../../components/UserInfoComponent/UserInfoCompon
 import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 
-const DetailProductPage = () => {
+const DetailUserPage = () => {
     return(
         <div>
             <HeaderComponent/>
             <NavComponent/>
             <UserInfoComponent/>
-            <FooterComponent/>
+            {/* <FooterComponent/> */}
         </div>
         
     )
 }
-export default DetailProductPage
+export default DetailUserPage
