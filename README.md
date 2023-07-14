@@ -1,4 +1,11 @@
-# HEALTHYPLUS - PROJECT XÂY DỰNG TRANG WEB HỖ TRỢ CHẾ ĐỘ ĂN LÀNH MẠNH 
+# HEALTHYPLUS - PROJECT BUILDING WEBSITE SUPPORTING HEALTHY DIET
 
-## Công nghệ:
-Reactjs, Firebase
+## Technologies:
+Front-end: Reactjs 
+Database: Firebase
+
+## In the project directory, you can run:
+
+npm start
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in your browser.
