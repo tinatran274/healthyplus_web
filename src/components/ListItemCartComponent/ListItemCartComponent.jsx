@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import styles from './style.module.css'
-import { DeleteOutlined  } from '@ant-design/icons';
+import { DeleteOutlined, ContainerOutlined } from '@ant-design/icons';
 import { Button, Card, Image } from 'antd';
 import * as ProductService from '../../services/ProductService'
 import * as UserService from '../../services/UserService'
@@ -78,6 +78,10 @@ const ListItemCartComponent = () => {
         navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
     }
 
+    const handleGoHistory = () => {
+        navigate(`/history/`)
+    }
+
     const numMemo = useMemo(() => {
         const total = listChecked.reduce((total, cur) => {
             return total + ((cur.num))
@@ -85,9 +89,11 @@ const ListItemCartComponent = () => {
         return total
     },[listChecked])
 
+
     return(
         <div>
             <div className={styles.list}>
+                <button className={styles.his} onClick={() => handleGoHistory()}>Lịch sử đặt hàng </button>
                 {listProduct.map((product) => {
                     return (
                         <Card key={product.id} className={styles.card} hoverable>
@@ -97,9 +103,7 @@ const ListItemCartComponent = () => {
                                 <b className={styles.p_name}>{product.name}</b>
                                 <p className={styles.p_supplier}>{product.supplier}</p>      
                                 <p className={styles.p_cost}>{addDotsToNumber(parseInt(product.cost))} đ</p>
-                                <div className={styles.num}>
-                                    <p> {product.num} </p>
-                                </div>
+                                <div className={styles.num}><p> {product.num} </p></div>
                                 <p className={styles.unit}>{addDotsToNumber(parseInt(product.cost*product.num))} đ</p>
                                 <DeleteOutlined onClick={() => deleteProductCart(product.id)}/>
                             </div>

@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from 'react'
 import { Card, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styles from './style.module.css'
 import { useNavigate } from 'react-router-dom'
+import * as ProductService from '../../services/ProductService'
+import * as UserService from '../../services/UserService'
+import app from '../../config/firebase'
+import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import * as message from '../../components/MessageComponent/MessageComponent'
 
 const CardProductComponent = (props) => {
 
+    const auth = getAuth(app);
+    const [userData, setUserData] = useState(null);
     const { id, name, cost, img, supplier } = props
     const navigate = useNavigate()
+
+    const handleAuth = () => {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userData = await UserService.getDetailUser(user.uid);
+                setUserData(userData)
+            }
+            else
+                console.log("Chưa đăng nhập");
+        });
+    }
+
+    useEffect(() => {
+        handleAuth()
+    }, [])
 
     const handleDetailsProduct = (id) => {
         navigate(`/detail_product/${id}`)
@@ -25,17 +47,22 @@ const CardProductComponent = (props) => {
         }
         return result;
     }
+    const handleAddCart = (id) => {
+        ProductService.addProductToCart(userData.id, id, 1);
+        handleAuth()
+        message.success()
+    }
 
     return(
         <Card className={styles.card}
-            onClick={() => handleDetailsProduct(id)}
             hoverable
-            cover={<img className={styles.img_product} alt="example" src={img} />}>
+            cover={<img className={styles.img_product} alt="example" src={img} onClick={() => handleDetailsProduct(id)}/>}>
             <div className={styles.info_product}>
-                <p className={styles.product_name} >{name}</p>
+                <p className={styles.product_name} onClick={() => handleDetailsProduct(id)}>{name}</p>
                 <p className={styles.supplier}>{supplier}</p>
                 <h3 className={styles.cost}>{addDotsToNumber(parseInt(cost))}</h3>
-                <Button className={styles.add_btn} shape="circle" icon={<PlusOutlined className={styles.icon}/>}></Button>
+                <Button className={styles.add_btn} shape="circle" icon={<PlusOutlined className={styles.icon}/>} 
+                onClick={() => handleAddCart(id)}></Button>
             </div>
         </Card>
     )

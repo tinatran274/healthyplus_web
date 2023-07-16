@@ -27,4 +27,22 @@ export const addOrder = async (uid, address, date, delivery, pay, list_product, 
             await updateDoc(orderRef, dataToUpdate);
         else
             await setDoc(orderRef, dataToUpdate);
+}
+
+export const getAllOrder = async (uid) => {
+    const listOrder = [];
+    const querySnapshot = await getDoc(doc(db, "order", uid));
+    const userOrder = querySnapshot.data();
+    for (const key in userOrder) {
+        if (userOrder.hasOwnProperty(key)) {
+            const docRef = doc(db, "bill", key);
+            const docSnap = await getDoc(docRef);
+            const bill = docSnap.data();
+            if (docSnap.exists()) {
+                bill.isDelivery = userOrder[key];
+                listOrder.push(bill)
+            }
+        }
     }
+    return listOrder;
+}

@@ -1,6 +1,16 @@
 .list{
     margin: 150px 0;
 }
+.his{
+    background-color: var(--green_main);
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    margin: 20px 30px;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
 .card{
     margin: 20px;
 }
@@ -21,15 +31,8 @@
     margin: 0 30px;
     width: 100px;
 }
-.wrap_num{
-    margin: 0 30px;
-    width: 50px;
-}
+
 .num{
-    display: flex;
-    flex-direction: columns;
-    align-items: center;
-    gap: 15px;
     margin: 0 50px;
 }
 .unit{
@@ -81,4 +84,47 @@
     background-color: var(--green_main);
     color: white;
     box-shadow: 1px 1px 4px #6cc65a;
+}
+
+@media (max-width: 768px) {
+
+    .list{
+        margin: 50px 0;
+    }
+    .p_supplier{
+        display: none;
+    }
+    .card{
+        margin: 10px;
+    }
+    .p_name{
+        width: 80px;
+    }
+    .p_img{
+        max-width: 100px;
+        margin: 0 10px;
+        object-fit: cover;
+    }
+    .num{
+        display: none;
+    }
+    .footer{
+
+        padding: 0 10px 0 10%;
+    }
+    .total_num{
+        display: none;
+    }
+    .p_cost{
+        display: none;
+    }
+    .unit{
+        color: var(--green_main);
+        margin: 0 40px;
+        width: 70px
+    }
+    
+    
+   
+
 }

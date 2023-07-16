@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import HomePage from './pages/HomePage/HomePage'
-import OrderPage from './pages/OrderPage/OrderPage'
 import {routes} from './routes'
 import axios from 'axios'
 import {
@@ -39,7 +38,6 @@ function App() {
             )
           })}
           <Route path="/" element={<HomePage/>} />
-          <Route path="/order" element={<OrderPage/>}/>
         </Routes>
       </Router>
     </div>

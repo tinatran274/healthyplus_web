@@ -1,5 +1,4 @@
 import HomePage from '../pages/HomePage/HomePage'
-import OrderPage from '../pages/OrderPage/OrderPage'
 import ProductPage from '../pages/ProductPage/ProductPage'
 import TechnologyProductPage from '../pages/TechnologyProductPage/TechnologyProductPage'
 import SignInPage from '../pages/SignInPage/SignInPage'
@@ -18,17 +17,14 @@ import FavoriteDishPage from '../pages/FavoriteDishPage/FavoriteDishPage'
 import SuggestDishPage from '../pages/SuggestDishPage/SuggestDishPage'
 import DishFromSuggestPage from '../pages/DishFromSuggestPage/DishFromSuggestPage'
 import ExercisePage from '../pages/ExercisePage/ExercisePage'
-import PaymentPage from '../pages/PaymentPage/PaymentPage.jsx'
+import PaymentPage from '../pages/PaymentPage/PaymentPage'
+import OrderHistoryPage from '../pages/OrderHistoryPage/OrderHistoryPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
     {
         path: '/',
         page: HomePage
-    },
-    {
-        path: '/order',
-        page: OrderPage
     },
     {
         path: '/product',
@@ -105,6 +101,10 @@ export const routes = [
     {
         path: '/payment/:list',
         page: PaymentPage
+    },
+    {
+        path: '/history',
+        page: OrderHistoryPage
     },
     {
         path: '*',

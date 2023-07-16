@@ -1,5 +1,5 @@
 .wrap{
-    margin: 50px 0;
+    margin: 20px 30px;
 }
 .uid{
     font-weight: 500;
@@ -21,21 +21,4 @@
     margin: 15px 5px;
     cursor: pointer;
 }
-.te{
-    margin-top: 10px;
-}
-.add_btn{
-    margin-top: 10px;
-    background-color: var(--green_main);
-    border: none;
-    outline: none;
-}
-.icon{
-    color: var(--white);
-}
-.flex1{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px
-}
+

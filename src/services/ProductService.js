@@ -178,9 +178,11 @@ export const getProductComment = async (did) => {
         if (mergedObject1.hasOwnProperty(key)) {
             const docRef = doc(db, "comment", key);
             const docSnap = await getDoc(docRef);
-            const cmt = docSnap.data();
-            cmt.id = key
-            list.push(cmt)
+            if (docSnap.exists()) {
+                const cmt = docSnap.data();
+                cmt.id = key
+                list.push(cmt)
+            }
             }
     }
     return list;
@@ -220,5 +222,46 @@ export const getNumRatingProduct = async (did) => {
     })
     const count = listRate.length;
     return count;
+}
+
+export const addReplyCmt = async (cid, uid, date, content) => {
+    const replyRef = await addDoc(collection(db, "reply"), {
+        date: date,
+        cid: cid,
+        uid: uid,
+        content: content
+      });
+    const cmtRef = doc(db, "comment", cid);
+    const listRepRef = doc (cmtRef, "reply", uid)
+    const docSnap = await getDoc(listRepRef);
+    const dataToUpdate = {};
+    dataToUpdate[replyRef.id] = 0;
+    if (docSnap.exists()) 
+        await updateDoc(listRepRef, dataToUpdate);
+    else
+        await setDoc(listRepRef, dataToUpdate);
+}
+
+export const getReply = async (cid) => {  
+    const list = [];
+    const listRep = [];
+    const cmtRef = doc(db, "comment", cid);
+    const querySnapshot = await getDocs(collection(cmtRef, "reply"))
+    querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        listRep.push(product);
+    })
+    const mergedObject1 = listRep.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+
+    for (const key in mergedObject1) {
+        if (mergedObject1.hasOwnProperty(key)) {
+            const docRef = doc(db, "reply", key);
+            const docSnap = await getDoc(docRef);
+            const rep = docSnap.data();
+            rep.id = key
+            list.push(rep)
+            }
+    }
+    return list;
 }
 

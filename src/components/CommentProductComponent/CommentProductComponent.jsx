@@ -1,6 +1,6 @@
 import styles from './style.module.css'
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Card, Input, Rate} from 'antd';
+import { Input, Rate} from 'antd';
 import * as UserService from '../../services/UserService'
 import * as ProductService from '../../services/ProductService'
 import app from '../../config/firebase'
@@ -51,9 +51,10 @@ const CommentProductComponent = ({idProduct}) => {
         getProduct()
     }, [])
     const handleAddCmt = () => {
-        ProductService.addCommentProduct(userData.id, product.id, getDateToday(), value);
-        setValue("")
-        message.success()
+        if(value)
+            ProductService.addCommentProduct(userData.id, product.id, getDateToday(), value);
+            setValue("")
+            message.success()
     }
     const handleAddRating = () => {
         ProductService.addRatingProduct(userData.id, product.id, rating);

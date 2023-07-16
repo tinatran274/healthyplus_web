@@ -1,0 +1,22 @@
+.list{
+    margin: 150px 30px;
+}
+.card{
+    margin-bottom: 20px;
+    padding: 0 30px
+}
+.info_true{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: var(--green_main);
+}
+.info_false{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: var(--red_dedo);
+}
+.temp{
+    width: 200px;
+}

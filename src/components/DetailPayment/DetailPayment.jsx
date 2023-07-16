@@ -98,7 +98,7 @@ const DetailPayment = () => {
         message.success('Đặt hàng thành công');
         navigate('/')
     };
-
+    
     const confirmPay = (e) => {
         handlePay();
     };

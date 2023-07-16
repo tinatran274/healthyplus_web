@@ -47,15 +47,24 @@ const DetailProductComponent = ({idProduct}) => {
         if(type === 'increase') {
             setNumProduct(numProduct + 1)
         }else {
-            if(numProduct>0)
+            if(numProduct>1)
                 setNumProduct(numProduct - 1)   
         }
     }
     const handleAddToCart = (value) => {
-        console.log(product.id)
         ProductService.addProductToCart(userData.id, product.id, numProduct);
         handleAuth()
         message.success()
+    }
+    const handlePayment = () => {
+        const list = [];
+        const productTemp = {
+            id: product.id,
+            cost: product.cost,
+            num: numProduct,
+        };
+        list.push(productTemp)
+        navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
     }
     const addDotsToNumber = (number) => {
         const numberString = number.toString();
@@ -89,14 +98,14 @@ const DetailProductComponent = ({idProduct}) => {
                             <div className={styles.wrap_num}>
                                 <p>Số Lượng</p>
                                 <div className={styles.num}>
-                                    <Button shape="circle" icon={<PlusOutlined/>} onClick={() => handleChangeCount('decrease')}></Button>
+                                    <Button shape="circle" icon={<MinusOutlined/>} onClick={() => handleChangeCount('decrease')}></Button>
                                     <p onChange={onChangeNum}> {numProduct} </p>
-                                    <Button shape="circle" icon={<MinusOutlined/>} onClick={() => handleChangeCount('increase')}></Button>
+                                    <Button shape="circle" icon={<PlusOutlined/>} onClick={() => handleChangeCount('increase')}></Button>
                                 </div>
                             </div>
                             <div className={styles.add_cart}>
                                 <button className={styles.add} onClick={handleAddToCart}><ShoppingCartOutlined className={styles.icon}/>Thêm vào giỏ hàng</button>
-                                <button className={styles.pay} >Thanh toán</button >
+                                <button className={styles.pay} onClick={() =>  handlePayment()}>Thanh toán</button >
                             </div>
                         </div>
                     </div>

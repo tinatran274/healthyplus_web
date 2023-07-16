@@ -125,3 +125,26 @@
     color: white;
     box-shadow: 1px 1px 4px #6cc65a;
 }
+
+@media (max-width: 768px) {
+
+    .wrap{
+        margin: 50px 30px;
+    }
+    .select{
+        margin: 10px 0;
+        width: 100%;
+    }
+    .footer{
+        padding: 0 10px 0 10%;
+    }
+    .p_supplier, .num, .p_cost{
+        display: none;
+    }
+    .p_img{
+        max-width: 100px;
+        margin: 0px;
+        object-fit: cover;
+    }
+
+}
