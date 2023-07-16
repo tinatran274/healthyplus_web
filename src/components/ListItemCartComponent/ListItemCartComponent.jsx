@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import styles from './style.module.css'
-import { PlusOutlined, MinusOutlined, DeleteOutlined  } from '@ant-design/icons';
+import { DeleteOutlined  } from '@ant-design/icons';
 import { Button, Card, Image } from 'antd';
 import * as ProductService from '../../services/ProductService'
 import * as UserService from '../../services/UserService'
@@ -15,7 +15,6 @@ const ListItemCartComponent = () => {
     const [userData, setUserData] = useState(null);
     const [listProduct, setListProduct] = useState([]);
     const [listChecked, setListChecked] = useState([]);
-    const [num, setNum] = useState([]);
     const navigate = useNavigate()
 
     const handleAuth = () => {
@@ -35,24 +34,6 @@ const ListItemCartComponent = () => {
         handleAuth()
     }, [])
 
-    const handleChangeCount = async (type, pid, cost, num) => {
-        if(type === 'increase') {
-            await ProductService.increaseProductCart(userData.id, pid, num);
-            const newList = listProduct;
-            const foundIndex = newList.findIndex(obj => obj.id == pid);
-            newList[foundIndex].num += 1;
-            setListProduct(newList)
-            
-        }else {
-            if(num>0) {
-                await ProductService.decreaseProductCart(userData.id, pid, num);
-                const newList = listProduct;
-                const foundIndex = newList.findIndex(obj => obj.id == pid);
-                newList[foundIndex].num -=1;
-                setListProduct(newList)
-            }
-        }
-    }
     const onChange = (isChecked, pid, pcost, pnum) => {
         const productChecked = {
             id: pid,
@@ -67,20 +48,23 @@ const ListItemCartComponent = () => {
             setListChecked([...listChecked, productChecked])
         }
     }
-    // const handleOnchangeCheckAll = (e) => {
-    //     if(e.target.checked) {
-    //         listChecked.length = 0
-    //         listProduct.forEach((item) => {
-    //             listChecked.push(item.id)
-    //       })
-    //     }else {
-    //         listChecked.length = 0
-    //     }
-    //     console.log(listChecked)
-    //   }
     const deleteProductCart = async (pid) => {
         await ProductService.deleteProductCart(userData.id, pid);
         handleAuth()
+    }
+
+    const addDotsToNumber = (number) => {
+        const numberString = number.toString();
+        const length = numberString.length;
+        let result = "";
+      
+        for (let i = 0; i < length; i++) {
+          result += numberString[i];
+          if ((length - i - 1) % 3 === 0 && i !== length - 1) {
+            result += ".";
+          }
+        }
+        return result;
     }
 
     const priceMemo = useMemo(() => {
@@ -90,12 +74,16 @@ const ListItemCartComponent = () => {
         return total
     },[listChecked])
 
-
-    console.log(listProduct)
- 
-    const render = async () => {
-        
+    const handlePayment = (list) => {
+        navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
     }
+
+    const numMemo = useMemo(() => {
+        const total = listChecked.reduce((total, cur) => {
+            return total + ((cur.num))
+        },0)
+        return total
+    },[listChecked])
 
     return(
         <div>
@@ -104,17 +92,15 @@ const ListItemCartComponent = () => {
                     return (
                         <Card key={product.id} className={styles.card} hoverable>
                             <div className={styles.flex_collum}>
-                                <input type="checkbox" onChange={(e) => onChange(e.target.checked, product.id, product.cost, product.num)}></input>
+                                <input type="checkbox" onChange={(e) => onChange(e.target.checked, product.id, product.cost, product.num)} ></input>
                                 <Image className={styles.p_img} src={product.img} alt="img" preview={false}/>
                                 <b className={styles.p_name}>{product.name}</b>
                                 <p className={styles.p_supplier}>{product.supplier}</p>      
-                                <p className={styles.p_cost}>{product.cost} đ</p>
+                                <p className={styles.p_cost}>{addDotsToNumber(parseInt(product.cost))} đ</p>
                                 <div className={styles.num}>
-                                    <Button shape="circle" icon={<PlusOutlined/>} onClick={() => handleChangeCount('increase', product.id, product.cost, product.num)}></Button>
                                     <p> {product.num} </p>
-                                    <Button shape="circle" icon={<MinusOutlined/>} onClick={() => handleChangeCount('decrease', product.id, product.cost, product.num)}></Button>
                                 </div>
-                                <p className={styles.unit}>{product.cost*product.num} đ</p>
+                                <p className={styles.unit}>{addDotsToNumber(parseInt(product.cost*product.num))} đ</p>
                                 <DeleteOutlined onClick={() => deleteProductCart(product.id)}/>
                             </div>
                             
@@ -124,10 +110,10 @@ const ListItemCartComponent = () => {
             </div>
 
             <div className={styles.footer}>
-                <p className={styles.total_num}>Tổng số sản phẩm: </p>
+                <p className={styles.total_num}>Tổng số sản phẩm: {numMemo}</p>
                 <p>Tổng tiền:</p>
-                <h3 className={styles.total_cost}>{priceMemo} đ</h3>
-                <button className={styles.submit_btn}>Thanh toán</button>
+                <h3 className={styles.total_cost}>{addDotsToNumber(parseInt(priceMemo))} đ</h3>
+                <button className={styles.submit_btn} onClick={() =>  handlePayment(listChecked)}>Thanh toán</button>
             </div>
             
         </div>

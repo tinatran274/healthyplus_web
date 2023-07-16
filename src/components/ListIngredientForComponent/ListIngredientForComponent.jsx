@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9
 import InputFormComponent from "../InputFormComponent/InputFormComponent";
 import { SearchOutlined} from '@ant-design/icons';
 import {useNavigate } from 'react-router-dom'
-import { Col, Input, message, Popconfirm , Card, Pagination } from 'antd'
+import {Card, Pagination } from 'antd'
 
 const ListIngredientForComponent = () => {
 

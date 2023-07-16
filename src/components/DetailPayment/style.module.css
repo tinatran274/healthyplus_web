@@ -1,8 +1,28 @@
+.wrap{
+    margin: 150px 30px;
+}
 .list{
-    margin: 150px 0;
+    margin: 40px 0;
 }
 .card{
-    margin: 20px;
+    margin-bottom: 20px;
+}
+.inp_add{
+    width: 100%;
+}
+.flexbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 50px 0;
+    gap: 30px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 4px #dddddd;
+}
+.img_deco1{
+    height: 40px;
+    margin: 0 10px;
 }
 .p_name{
     width: 200px;
@@ -14,7 +34,7 @@
     object-fit: cover;
 }
 .p_supplier{
-    margin: 0 40px;
+    margin: 0 60px;
     width: 100px
 }
 .p_cost{
@@ -30,13 +50,37 @@
     flex-direction: columns;
     align-items: center;
     gap: 15px;
-    margin: 0 50px;
+    margin: 0 80px;
 }
 .unit{
     color: var(--green_main);
     margin: 0 50px;
     width: 100px
 }
+.more_info{
+    padding: 20px 30px;
+}
+.select{
+    margin: 10px 50px;
+    width: 70%;
+}
+.flex1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.totalcost{
+    padding: 20px 50px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 4px #dddddd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px 0;
+}
+
 .flex_collum{
     display: flex;
     flex-direction: row;
@@ -53,7 +97,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0 10px 0 40%;
+    padding: 0 10px 0 60%;
 }
 .total_num{
     margin: 0 100px;
@@ -61,7 +105,6 @@
 .total_cost{
     margin: 0 10px;
     color: var(--green_main)
-
 }
 .submit_btn{
     background-color: var(--white);

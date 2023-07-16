@@ -63,7 +63,11 @@ export const addProductToCart = async (uid, pid, num) => {
     const dataToUpdate = {};
     dataToUpdate[pid] = num;
     const cartRef = doc(db, "cart", uid);
-    await updateDoc(cartRef, dataToUpdate);
+    const docSnap = await getDoc(cartRef);
+    if (docSnap.exists()) 
+        await updateDoc(cartRef, dataToUpdate);
+    else
+        await setDoc(cartRef, dataToUpdate);
 }
 
 export const getProductInCart = async (uid) => {
@@ -94,6 +98,27 @@ export const getProductInCart = async (uid) => {
         }
       }
     return listProduct
+}
+export const getListProductPayment = async (list) => {
+    const listProduct = [];
+    
+    list.forEach(async (item) => {
+        const docSnap1 = await getDoc(doc(db, "product", item.id));
+        const product1 = docSnap1.data();
+            if (docSnap1.exists()) {
+                product1.num = item.num
+                listProduct.push(product1)
+            }
+    });
+    list.forEach(async (item) => {
+        const docSnap2 = await getDoc(doc(db, "technology_product", item.id));
+        const product2 = docSnap2.data();
+        if (docSnap2.exists()) {
+            product2.num = item.num
+            listProduct.push(product2)
+        }
+    });
+    return listProduct;
 }
 export const decreaseProductCart = async (uid, pid, num) => {
     const cartRef = doc(db, "cart", uid);

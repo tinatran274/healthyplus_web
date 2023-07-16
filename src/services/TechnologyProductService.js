@@ -25,7 +25,11 @@ export const addTechnologyProductToCart = async (uid, pid, num) => {
     const dataToUpdate = {};
     dataToUpdate[pid] = num;
     const cartRef = doc(db, "cart", uid);
-    await updateDoc(cartRef, dataToUpdate);
+    const docSnap = await getDoc(cartRef);
+    if (docSnap.exists()) 
+        await updateDoc(cartRef, dataToUpdate);
+    else
+        await setDoc(cartRef, dataToUpdate);
 }
 
 export const addCommentTechnologyProduct = async (uid, did, date, content) => {

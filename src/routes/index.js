@@ -18,6 +18,7 @@ import FavoriteDishPage from '../pages/FavoriteDishPage/FavoriteDishPage'
 import SuggestDishPage from '../pages/SuggestDishPage/SuggestDishPage'
 import DishFromSuggestPage from '../pages/DishFromSuggestPage/DishFromSuggestPage'
 import ExercisePage from '../pages/ExercisePage/ExercisePage'
+import PaymentPage from '../pages/PaymentPage/PaymentPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
@@ -100,6 +101,10 @@ export const routes = [
     {
         path: '/exercise',
         page: ExercisePage
+    },
+    {
+        path: '/payment/:list',
+        page: PaymentPage
     },
     {
         path: '*',
