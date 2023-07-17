@@ -49,6 +49,18 @@ export const addCommentTechnologyProduct = async (uid, did, date, content) => {
         await setDoc(listCmtRef, dataToUpdate);
 }
 
+export const addLike = async (uid, pid, cid, num) => {
+    const productRef = doc(db, "technology_product", pid);
+    const listCmtRef = doc (productRef, "comment", uid)
+    const docSnap = await getDoc(listCmtRef);
+    const dataToUpdate = {};
+    dataToUpdate[cid] = num;
+    if (docSnap.exists()) 
+        await updateDoc(listCmtRef, dataToUpdate);
+    else
+        await setDoc(listCmtRef, dataToUpdate);
+}
+
 export const addRatingTechnologyProduct = async (uid, did, rating) => {
     const productRef = doc(db, "technology_product", did);
     const rateRef = doc (productRef, "rating", uid)
@@ -73,6 +85,7 @@ export const getTechnologyProductComment = async (did) => {
             const docSnap = await getDoc(docRef);
             const cmt = docSnap.data();
             cmt.id = key
+            cmt.numLike = mergedObject1[key]
             list.push(cmt)
             }
     }

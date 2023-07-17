@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import styles from './style.module.css'
-import { Card, Button, Input } from 'antd';
+import { Card, Button, Input, Badge } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import * as message from '../MessageComponent/MessageComponent'
 import * as ProductService from '../../services/ProductService'
+import * as TechnologyProductService from '../../services/TechnologyProductService'
+import * as DishService from '../../services/DishService'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -14,12 +16,13 @@ const { TextArea } = Input;
 
 const CardCommentComponent = (props) => {
 
-    const { id, uid, date, content } = props
+    const { id, pid, uid, date, content, num, type } = props
     const auth = getAuth(app);
     const [userData, setUserData] = useState(null);
     const [value, setValue] = useState('');
     const [show, setShow] = useState(false);
     const [listReply, setListRepLy] = useState([]);
+    const [numLike, setNumLike] = useState(num);
 
     const getListReply = async () => {
         setListRepLy (await ProductService.getReply(id));
@@ -66,7 +69,17 @@ const CardCommentComponent = (props) => {
         setValue("")
         message.success()
     }
-      
+
+    const handleSetNumLike = () => {
+        setNumLike(numLike+1)
+        if(userData)
+            if (type==1)
+                TechnologyProductService.addLike(userData.id, pid, id, numLike+1);
+            else if (type==2)
+                DishService.addLike(userData.id, pid, id, numLike+1);
+            else
+                ProductService.addLike(userData.id, pid, id, numLike+1);
+    }
       
 
     return(
@@ -77,8 +90,10 @@ const CardCommentComponent = (props) => {
                     {date == getDateToday() ? "Hôm nay": calculateNumberOfDaysFromDate(date) + ' ngày trước'}
                 </span>
             </p>
+            
             <div className={styles.content}>{content}</div>
-            <span className={styles.reply}>Thích</span>
+            <Badge count={numLike}/>
+            <span className={styles.reply} onClick={handleSetNumLike}>Thích</span>
             <span className={styles.reply} onClick={handleSetShow} >Phản hồi</span>
             {show?
                 <div className={styles.flex1}>

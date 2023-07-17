@@ -1,18 +1,12 @@
 import React, {useState, useEffect} from "react";
 import styles from './style.module.css'
 import { Card, Button, Input } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
-import * as message from '../MessageComponent/MessageComponent'
-import * as ProductService from '../../services/ProductService'
-import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import CardReplyComponent from "../CardReplyComponent/CardReplyComponent.jsx";
 const { TextArea } = Input;
 
 
-const CardCommentComponent = (props) => {
+const CardReplyComponent = (props) => {
 
     const { id, uid, date, content } = props
     const auth = getAuth(app);
@@ -45,9 +39,7 @@ const CardCommentComponent = (props) => {
                 </span>
             </p>
             <div className={styles.content}>{content}</div>
-            <span className={styles.reply}>Thích</span>
-          
         </div>
     )
 }
-export default CardCommentComponent
+export default CardReplyComponent

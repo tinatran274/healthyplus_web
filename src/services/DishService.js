@@ -88,7 +88,6 @@ export const getDetailDishFavo = async (uid) => {
             const docRef = doc(db, "dish", key);
             const docSnap = await getDoc(docRef);
             const dish = docSnap.data();
-
             listFavo.push(dish)
         }
       }
@@ -105,6 +104,18 @@ export const addCommentDish = async (uid, did, date, content) => {
     const docSnap = await getDoc(listCmtRef);
     const dataToUpdate = {};
     dataToUpdate[cmtRef.id] = 0;
+    if (docSnap.exists()) 
+        await updateDoc(listCmtRef, dataToUpdate);
+    else
+        await setDoc(listCmtRef, dataToUpdate);
+}
+
+export const addLike = async (uid, pid, cid, num) => {
+    const productRef = doc(db, "dish", pid);
+    const listCmtRef = doc (productRef, "comment", uid)
+    const docSnap = await getDoc(listCmtRef);
+    const dataToUpdate = {};
+    dataToUpdate[cid] = num;
     if (docSnap.exists()) 
         await updateDoc(listCmtRef, dataToUpdate);
     else
@@ -135,6 +146,7 @@ export const getCommentDish = async (did) => {
             const docSnap = await getDoc(docRef);
             const cmt = docSnap.data();
             cmt.id = key
+            cmt.numLike = mergedObject1[key]
             list.push(cmt)
             }
     }

@@ -3,6 +3,7 @@
 }
 .uid{
     font-weight: 500;
+    color: rgb(22, 22, 144);
 }
 .date {
     font-size: 12px;
@@ -10,7 +11,7 @@
     color: rgb(169, 169, 169);
 }
 .content{
-    background-color: rgb(249, 249, 249);
+    background-color: rgb(238, 247, 249);
     padding: 10px 20px;
     border-radius: 30px;
     width: fit-content;

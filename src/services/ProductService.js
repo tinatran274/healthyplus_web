@@ -55,8 +55,10 @@ export const getAllProduct = async () => {
 export const getProductById = async (id) => {
     const docRef = doc(db, "product", id);
     const docSnap = await getDoc(docRef);
-    const product=docSnap.data();
-    return product;
+    if (docSnap.exists()){
+        const product=docSnap.data();
+        return product;
+    }
 }
 
 export const addProductToCart = async (uid, pid, num) => {
@@ -84,6 +86,7 @@ export const getProductInCart = async (uid) => {
             const product = docSnap.data();
             if (docSnap.exists()) {
                 product.num = userCart[key]
+                product.type = 0
                 listProduct.push(product)
             }
         }
@@ -93,6 +96,7 @@ export const getProductInCart = async (uid) => {
             const product = docSnap.data();
             if (docSnap.exists()) {
                 product.num = userCart[key]
+                product.type = 1
                 listProduct.push(product)
             }
         }
@@ -156,6 +160,18 @@ export const addCommentProduct = async (uid, did, date, content) => {
         await setDoc(listCmtRef, dataToUpdate);
 }
 
+export const addLike = async (uid, pid, cid, num) => {
+    const productRef = doc(db, "product", pid);
+    const listCmtRef = doc (productRef, "comment", uid)
+    const docSnap = await getDoc(listCmtRef);
+    const dataToUpdate = {};
+    dataToUpdate[cid] = num;
+    if (docSnap.exists()) 
+        await updateDoc(listCmtRef, dataToUpdate);
+    else
+        await setDoc(listCmtRef, dataToUpdate);
+}
+
 export const addRatingProduct = async (uid, did, rating) => {
     const productRef = doc(db, "product", did);
     const rateRef = doc (productRef, "rating", uid)
@@ -181,9 +197,10 @@ export const getProductComment = async (did) => {
             if (docSnap.exists()) {
                 const cmt = docSnap.data();
                 cmt.id = key
+                cmt.numLike = mergedObject1[key]
                 list.push(cmt)
             }
-            }
+        }
     }
     return list;
 }
@@ -257,10 +274,12 @@ export const getReply = async (cid) => {
         if (mergedObject1.hasOwnProperty(key)) {
             const docRef = doc(db, "reply", key);
             const docSnap = await getDoc(docRef);
-            const rep = docSnap.data();
-            rep.id = key
-            list.push(rep)
+            if (docSnap.exists()) {
+                const rep = docSnap.data();
+                rep.id = key
+                list.push(rep)
             }
+        }
     }
     return list;
 }

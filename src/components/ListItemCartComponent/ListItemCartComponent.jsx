@@ -89,6 +89,15 @@ const ListItemCartComponent = () => {
         return total
     },[listChecked])
 
+    const handleDetail = (id, type) => {
+        console.log(id, type)
+        if (type==0)
+            navigate(`/detail_product/${id}`)
+        else if (type==1)
+            navigate(`/detail_technology_product/${id}`)
+    }
+
+    console.log(listProduct)
 
     return(
         <div>
@@ -99,8 +108,8 @@ const ListItemCartComponent = () => {
                         <Card key={product.id} className={styles.card} hoverable>
                             <div className={styles.flex_collum}>
                                 <input type="checkbox" onChange={(e) => onChange(e.target.checked, product.id, product.cost, product.num)} ></input>
-                                <Image className={styles.p_img} src={product.img} alt="img" preview={false}/>
-                                <b className={styles.p_name}>{product.name}</b>
+                                <Image className={styles.p_img} src={product.img} alt="img" preview={false} onClick={() => handleDetail(product.id, product.type)}/>
+                                <b className={styles.p_name} onClick={() => handleDetail(product.id, product.type)}>{product.name}</b>
                                 <p className={styles.p_supplier}>{product.supplier}</p>      
                                 <p className={styles.p_cost}>{addDotsToNumber(parseInt(product.cost))} đ</p>
                                 <div className={styles.num}><p> {product.num} </p></div>

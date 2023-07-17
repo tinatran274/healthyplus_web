@@ -60,6 +60,8 @@ const CommentDishComponent = ({idDish}) => {
         message.success()
     }
 
+    console.log (listCmtDetail)
+
     return(
         <div className={styles.test}>
             <div>
@@ -84,9 +86,12 @@ const CommentDishComponent = ({idDish}) => {
                             <CardCommentComponent
                                 key={cmt.id}
                                 id={cmt.id}
+                                pid={dish.id}
                                 uid={cmt.uid}
                                 date={cmt.date}
                                 content={cmt.content}
+                                num={cmt.numLike}
+                                type={2}
                             />
                         )
                     }) : ""}
