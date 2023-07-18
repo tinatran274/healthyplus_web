@@ -51,14 +51,24 @@ const CommentProductComponent = ({idProduct}) => {
         getProduct()
     }, [])
     const handleAddCmt = () => {
-        if(value)
-            ProductService.addCommentProduct(userData.id, product.id, getDateToday(), value);
-            setValue("")
-            message.success()
+        if(userData){
+            if(value) {
+                ProductService.addCommentProduct(userData.id, product.id, getDateToday(), value);
+                setValue("")
+                message.success()
+            }
+            else message.error("Bạn chưa nhập bình luận")
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddRating = () => {
-        ProductService.addRatingProduct(userData.id, product.id, rating);
-        message.success()
+        if(userData){
+            ProductService.addRatingProduct(userData.id, product.id, rating);
+            message.success(`Bạn đã đánh giá ${rating} sao`)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
 
     return(

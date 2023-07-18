@@ -44,18 +44,21 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
         setNumProduct(Number(value))
     }
     const handleChangeCount = (type) => {
-        if(type === 'increase') {
-            setNumProduct(numProduct + 1)
-        }else {
-            if(numProduct>0)
-                setNumProduct(numProduct - 1)   
+        if (userData){
+            if(type === 'increase') 
+                setNumProduct(numProduct + 1)
+            else 
+                if(numProduct>0)
+                    setNumProduct(numProduct - 1)   
         }
+        else message.error("Bạn chưa đăng nhập")
     }
-    const handleAddToCart = (value) => {
-        console.log(product.id)
-        TechnologyProductService.addTechnologyProductToCart(userData.id, product.id, numProduct);
-        handleAuth()
-        message.success()
+    const handleAddToCart = () => {
+        if (userData) {
+            TechnologyProductService.addTechnologyProductToCart(userData.id, product.id, numProduct);
+            message.success(`Bạn đã thêm ${product.name} vào giỏ hàng`)
+        }
+        else message.error("Bạn chưa đăng nhập")
     }
     const addDotsToNumber = (number) => {
         const numberString = number.toString();
@@ -69,6 +72,18 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
           }
         }
         return result;
+    }
+    const handlePayment = () => {
+        const list = [];
+        const productTemp = {
+            id: product.id,
+            cost: product.cost,
+            num: numProduct,
+        };
+        list.push(productTemp)
+        if (userData)
+            navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
+        else message.error("Bạn chưa đăng nhập")
     }
     return(
         <div className={styles.main_pro}>
@@ -96,7 +111,7 @@ const DetailTechnologyProductComponent = ({idProduct}) => {
                             </div>
                             <div className={styles.add_cart}>
                                 <button className={styles.add} onClick={handleAddToCart}><ShoppingCartOutlined className={styles.icon}/>Thêm vào giỏ hàng</button>
-                                <button className={styles.pay} >Thanh toán</button >
+                                <button className={styles.pay} onClick={() =>  handlePayment()}>Thanh toán</button >
                             </div>
                         </div>
                     </div>

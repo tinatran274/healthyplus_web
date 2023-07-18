@@ -44,17 +44,23 @@ const DetailProductComponent = ({idProduct}) => {
         setNumProduct(Number(value))
     }
     const handleChangeCount = (type) => {
-        if(type === 'increase') {
-            setNumProduct(numProduct + 1)
-        }else {
-            if(numProduct>1)
-                setNumProduct(numProduct - 1)   
-        }
+        if (userData) {
+            if(type === 'increase') 
+                setNumProduct(numProduct + 1)
+            else 
+                if(numProduct>1)
+                    setNumProduct(numProduct - 1)  
+        } 
+        else 
+            message.error("Bạn chưa đăng nhập")
     }
-    const handleAddToCart = (value) => {
-        ProductService.addProductToCart(userData.id, product.id, numProduct);
-        handleAuth()
-        message.success()
+    const handleAddToCart = () => {
+        if (userData){
+            ProductService.addProductToCart(userData.id, product.id, numProduct);
+            message.success(`Bạn đã thêm ${product.name} vào giỏ hàng`)
+        }
+        else message.error("Bạn chưa đăng nhập")
+        
     }
     const handlePayment = () => {
         const list = [];
@@ -64,7 +70,9 @@ const DetailProductComponent = ({idProduct}) => {
             num: numProduct,
         };
         list.push(productTemp)
-        navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
+        if (userData)
+            navigate(`/payment/${encodeURIComponent(JSON.stringify(list))}`)
+        else message.error("Bạn chưa đăng nhập")
     }
     const addDotsToNumber = (number) => {
         const numberString = number.toString();

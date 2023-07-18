@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Spin} from 'antd';
 import * as UserService from '../../services/UserService'
 import styles from './style.module.css'
 import app from '../../config/firebase'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import * as message from '../../components/MessageComponent/MessageComponent'
 import imgBicycle from '../../image/img_bycicle.png'
@@ -17,7 +16,6 @@ const ExerciseComponent = ({idProduct}) => {
     const [running, setRunning] = useState(false);
     const [exercise, setExercise] = useState("");
     const [kcal, setKcal] = useState(0);
-    const navigate = useNavigate()
 
 
     const getDateToday = () => {
@@ -78,8 +76,6 @@ const ExerciseComponent = ({idProduct}) => {
 
     const handleStop = () => {
         setRunning(false);
-        console.log(time)
-        console.log(kcal)
         
     };
 
@@ -102,9 +98,13 @@ const ExerciseComponent = ({idProduct}) => {
         }
     };
     const handleSave = () => {
-        UserService.updateUserExercise(userData.id, getDateToday(), kcal);
-        setTime(0);
-        setRunning(false);
+        if (userData){
+            UserService.updateUserExercise(userData.id, getDateToday(), kcal);
+            setTime(0);
+            setRunning(false);
+            message.success(`Bạn đã tiêu hao ${kcal} kcal`)
+        }
+        else message.error("Bạn chưa đăng nhập")
     };
     
     return(

@@ -51,16 +51,22 @@ const CommentDishComponent = ({idDish}) => {
         getDish()
     }, [])
     const handleAddCmt = () => {
-        DishService.addCommentDish(userData.id, dish.id, getDateToday(), value);
-        setValue("")
-        message.success()
+        if(userData){
+            DishService.addCommentDish(userData.id, dish.id, getDateToday(), value);
+            setValue("")
+            message.success()
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddRating = () => {
-        DishService.addRatingDish(userData.id, dish.id, rating);
-        message.success()
+        if(userData){
+            DishService.addRatingDish(userData.id, dish.id, rating);
+            message.success(`Bạn đã đánh giá ${rating} sao`)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
-
-    console.log (listCmtDetail)
 
     return(
         <div className={styles.test}>

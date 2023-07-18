@@ -48,9 +48,12 @@ const CardProductComponent = (props) => {
         return result;
     }
     const handleAddCart = (id) => {
-        ProductService.addProductToCart(userData.id, id, 1);
-        handleAuth()
-        message.success()
+        if (userData) {
+            ProductService.addProductToCart(userData.id, id, 1);
+            message.success(`Bạn đã thêm ${name} vào giỏ hàng`)
+        }
+        else message.error("Bạn chưa đăng nhập")
+
     }
 
     return(

@@ -6,7 +6,7 @@
 }
 .signin_form{
     width: 50%;
-    height: 430px;
+    height: 450px;
     border-radius: 10px;
     background-color: var(--white);
     padding: 40px;
@@ -23,7 +23,7 @@
     border: 1px solid gainsboro;
     border-radius: 8px;
     cursor: pointer;
-    margin: 40px 0;
+    margin: 30px 0;
     float: right;
 }
 .sign_in:hover{
@@ -45,7 +45,7 @@
 .forgot_password{
     color: var(--green_main);
     float: left;
-    font-size: 14px;
+    cursor: pointer;
 }
 .flex2{
     display: flex;
@@ -61,4 +61,8 @@
     position: absolute;
     top: 15px;
     right: 15px
+}
+.continue{
+    color: var(--green_main);
+    cursor: pointer;
 }

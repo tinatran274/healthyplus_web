@@ -12,6 +12,7 @@ import imgToi from '../../image/img_toi.png'
 import imgSnack from '../../image/img_snack.png'
 import imgVanDong from '../../image/img_vandong.png'
 import imgTip from '../../image/img_tip.png'
+import * as message from '../../components/MessageComponent/MessageComponent'
 
 const ChangCaloriesComponent = () => {
 
@@ -93,43 +94,50 @@ const ChangCaloriesComponent = () => {
     }, [])
     
     const increase100Calories = () => {
-        setTotalCalories(totalCalories + 100);
-        setChangPercent(100, tdee);
-        const currentTime = new Date();
-        const hours = currentTime.getHours();
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 100);
-        if(hours<=10){
-            UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 100);
-            setMorningSeted(morningSeted + 100)
+        if(userData){
+            setTotalCalories(totalCalories + 100);
+            setChangPercent(100, tdee);
+            const currentTime = new Date();
+            const hours = currentTime.getHours();
+            if(hours<=10){
+                UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 100);
+                setMorningSeted(morningSeted + 100)
+            }
+            else if (hours>10 & hours <17){
+                UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + 100);
+                setNoonSeted(noonSeted + 100)
+            }
+            else{
+                UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + 100);
+                setDinnerSeted(dinnerSeted + 100)
+            }
         }
-        else if (hours>10 & hours <17){
-            UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + 100);
-            setNoonSeted(noonSeted + 100)
-        }
-        else{
-            UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + 100);
-            setDinnerSeted(dinnerSeted + 100)
-        }
+        else
+            message.error("Bạn chưa đăng nhập")
+
     
     };
     const increase200Calories = () => {
-        setTotalCalories(totalCalories + 200);
-        setChangPercent(200, tdee);
-        const currentTime = new Date();
-        const hours = currentTime.getHours();
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + 200);
-        if(hours<=10){
-            UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 200);
-            setMorningSeted(morningSeted + 200)
+        if(userData){
+            setTotalCalories(totalCalories + 200);
+            setChangPercent(200, tdee);
+            const currentTime = new Date();
+            const hours = currentTime.getHours();
+            if(hours<=10){
+                UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + 200);
+                setMorningSeted(morningSeted + 200)
+            }
+            else if (hours>10 & hours <17){
+                UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + 200);
+                setNoonSeted(noonSeted + 200)
+            }
+            else{
+                UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + 200);
+                setDinnerSeted(dinnerSeted + 200)
+            }
         }
-        else if (hours>10 & hours <17){
-            UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + 200);
-            setNoonSeted(noonSeted + 200)
-        }
-        else{
-            UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + 200);
-            setDinnerSeted(dinnerSeted + 200)
-        }
+        else
+            message.error("Bạn chưa đăng nhập")
     };
     const handleOnchangeMorning = (value) => {   
         setMorning(value)
@@ -147,47 +155,61 @@ const ChangCaloriesComponent = () => {
         setExercise(value)
     }
     const handleAddMorning = () => {
-        setTotalCalories(totalCalories + parseInt(morning));
-        setChangPercent(morning, tdee);
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(morning));
-        UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + parseInt(morning));
-        setMorningSeted(morningSeted + parseInt(morning))
-        setMorning(0)
+        if(userData) {
+            setTotalCalories(totalCalories + parseInt(morning));
+            setChangPercent(morning, tdee);
+            UserService.updateUserMorning(userData.id, getDateToday(), morningSeted + parseInt(morning));
+            setMorningSeted(morningSeted + parseInt(morning))
+            setMorning(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddNoon = () => {
-        setTotalCalories(totalCalories + parseInt(noon));
-        setChangPercent(noon, tdee);
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(noon));
-        UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + parseInt(noon));
-        setNoonSeted(noonSeted + parseInt(noon))
-        setNoon(0)
+        if(userData) {
+            setTotalCalories(totalCalories + parseInt(noon));
+            setChangPercent(noon, tdee);
+            UserService.updateUserNoon(userData.id, getDateToday(), noonSeted + parseInt(noon));
+            setNoonSeted(noonSeted + parseInt(noon))
+            setNoon(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddDinner = () => {
-        setTotalCalories(totalCalories + parseInt(dinner));
-        setChangPercent(dinner, tdee);
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(dinner));
-        UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + parseInt(dinner));
-        setDinnerSeted(dinnerSeted + parseInt(dinner))
-        setDinner(0)
+        if(userData) {
+            setTotalCalories(totalCalories + parseInt(dinner));
+            setChangPercent(dinner, tdee);
+            UserService.updateUserDinner(userData.id, getDateToday(), dinnerSeted + parseInt(dinner));
+            setDinnerSeted(dinnerSeted + parseInt(dinner))
+            setDinner(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddSnack = () => {
-        setTotalCalories(totalCalories + parseInt(snack));
-        setChangPercent(snack, tdee);
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories + parseInt(snack));
-        UserService.updateUserSnack(userData.id, getDateToday(), snackSeted + parseInt(snack));
-        setSnackSeted(snackSeted + parseInt(snack))
-        setSnack(0)
+        if(userData) {
+            setTotalCalories(totalCalories + parseInt(snack));
+            setChangPercent(snack, tdee);
+            UserService.updateUserSnack(userData.id, getDateToday(), snackSeted + parseInt(snack));
+            setSnackSeted(snackSeted + parseInt(snack))
+            setSnack(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddExercise = () => {
-        setTotalCalories(totalCalories - parseInt(exercise));
-        setChangPercent((-1)*exercise, tdee);
-        // UserService.updateUserCalories(userData.id, getDateToday(), totalCalories - parseInt(exercise));
-        UserService.updateUserExercise(userData.id, getDateToday(), exerciseSeted + parseInt(exercise));
-        setExerciseSeted(exerciseSeted + parseInt(exercise))
-        setExercise(0)
+        if(userData) {
+            setTotalCalories(totalCalories - parseInt(exercise));
+            setChangPercent((-1)*exercise, tdee);
+            UserService.updateUserExercise(userData.id, getDateToday(), exerciseSeted + parseInt(exercise));
+            setExerciseSeted(exerciseSeted + parseInt(exercise))
+            setExercise(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAdvice = () => {
-
         const aim = userData.aim
         const temp = parseInt(tdee - totalCalories);
         if(aim=='Tăng cân'){

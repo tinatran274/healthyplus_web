@@ -9,6 +9,7 @@ import * as UserService from '../../services/UserService'
 import * as ProductService from '../../services/ProductService'
 import imgNuoc from '../../image/img_nuoc.png'
 import imgTip from '../../image/img_tip.png'
+import * as message from '../../components/MessageComponent/MessageComponent'
 
 
 const ChangeWaterComponent = () => {
@@ -63,33 +64,48 @@ const ChangeWaterComponent = () => {
         handleAuth()
     }, [])
     const decrease100Calories = () => {
-        setTotalCalories(totalCalories - 100);
-        setChangPercent(-100, need);
-        UserService.updateUserWater(userData.id, getDateToday(), waterSeted - 100);
-        setWaterSeted(waterSeted - 100)
+        if(userData){
+            setTotalCalories(totalCalories - 100);
+            setChangPercent(-100, need);
+            UserService.updateUserWater(userData.id, getDateToday(), waterSeted - 100);
+            setWaterSeted(waterSeted - 100)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     };
     const increase100Calories = () => {
-        setTotalCalories(totalCalories + 100);
-        setChangPercent(100, need);
-        UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 100);
-        setWaterSeted(waterSeted + 100)
+        if(userData){
+            setTotalCalories(totalCalories + 100);
+            setChangPercent(100, need);
+            UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 100);
+            setWaterSeted(waterSeted + 100)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     };
     const increase200Calories = () => {
-        setTotalCalories(totalCalories + 200);
-        setChangPercent(200, need);
-        UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 200);
-        setWaterSeted(waterSeted + 200)
-
+        if(userData){
+            setTotalCalories(totalCalories + 200);
+            setChangPercent(200, need);
+            UserService.updateUserWater(userData.id, getDateToday(), waterSeted + 200);
+            setWaterSeted(waterSeted + 200)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     };
     const handleOnchangeWater = (value) => {   
         setWater(value)
     }
     const handleAddWater = () => {
-        setTotalCalories(totalCalories + parseInt(water));
-        setChangPercent(water, need);
-        UserService.updateUserWater(userData.id, getDateToday(), waterSeted + parseInt(water));
-        setWaterSeted(waterSeted + parseInt(water))
-        setWater(0)
+        if(userData){
+            setTotalCalories(totalCalories + parseInt(water));
+            setChangPercent(water, need);
+            UserService.updateUserWater(userData.id, getDateToday(), waterSeted + parseInt(water));
+            setWaterSeted(waterSeted + parseInt(water))
+            setWater(0)
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAdvice = () => {
 

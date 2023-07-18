@@ -51,17 +51,25 @@ const CommentTechnologyProductComponent = ({idProduct}) => {
         getProduct()
     }, [])
     const handleAddCmt = () => {
-        TechnologyProductService.addCommentTechnologyProduct(userData.id, product.id, getDateToday(), value);
-        setValue("")
-        message.success()
+        if(userData){
+            if(value) {
+                TechnologyProductService.addCommentTechnologyProduct(userData.id, product.id, getDateToday(), value);
+                setValue("")
+                message.success()
+            }
+            else message.error("Bạn chưa nhập bình luận")
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
     const handleAddRating = () => {
-        TechnologyProductService.addRatingTechnologyProduct(userData.id, product.id, rating);
-        message.success()
+        if(userData){
+            TechnologyProductService.addRatingTechnologyProduct(userData.id, product.id, rating);
+            message.success()
+        }
+        else
+            message.error("Bạn chưa đăng nhập")
     }
-
-    console.log(listCmtDetail)
-
     return(
         <div className={styles.test}>
             <div>

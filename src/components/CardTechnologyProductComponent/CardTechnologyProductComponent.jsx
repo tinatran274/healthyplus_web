@@ -48,10 +48,13 @@ const CardTechnologyProductComponent = (props) => {
         }
         return result;
     }
+
     const handleAddCart = (id) => {
-        TechnologyProductService.addTechnologyProductToCart(userData.id, id, 1);
-        handleAuth()
-        message.success()
+        if (userData) {
+            TechnologyProductService.addTechnologyProductToCart(userData.id, id, 1);
+            message.success(`Bạn đã thêm ${name} vào giỏ hàng`)
+        }
+        else message.error("Bạn chưa đăng nhập")
     }
 
     return(

@@ -8,7 +8,6 @@ import * as TechnologyProductService from '../../services/TechnologyProductServi
 import * as DishService from '../../services/DishService'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import CardReplyComponent from "../CardReplyComponent/CardReplyComponent.jsx";
 const { TextArea } = Input;
@@ -60,8 +59,10 @@ const CardCommentComponent = (props) => {
     }
 
     const handleSetShow = () => {
-        if(show) setShow(false)
-        else setShow(true)
+        if (userData)
+            if(show) setShow(false)
+            else setShow(true)
+        else message.error("Bạn chưa đăng nhập")
     }
 
     const handleReply = () => {
@@ -71,17 +72,18 @@ const CardCommentComponent = (props) => {
     }
 
     const handleSetNumLike = () => {
-        setNumLike(numLike+1)
-        if(userData)
+        if(userData) {
+            setNumLike(numLike+1)
             if (type==1)
                 TechnologyProductService.addLike(userData.id, pid, id, numLike+1);
             else if (type==2)
                 DishService.addLike(userData.id, pid, id, numLike+1);
             else
                 ProductService.addLike(userData.id, pid, id, numLike+1);
+        }
+        else message.error("Bạn chưa đăng nhập")
     }
       
-
     return(
         <div className={styles.wrap}>
             <p>

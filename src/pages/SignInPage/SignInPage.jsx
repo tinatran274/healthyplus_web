@@ -38,9 +38,10 @@ const SignInPage = () => {
         setPassword(value)
     }
     const handleSignIn = () => {
-        console.log('sign in: ', email,' ', password )
         UserService.signinUser(email, password);
-
+    }
+    const handleHome = () => {
+        navigate('/')
     }
     return(
         <div className={styles.backgrround_inp}>
@@ -64,6 +65,7 @@ const SignInPage = () => {
                     <p>Bạn chưa có tài khoản?</p>
                     <div onClick={handleSignup}><p className={styles.signup}>Đăng ký</p></div>
                 </div>
+                <p className={styles.continue} onClick={handleHome}>Tiếp tục truy cập trang chủ</p>
             </div>
         </div>
     )
