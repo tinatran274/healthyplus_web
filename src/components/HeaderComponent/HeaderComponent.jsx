@@ -41,6 +41,9 @@ const HeaderComponent = () => {
     const handleHome = () => {  
         navigate('/')
     }
+    const handleInfo = () => {  
+        navigate('/get_user_info')
+    }
     const handleSignout = () => {  
         signOut(auth).then(() => {
             console.log("Đăng xuất thành công");
@@ -68,7 +71,7 @@ const HeaderComponent = () => {
         <div>
             <WrapperHeader>
                 <Col span={4}>
-                    <img className={styles.notify} src= {logo} onClick={handleHome} alt="notify"/>
+                    <img className={styles.notify} src= {logo} onClick={handleInfo} alt="notify"/>
                 </Col>
                 <Col span={14}>
                     <Search id="search" className={styles.search} placeholder="input search text" allowClear onSearch={onSearch} />

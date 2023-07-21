@@ -8,7 +8,6 @@ import slider3 from '../../image/slider3.png'
 import ListProductComponent from "../../components/ListProductComponent/ListProductComponent";
 import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
-import * as ProductService from '../../services/ProductService'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";

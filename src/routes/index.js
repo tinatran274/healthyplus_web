@@ -19,6 +19,7 @@ import DishFromSuggestPage from '../pages/DishFromSuggestPage/DishFromSuggestPag
 import ExercisePage from '../pages/ExercisePage/ExercisePage'
 import PaymentPage from '../pages/PaymentPage/PaymentPage'
 import OrderHistoryPage from '../pages/OrderHistoryPage/OrderHistoryPage'
+import GetUserInfoPage from '../pages/GetUserInfoPage/GetUserInfoPage'
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage'
 
 export const routes = [
@@ -105,6 +106,10 @@ export const routes = [
     {
         path: '/history',
         page: OrderHistoryPage
+    },
+    {
+        path: '/get_user_info',
+        page: GetUserInfoPage
     },
     {
         path: '*',

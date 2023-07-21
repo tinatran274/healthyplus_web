@@ -147,9 +147,6 @@ const UserInfoComponent = () => {
                         <span>Tuổi</span>
                         <InputFormComponent className={styles.inp} placeholder="" type="number" value={age} onChange={handleOnchangeAge}/>
                         <span>Giới tính</span>
-                        {/* <Dropdown menu={{items}}>
-                            <InputFormComponent className={styles.inp} placeholder="" value={gender} onClick={(e) => e.preventDefault()}/>
-                        </Dropdown> */}
                         <Select className={styles.select}
                             value={gender}
                             onChange={handleOnchangeGender} 
