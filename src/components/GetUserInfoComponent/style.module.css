@@ -1,3 +1,12 @@
+.wrap{
+    padding: 5%;
+}
+.txt{
+    color: var(--green_main);
+    font-weight: 500;
+    font-size: larger;
+    margin-bottom: 50px;
+}
 .progress{
     display: flex;
     flex-direction: column;
@@ -29,7 +38,33 @@
     display: flex;
     flex-direction: row;
 }
+.flex3{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .inp{
     margin: 0 20px;
     width: 100%;
+}
+.select{
+    margin-top: 25px;
+    margin-left: 20px;
+    min-width: 50%;
+}
+.div1{
+    margin-top: 30px;
+}
+.pay_m{
+    background-color: var(--green_main);
+    color: var(--white);
+    padding: 10px 20px;
+    outline: none;
+    margin-top: 50px;
+    border: 1px solid gainsboro;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.pay_m:hover{
+    box-shadow: 1px 1px 4px #6cc65a;
 }

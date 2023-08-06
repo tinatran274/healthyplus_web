@@ -22,8 +22,8 @@ const SignUpPage = () => {
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                navigate('/')
-                message.success()
+                // navigate('/')
+                message.success("Đăng ký thành công")
             }
             else 
                 console.log("Chưa đăng nhập");
@@ -55,6 +55,7 @@ const SignUpPage = () => {
     const handleSignUp = () => {
         console.log('sign up: ', email,' ', password,' ', confirmPassword ) 
         UserService.signupUser(email, password, getDateToday());
+        navigate('/')
     }
 
     return(
