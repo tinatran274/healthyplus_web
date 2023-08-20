@@ -325,6 +325,23 @@ const ChangCaloriesComponent = () => {
         </div>
       </div>
       <div className={styles.change}>
+        <div>
+          <button className={styles.DishIngredient} onClick={handleDishPage}>
+            Món ăn
+          </button>
+          <button
+            className={styles.DishIngredient}
+            onClick={handleIngredientPage}
+          >
+            Nguyên liệu
+          </button>
+          <button
+            className={styles.DishIngredient}
+            onClick={handleExercisePage}
+          >
+            Vận động
+          </button>
+        </div>
         <Card className={styles.card}>
           <div className={styles.flex1}>
             <img className={styles.srcion} alt="example" src={imgSang} />
@@ -341,17 +358,6 @@ const ChangCaloriesComponent = () => {
           <button className={styles.pay_m} onClick={handleAddMorning}>
             Thêm
           </button>
-          <div>
-            <button className={styles.DishIngredient} onClick={handleDishPage}>
-              Món ăn
-            </button>
-            <button
-              className={styles.DishIngredient}
-              onClick={handleIngredientPage}
-            >
-              Nguyên liệu
-            </button>
-          </div>
         </Card>
         <Card className={styles.card}>
           <div className={styles.flex1}>
@@ -369,17 +375,6 @@ const ChangCaloriesComponent = () => {
           <button className={styles.pay_m} onClick={handleAddNoon}>
             Thêm
           </button>
-          <div>
-            <button className={styles.DishIngredient} onClick={handleDishPage}>
-              Món ăn
-            </button>
-            <button
-              className={styles.DishIngredient}
-              onClick={handleIngredientPage}
-            >
-              Nguyên liệu
-            </button>
-          </div>
         </Card>
         <Card className={styles.card}>
           <div className={styles.flex1}>
@@ -397,17 +392,6 @@ const ChangCaloriesComponent = () => {
           <button className={styles.pay_m} onClick={handleAddDinner}>
             Thêm
           </button>
-          <div>
-            <button className={styles.DishIngredient} onClick={handleDishPage}>
-              Món ăn
-            </button>
-            <button
-              className={styles.DishIngredient}
-              onClick={handleIngredientPage}
-            >
-              Nguyên liệu
-            </button>
-          </div>
         </Card>
         <Card className={styles.card}>
           <div className={styles.flex1}>
@@ -425,17 +409,6 @@ const ChangCaloriesComponent = () => {
           <button className={styles.pay_m} onClick={handleAddSnack}>
             Thêm
           </button>
-          <div>
-            <button className={styles.DishIngredient} onClick={handleDishPage}>
-              Món ăn
-            </button>
-            <button
-              className={styles.DishIngredient}
-              onClick={handleIngredientPage}
-            >
-              Nguyên liệu
-            </button>
-          </div>
         </Card>
         <Card className={styles.card}>
           <div className={styles.flex1}>
@@ -453,14 +426,6 @@ const ChangCaloriesComponent = () => {
           <button className={styles.pay_m} onClick={handleAddExercise}>
             Thêm
           </button>
-          <div>
-            <button
-              className={styles.DishIngredient}
-              onClick={handleExercisePage}
-            >
-              Vận động
-            </button>
-          </div>
         </Card>
       </div>
     </div>
