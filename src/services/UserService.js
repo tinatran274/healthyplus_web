@@ -289,3 +289,10 @@ export const getDinner = async (uid, date) => {
     return dataReturn.calories;
   }
 };
+export const getAim = async (uid) => {
+  const uRef = doc(db, "user", uid);
+  const docSnap = await getDoc(uRef);
+  const user = docSnap.data();
+  console.log(user);
+  return 1;
+};
