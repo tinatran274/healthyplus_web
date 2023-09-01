@@ -42,10 +42,7 @@ const LishDishComponent = () => {
                 console.log("Chưa đăng nhập");
         });
     }
-    // const handleAddDish = async () => {
-    //     console.log('add')
-    //     await DishService.addDish();
-    // }
+
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -60,8 +57,9 @@ const LishDishComponent = () => {
     }, [])
 
     const isFavoriteDish = (did) => {
-        if(listFavo)
-            return listFavo.includes(did);
+        if (listFavo !== null) 
+            return listFavo.includes(did); // Check for null
+        return false;
     }
     const handleListFavo = () => {
         navigate('/favorite_dish')

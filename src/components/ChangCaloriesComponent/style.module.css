@@ -95,6 +95,15 @@
 .DishIngredient:hover {
   background-color: #4a9e3e;
 }
+.wrap_add{
+  margin-top: 10px;
+}
+.add{
+  font-weight: 700;
+  color: var(--green_main);
+  margin-left: 25px;
+  cursor: pointer;
+}
 @media (max-width: 768px) {
   .control {
     margin: 20px 0 50px 0;

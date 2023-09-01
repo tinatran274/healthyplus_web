@@ -1,0 +1,33 @@
+2023.08.15 10:39:46 INFO  Started: Metals version 1.0.0 in folders 'D:\App\my-app' for client Visual Studio Code 1.81.1.
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
+INFO: Flyway Community Edition 9.20.1 by Redgate
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: See release notes here: https://rd.gt/416ObMi
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: 
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.database.base.BaseDatabaseType createDatabase
+INFO: Database: jdbc:h2:file:D:\App\my-app\.metals\metals (H2 2.1)
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory allAppliedMigrations
+INFO: Schema history table "PUBLIC"."flyway_schema_history" does not exist yet
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbValidate validate
+INFO: Successfully validated 4 migrations (execution time 00:00.017s)
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory create
+INFO: Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate migrateGroup
+INFO: Current version of schema "PUBLIC": << Empty Schema >>
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "1 - Create tables"
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "2 - Server discovery"
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "3 - Jar symbols"
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate doMigrateGroup
+INFO: Migrating schema "PUBLIC" to version "4 - Fingerprints"
+Aug 15, 2023 10:39:46 AM org.flywaydb.core.internal.command.DbMigrate logSummary
+INFO: Successfully applied 4 migrations to schema "PUBLIC", now at version v4 (execution time 00:00.014s)
+2023.08.15 10:39:46 INFO  time: initialize in 0.55s
+2023.08.15 10:39:53 WARN  Build server is not auto-connectable.
+2023.08.15 10:39:53 WARN  no build tool detected in workspace 'D:\App\my-app'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2023.08.16 13:27:35 INFO  Shutting down server
+2023.08.16 13:27:35 INFO  shutting down Metals
+2023.08.16 13:27:35 INFO  Exiting server

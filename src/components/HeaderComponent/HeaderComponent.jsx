@@ -71,7 +71,7 @@ const HeaderComponent = () => {
         <div>
             <WrapperHeader>
                 <Col span={4}>
-                    <img className={styles.notify} src= {logo} onClick={handleInfo} alt="notify"/>
+                    <img className={styles.notify} src= {logo} onClick={handleHome} alt="notify"/>
                 </Col>
                 <Col span={14}>
                     <Search id="search" className={styles.search} placeholder="input search text" allowClear onSearch={onSearch} />

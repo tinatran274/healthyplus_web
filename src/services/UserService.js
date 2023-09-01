@@ -33,6 +33,7 @@ export const signupUser = async (email, password, date) => {
         weight: 1,
         aim: "Giữ cân",
         exercise: "Không vận động",
+        premium: 0,
       };
       await setDoc(doc(db, "user", user.uid), userData);
 

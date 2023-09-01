@@ -7,22 +7,6 @@ import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9
 const GetUserInfoPage = () => {
 
     const auth = getAuth(app);
-    const [userData, setUserData] = useState(null);
-
-    const handleAuth = () => {
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userData = await UserService.getDetailUser(user.uid);
-                setUserData(userData)
-            }
-            else
-                console.log("Chưa đăng nhập");
-        });
-    }
-
-    useEffect(() => {
-        handleAuth()
-    }, [])
 
     return(
         <div>

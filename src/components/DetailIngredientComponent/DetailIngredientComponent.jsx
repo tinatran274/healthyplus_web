@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import { useRef } from "react";
 import { Col, Row, Image, Button, Progress, Card } from "antd";
 import * as IngredientService from "../../services/IngredientService";
@@ -22,12 +22,10 @@ const DetailIngredientComponent = ({ idIngredient }) => {
   const auth = getAuth(app);
   const [userData, setUserData] = useState(null);
   const [ingredient, setIngredient] = useState([]);
+  const [gram, setGram] = useState(0);
+  const [kcal, setKcal] = useState(0);
   const navigate = useNavigate();
-  const inputRef = useRef(null);
 
-  function handleClick() {
-    console.log(inputRef.current.value);
-  }
   const getIngredient = async () => {
     setIngredient(await IngredientService.getIngredientById(idIngredient));
   };
@@ -43,6 +41,13 @@ const DetailIngredientComponent = ({ idIngredient }) => {
     handleAuth();
     getIngredient();
   }, []);
+
+  const handleOnchangeGram = async (value) => {
+    setGram(value);
+    const gamPerW = await IngredientService.getCalo(ingredient.id);
+    const totalCalo = (value * gamPerW) / 100;
+    setKcal(totalCalo);
+  };
   function calTimeBicycle(calories) {
     const time = (calories / 7).toFixed(2);
     return time;
@@ -69,20 +74,16 @@ const DetailIngredientComponent = ({ idIngredient }) => {
   };
   const addMorning = async () => {
     if (userData) {
-      const weight = parseInt(inputRef.current.value);
-      const gamPerW = await IngredientService.getCalo(ingredient.id);
-      const totalCalo = (weight * gamPerW) / 100;
-
       const preData = await UserService.getMorning(userData.id, getDateToday());
       if (preData !== undefined) {
-        const newData = preData + totalCalo;
+        const newData = preData + kcal;
         console.log(newData);
         UserService.updateUserMorning(userData.id, getDateToday(), newData);
       } else {
         UserService.updateUserMorning(
           userData.id,
           getDateToday(),
-          parseInt(totalCalo)
+          parseInt(kcal)
         );
       }
     } else {
@@ -92,20 +93,16 @@ const DetailIngredientComponent = ({ idIngredient }) => {
   };
   const addNoon = async () => {
     if (userData) {
-      const weight = parseInt(inputRef.current.value);
-      const gamPerW = await IngredientService.getCalo(ingredient.id);
-      const totalCalo = (weight * gamPerW) / 100;
-
       const preData = await UserService.getNoon(userData.id, getDateToday());
       if (preData !== undefined) {
-        const newData = preData + totalCalo;
+        const newData = preData + kcal;
         console.log(newData);
         UserService.updateUserNoon(userData.id, getDateToday(), newData);
       } else {
         UserService.updateUserNoon(
           userData.id,
           getDateToday(),
-          parseInt(totalCalo)
+          parseInt(kcal)
         );
       }
     } else {
@@ -115,20 +112,16 @@ const DetailIngredientComponent = ({ idIngredient }) => {
   };
   const addDinner = async () => {
     if (userData) {
-      const weight = parseInt(inputRef.current.value);
-      const gamPerW = await IngredientService.getCalo(ingredient.id);
-      const totalCalo = (weight * gamPerW) / 100;
-
       const preData = await UserService.getDinner(userData.id, getDateToday());
       if (preData !== undefined) {
-        const newData = preData + totalCalo;
+        const newData = preData + kcal;
         console.log(newData);
         UserService.updateUserDinner(userData.id, getDateToday(), newData);
       } else {
         UserService.updateUserDinner(
           userData.id,
           getDateToday(),
-          parseInt(totalCalo)
+          parseInt(kcal)
         );
       }
     } else {
@@ -143,6 +136,21 @@ const DetailIngredientComponent = ({ idIngredient }) => {
         <div className={styles.flexr}>
           <div>
             <Image src={ingredient.img} alt="img" preview={false} />
+            <div className={styles.wrap_add}>
+              <p>Bạn muốn thêm {kcal} kcal</p>
+              <InputFormComponent
+                  value={gram}
+                  onChange={handleOnchangeGram}
+                  type="number"
+                  id="message"
+                  name="message"
+                  required="required"
+                  placeholder="Nhập số gram"
+                />
+              <button className={styles.Add} onClick={addMorning}>Bữa sáng</button>
+              <button className={styles.Add} onClick={addNoon}>Bữa trưa</button>
+              <button className={styles.Add} onClick={addDinner}>Bữa tối</button>
+            </div>
           </div>
           <div>
             <div className={styles.wrap_detail_product}>
@@ -200,27 +208,8 @@ const DetailIngredientComponent = ({ idIngredient }) => {
             </div>
           </div>
         </div>
-        <div className={styles.box}>
-          <input
-            ref={inputRef}
-            type="text"
-            id="message"
-            name="message"
-            required="required"
-          />
-          <span>add grams</span>
-        </div>
-        <div>
-          <button onClick={addMorning} className={styles.Add}>
-            Morning
-          </button>
-          <button onClick={addNoon} className={styles.Add}>
-            Noon
-          </button>
-          <button onClick={addDinner} className={styles.Add}>
-            Dinner
-          </button>
-        </div>
+  
+  
         <div className={styles.flex1}>
           <img className={styles.img_deco1} alt="example" src={imgExer} />
           <p className={styles.txt}>Để tiêu thụ {ingredient.calo} kcal</p>

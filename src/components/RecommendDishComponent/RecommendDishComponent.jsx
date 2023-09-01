@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import CardDishComponent from "../../components/CardDishComponent/CardDishComponent.jsx";
 import styles from "./style.module.css";
 import { useNavigate } from "react-router-dom";
@@ -9,98 +9,124 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { Col, Input, message, Popconfirm, Card, Pagination } from "antd";
-import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
-import { SearchOutlined } from "@ant-design/icons";
+import imgIngr from "../../image/img_tip.png";
 
 const RecommendDishComponent = () => {
   const auth = getAuth(app);
 
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [listFavo, setListFavo] = useState([]);
   const [listDish, setListDish] = useState([]);
   const [tdee, setTDEE] = useState(1);
-  const [listFavo, setListFavo] = useState([]);
+  const [aim, setAim] = useState('');
+  const [state, setState] = useState('');
 
   const getListDish = async () => {
     setListDish(await DishService.getAllDish());
   };
-  const isFavoriteDish = (did) => {
-    if (listFavo !== null) return listFavo.includes(did); // Check for null
-    return false;
-  };
+
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userData = await UserService.getDetailUser(user.uid);
-
-        setUserData(userData);
-
         const userFavo = await DishService.getDishFavo(user.uid);
-
-        setListFavo(userFavo);
+        setUserData(userData)
+        setListFavo(userFavo)
+        setAim(userData.getAim())
         setTDEE(userData.getTDEE());
+        if(userData.getAim() == "Tăng cân")
+          setState("nhiều hơn")
+        else if(userData.getAim() == "Giảm cân")
+          setState("ít hơn")
+        else 
+        setState("khoảng")
       } else console.log("Chưa đăng nhập");
     });
   };
-  // const getListFavo = async () => {
-  //   setListFavo(await DishService.getDishFavo(userData));
-  // };
+  
   useEffect(() => {
     handleAuth();
     getListDish();
-    // getListFavo();
+    
   }, []);
 
-  const recommendDishes = (dishes, aim) => {
-    const selectedDishes = [];
-    let totalCalories = 0;
-    const shuffledRecDish = [...dishes].sort(() => 0.5 - Math.random());
+  const isFavoriteDish = (did) => {
+    if (listFavo !== null) 
+      return listFavo.includes(did); // Check for null
+    return false;
+  };
+  
 
-    for (const dish of shuffledRecDish) {
-      if (aim === 1) {
-        if (totalCalories + dish.calo <= tdee) {
-          selectedDishes.push(dish);
-          totalCalories += dish.calo;
-          console.log("giam can");
-        }
-        // } else if (aim === 2) {
-        //   if (totalCalories + dish.calo >= tdee) {
-        //     selectedDishes.push(dish);
-        //     totalCalories += dish.calo;
-        //     console.log("tang can");
-        //   }
+  const recommendDishes = () => {
+    const tempList = []; //detail favo list
+    let aimList = [];
+    let rcmList = [];
+  
+    listFavo.forEach(favo => {
+      const matchingObject = listDish.find(obj => obj.id === favo);
+      tempList.push(matchingObject);    
+    });
+    const matchList = tempList.concat(listDish);
+
+    if(aim == "Tăng cân"){
+      matchList.forEach(dish => {
+        if(dish.calo >= tdee/3)
+          aimList.push(dish);    
+      });
+    }
+    else if (aim == "Giảm cân"){
+      matchList.forEach(dish => {
+        if(dish.calo <= tdee/3)
+          aimList.push(dish);    
+      });
+    }
+    else {
+      matchList.forEach(dish => {
+        aimList.push(dish);    
+      });
+    }
+
+    for (let i=0;i<3;i++){
+      const randomIndex = Math.floor(Math.random()*aimList.length);
+      const removeDish = aimList[randomIndex];
+      rcmList.push(removeDish);
+      if(removeDish){
+        aimList = aimList.filter(item => item.id !== removeDish.id);
       }
 
-      if (selectedDishes.length === 3) {
+      if(aimList.length==0)
         break;
-      }
     }
-    //console.log(shuffledRecDish);
-    return selectedDishes;
+    return rcmList;
+    
   };
 
-  const handleAim = () => {
-    if (userData) {
-      const aim = userData.aim;
-      //console.log(aim);
-      // if (aim === "Giảm cân") {
-      //   return 1;
-      // } else if (aim === "Tăng cân") {
-      //   return 2;
-      // }
-      return 1;
+  const randomDishes = recommendDishes();
+  const priceMemo = useMemo(() => {
+    if (randomDishes.length > 1){
+      const total = randomDishes.reduce((total, cur) => {
+          return total + ((parseInt(cur.calo)))
+      },0)
+      return total
     }
-  };
-  const getAim = handleAim();
-  // console.log(getAim);
-  const randomDishes = recommendDishes(listDish, getAim);
-  // console.log("randomDishes:", randomDishes);
-  if (userData) {
-    return (
-      <div>
-        <div>
-          {randomDishes.map((dish) => (
+  },)
+  console.log("crc " + randomDishes.length + randomDishes + priceMemo);
+
+  return (
+    <div className={styles.wrap}>
+      <div className={styles.flex1}>
+          <img className={styles.img_deco1} alt="example" src={imgIngr} />
+          <p className={styles.txt}>Gợi ý thực đơn ngày hôm nay</p>
+      </div>
+      <div className={styles.info}>
+        <p>Mục tiêu của bạn là: <span className={styles.span}>{aim}</span></p>
+        <p>Bạn cần ăn {state} <span className={styles.span}>{tdee}</span> kcal/ngày</p>
+        <p>Tổng calories của thực đơn: <span className={styles.span}>{priceMemo}</span> kcal</p>
+      </div>
+      <div className={styles.list}>
+        {(randomDishes.length > 1) ? (
+          randomDishes.map((dish) => (
             <CardDishComponent
               key={dish.id}
               id={dish.id}
@@ -112,12 +138,13 @@ const RecommendDishComponent = () => {
               img={dish.img}
               isFavo={isFavoriteDish(dish.id)}
             />
-          ))}
-        </div>
+          )) ) : <></>
+        }
       </div>
-    );
-  } else {
-    return <div></div>;
-  }
-};
+      <div className={styles.deco}></div>
+    </div>
+  );
+}
+
+  
 export default RecommendDishComponent;

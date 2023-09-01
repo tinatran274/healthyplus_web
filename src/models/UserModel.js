@@ -1,5 +1,5 @@
 class User {
-    constructor (id, name, age, gender, height, weight, aim, exercise) {
+    constructor (id, name, age, gender, height, weight, aim, exercise, premium) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -8,7 +8,7 @@ class User {
         this.weight = weight;
         this.aim = aim;
         this.exercise = exercise;
-        
+        this.premium = premium; //0:free 1:premium
     }
     toString() {
         return this.id + ', ' + this.name;
@@ -33,6 +33,9 @@ class User {
     }
     getExercise() {
         return this.exercise;
+    }
+    getPremium() {
+        return this.premium;
     }
     getBMI(){
         const bmi = this.weight / ((this.height/100) * (this.height/100));
@@ -89,11 +92,12 @@ const UserConverter = {
             weight: user.weight,
             aim: user.aim,
             exercise: user.exercise,
+            premium: user.premium,
             };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new User(data.id, data.name, data.age, data.gender,data.height, data.weight, data.aim, data.exercise);
+        return new User(data.id, data.name, data.age, data.gender,data.height, data.weight, data.aim, data.exercise, data.premium);
     }
 };
 export default UserConverter;

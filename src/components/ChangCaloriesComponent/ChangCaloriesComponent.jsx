@@ -325,23 +325,10 @@ const ChangCaloriesComponent = () => {
         </div>
       </div>
       <div className={styles.change}>
-        <div>
-          <button className={styles.DishIngredient} onClick={handleDishPage}>
-            Món ăn
-          </button>
-          <button
-            className={styles.DishIngredient}
-            onClick={handleIngredientPage}
-          >
-            Nguyên liệu
-          </button>
-          <button
-            className={styles.DishIngredient}
-            onClick={handleExercisePage}
-          >
-            Vận động
-          </button>
-        </div>
+        {/* <div>
+          <button className={styles.DishIngredient} onClick={handleDishPage}>Món ăn</button>
+          <button className={styles.DishIngredient} onClick={handleIngredientPage}>Nguyên liệu</button>
+        </div> */}
         <Card className={styles.card}>
           <div className={styles.flex1}>
             <img className={styles.srcion} alt="example" src={imgSang} />
@@ -355,6 +342,11 @@ const ChangCaloriesComponent = () => {
             value={morning}
             onChange={handleOnchangeMorning}
           />
+          <div className={styles.wrap_add}>
+            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
+            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+          </div>
+          
           <button className={styles.pay_m} onClick={handleAddMorning}>
             Thêm
           </button>
@@ -372,6 +364,10 @@ const ChangCaloriesComponent = () => {
             value={noon}
             onChange={handleOnchangeNoon}
           />
+          <div className={styles.wrap_add}>
+            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
+            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+          </div>
           <button className={styles.pay_m} onClick={handleAddNoon}>
             Thêm
           </button>
@@ -389,6 +385,10 @@ const ChangCaloriesComponent = () => {
             value={dinner}
             onChange={handleOnchangeDinner}
           />
+          <div className={styles.wrap_add}>
+            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
+            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+          </div>
           <button className={styles.pay_m} onClick={handleAddDinner}>
             Thêm
           </button>

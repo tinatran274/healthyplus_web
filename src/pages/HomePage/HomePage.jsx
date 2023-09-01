@@ -15,16 +15,19 @@ import {
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import RecommendDishComponent from "../../components/RecommendDishComponent/RecommendDishComponent";
+import LockRecommendDishComponent from "../../components/LockRecommendDishComponent/LockRecommendDishComponent";
 
 const HomePage = () => {
   const auth = getAuth(app);
   const [userData, setUserData] = useState(null);
+  const [premium, setPremium] = useState(0);
 
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userData = await UserService.getDetailUser(user.uid);
         setUserData(userData);
+        setPremium(userData.getPremium());
       } else console.log("Chưa đăng nhập");
     });
   };
@@ -38,8 +41,13 @@ const HomePage = () => {
       <HeaderComponent />
       <NavComponent />
       <SliderComponent arrImage={[slider1, slider2, slider3]} />
+      {(premium==0) ? (
+        <LockRecommendDishComponent/>
+        ) : (
+          <RecommendDishComponent />
+        )}
+    
       <ListProductComponent />
-      <RecommendDishComponent />
       <FooterComponent />
     </div>
   );

@@ -182,6 +182,12 @@ const DetailDishComponent = ({ idDish }) => {
         <div className={styles.flexr}>
           <div>
             <Image src={dish.img} alt="img" preview={false} />
+            <div className={styles.wrap_add}>
+              <p>Bạn muốn thêm vào?</p>
+              <button className={styles.Add} onClick={addMorning}>Bữa sáng</button>
+              <button className={styles.Add} onClick={addNoon}>Bữa trưa</button>
+              <button className={styles.Add} onClick={addDinner}>Bữa tối</button>
+            </div>
           </div>
           <div>
             <div className={styles.wrap_detail_product}>
@@ -261,17 +267,7 @@ const DetailDishComponent = ({ idDish }) => {
             </div>
           </div>
         </div>
-        <div>
-          <button className={styles.Add} onClick={addMorning}>
-            Morning
-          </button>
-          <button className={styles.Add} onClick={addNoon}>
-            Noon
-          </button>
-          <button className={styles.Add} onClick={addDinner}>
-            Dinner
-          </button>
-        </div>
+        
         <div className={styles.flex1}>
           <img className={styles.img_deco1} alt="example" src={imgIngr} />
           <p className={styles.txt}>Nguyên liệu</p>

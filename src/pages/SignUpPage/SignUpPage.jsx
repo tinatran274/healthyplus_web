@@ -23,7 +23,7 @@ const SignUpPage = () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 // navigate('/')
-                message.success("Đăng ký thành công")
+                // message.success("Đăng ký thành công")
             }
             else 
                 console.log("Chưa đăng nhập");
@@ -53,9 +53,8 @@ const SignUpPage = () => {
     }
 
     const handleSignUp = () => {
-        console.log('sign up: ', email,' ', password,' ', confirmPassword ) 
         UserService.signupUser(email, password, getDateToday());
-        navigate('/')
+        // navigate('/get_user_info')
     }
 
     return(
