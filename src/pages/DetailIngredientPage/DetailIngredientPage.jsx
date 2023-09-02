@@ -11,6 +11,17 @@ const DetailIngredientPage = () => {
     const navigate = useNavigate();
     const {id} = useParams()
     
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth', // Smooth scrolling animation
+        });
+      };
+    
+      useEffect(() => {
+        scrollToTop();
+        
+      }, []);
     return(
         <div>
             <HeaderComponent/>

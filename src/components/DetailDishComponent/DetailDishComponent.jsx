@@ -28,11 +28,6 @@ import imgRecipe from "../../image/img_recipe_book.png";
 import imgExer from "../../image/img_exercise.png";
 import imgFavo from "../../image/img_favo.png";
 import imgUnfavo from "../../image/img_unfavo.png";
-import {
-  WrapperDropButton,
-  WrapperDropContent,
-  WrapperLink,
-} from "../NavComponent/style";
 
 const DetailDishComponent = ({ idDish }) => {
   const auth = getAuth(app);

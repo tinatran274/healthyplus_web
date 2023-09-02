@@ -5,6 +5,7 @@ import SliderComponent from "../../components/SliderComponent/SliderComponent";
 import slider1 from "../../image/slider1.png";
 import slider2 from "../../image/slider2.png";
 import slider3 from "../../image/slider3.png";
+import TitleAddDishComponent from "../../components/TitleAddDishComponent/TitleAddDishComponent";
 import ListProductComponent from "../../components/ListProductComponent/ListProductComponent";
 import FooterComponent from "../../components/FooterComponent/FooterComponent";
 import styles from "./style.module.css";
@@ -31,8 +32,15 @@ const HomePage = () => {
       } else console.log("Chưa đăng nhập");
     });
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scrolling animation
+    });
+  };
 
   useEffect(() => {
+    scrollToTop();
     handleAuth();
   }, []);
 
@@ -41,6 +49,7 @@ const HomePage = () => {
       <HeaderComponent />
       <NavComponent />
       <SliderComponent arrImage={[slider1, slider2, slider3]} />
+      <TitleAddDishComponent/>
       {(premium==0) ? (
         <LockRecommendDishComponent/>
         ) : (

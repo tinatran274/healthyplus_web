@@ -7,10 +7,23 @@ import FooterComponent from '../../components/FooterComponent/FooterComponent'
 import styles from './style.module.css'
 import * as message from '../../components/MessageComponent/MessageComponent'
 import { useNavigate, useParams } from 'react-router-dom';
-
 const DetailDishPage = () => {
+
     const navigate = useNavigate();
     const {id} = useParams()
+    
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth', // Smooth scrolling animation
+        });
+      };
+    
+      useEffect(() => {
+        scrollToTop();
+        
+      }, []);
+    
     
     return(
         <div>

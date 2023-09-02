@@ -8,6 +8,19 @@ import { useParams } from 'react-router-dom';
 
 const DishFromSuggestPage = () => {
 
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scrolling animation
+    });
+  };
+
+  useEffect(() => {
+    scrollToTop();
+    
+  }, []);
+  
   return (
     <div>
       <HeaderComponent/>

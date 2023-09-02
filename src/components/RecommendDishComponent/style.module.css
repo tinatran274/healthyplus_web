@@ -1,7 +1,8 @@
 .wrap{
-    margin: 0 10px 20px 10px;
+    margin: 0 50px 20px 50px;
     display: flex;
     flex-direction: column;
+    padding: 15px 0;
 }
 .info{
     margin: 0  0 30px 50px;
@@ -28,6 +29,7 @@
   }
   .txt {
     font-weight: 500;
+    font-size: 16px;
   }
   .img_deco1 {
     height: 40px;

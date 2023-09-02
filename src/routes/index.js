@@ -20,6 +20,7 @@ import ExercisePage from "../pages/ExercisePage/ExercisePage";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import OrderHistoryPage from "../pages/OrderHistoryPage/OrderHistoryPage";
 import GetUserInfoPage from "../pages/GetUserInfoPage/GetUserInfoPage";
+import AddDishPage from "../pages/AddDishPage/AddDishPage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 export const routes = [
@@ -111,7 +112,10 @@ export const routes = [
     path: "/get_user_info",
     page: GetUserInfoPage,
   },
-
+  {
+    path: "/add_dish",
+    page: AddDishPage,
+  },
   {
     path: "*",
     page: NotFoundPage,

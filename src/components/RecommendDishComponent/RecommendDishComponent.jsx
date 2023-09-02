@@ -10,6 +10,7 @@ import {
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import imgIngr from "../../image/img_tip.png";
+import { Card } from 'antd';
 
 const RecommendDishComponent = () => {
   const auth = getAuth(app);
@@ -114,7 +115,7 @@ const RecommendDishComponent = () => {
   console.log("crc " + randomDishes.length + randomDishes + priceMemo);
 
   return (
-    <div className={styles.wrap}>
+    <Card hoverable className={styles.wrap}>
       <div className={styles.flex1}>
           <img className={styles.img_deco1} alt="example" src={imgIngr} />
           <p className={styles.txt}>Gợi ý thực đơn ngày hôm nay</p>
@@ -141,8 +142,8 @@ const RecommendDishComponent = () => {
           )) ) : <></>
         }
       </div>
-      <div className={styles.deco}></div>
-    </div>
+      {/* <div className={styles.deco}></div> */}
+    </Card >
   );
 }
 

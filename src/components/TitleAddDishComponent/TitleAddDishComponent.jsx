@@ -10,34 +10,24 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { Card } from 'antd';
 import imgIngr from "../../image/img_premium.png";
-import imgUnlock from "../../image/img_unlocked.png";
+import imgUser from "../../image/img_user.png";
+import imgPhoto from "../../image/img_ff.png";
+import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
+import * as message from '../../components/MessageComponent/MessageComponent'
 
 
-const LockRecommendDishComponent = () => {
+const TitleAddDishComponent = () => {
   const auth = getAuth(app);
 
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [tdee, setTDEE] = useState(1);
-  const [aim, setAim] = useState('');
-  const [state, setState] = useState('');
  
-
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userData = await UserService.getDetailUser(user.uid);
-        const userFavo = await DishService.getDishFavo(user.uid);
         setUserData(userData)
-        setAim(userData.getAim())
-        setTDEE(userData.getTDEE());
-        if(userData.getAim() == "Tăng cân")
-          setState("nhiều hơn")
-        else if(userData.getAim() == "Giảm cân")
-          setState("ít hơn")
-        else 
-        setState("khoảng")
-        
+
       } else console.log("Chưa đăng nhập");
     });
   };
@@ -47,15 +37,20 @@ const LockRecommendDishComponent = () => {
     
   }, []);
 
+  const handleAddDish = () => {
+    if(userData.premium == 1)
+        navigate("/add_dish");
+    else 
+        message.warning(`Mở khóa Premium để sử dụng tính năng này`);
+  }
   
   return (
     <div hoverable className={styles.wrap}>
-        <Card hoverable className={styles.info}>
-            <p>Mục tiêu của bạn là: <span className={styles.span}>{aim}</span></p>
-            <p>Bạn cần ăn {state} <span className={styles.span}>{tdee}</span> kcal/ngày</p>
+        <Card hoverable className={styles.info} onClick={handleAddDish}>
             <div className={styles.flex1}>
-                <img className={styles.img_deco1} alt="example" src={imgIngr} />
-                <p className={styles.txt}>Mở khóa Premium để xem gợi ý thực đơn ngày hôm nay</p>
+                <img className={styles.img_deco1} alt="example" src={imgUser} />
+                <p className={styles.te} >Hôm nay bạn sẽ nấu món gì?</p>
+                <img className={styles.img_deco1} alt="example" src={imgPhoto} />
             </div>
         </Card>
         
@@ -64,4 +59,4 @@ const LockRecommendDishComponent = () => {
 }
 
   
-export default LockRecommendDishComponent;
+export default TitleAddDishComponent;

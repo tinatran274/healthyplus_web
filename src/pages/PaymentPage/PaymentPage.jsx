@@ -8,6 +8,17 @@ import { useParams } from 'react-router-dom';
 
 const PaymentPage = () => {
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Smooth scrolling animation
+    });
+  };
+
+  useEffect(() => {
+    scrollToTop();
+    
+  }, []);
   return (
     <div>
       <HeaderComponent/>
