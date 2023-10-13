@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import * as UserService from '../../services/UserService'
 import app from '../../config/firebase'
+import { updateName, updateInfo, updateAim } from '../../redux/user/User';
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { Button, Card, Progress, Select } from 'antd';
+import { Button, Card, Select } from 'antd';
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import styles from './style.module.css'
 import imgFemale from '../../image/icon_female.png'
 import imgMale from '../../image/icon_male.png'
 import { useNavigate } from 'react-router-dom';
-import * as message from '../../components/MessageComponent/MessageComponent'
+import * as messages from '../../components/MessageComponent/MessageComponent'
+import { useDispatch, useSelector } from "react-redux";
+import { Alert, Spin } from 'antd';
 
 const GetUserInfoComponent = () => {
 
     const auth = getAuth(app);
     const navigate = useNavigate()
+    const dispatch = useDispatch();
     const [userData, setUserData] = useState(null);
-    const [percent, setPercent] = useState(0);
+    const { isLoading, error, status, message } = useSelector((state) => state.user);
     const [selectedValue, setSelectedValue] = useState('option1');
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
@@ -23,6 +27,7 @@ const GetUserInfoComponent = () => {
     const [weight, setWeight] = useState(0);
     const [exercise, setExercise] = useState('');
     const [aim, setAim] = useState('');
+    const [showError, setShowError] = useState(false);
 
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
@@ -38,6 +43,12 @@ const GetUserInfoComponent = () => {
     useEffect(() => {
         handleAuth()
     }, [])
+    useEffect(() => {
+        if (!isLoading && error)
+            setShowError(true);
+        console.log("loading: "+ isLoading + " error: " + error + " status: " + status + "msg: "+ message);
+            
+    }, [isLoading]);
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
@@ -61,41 +72,47 @@ const GetUserInfoComponent = () => {
     const handleOnchangeAim = (value) => {
         setAim(value)
     }
-    const increase = () => {
-        setPercent((prevPercent) => {
-        const newPercent = prevPercent + 10;
-        if (newPercent > 100) {
-            return 100;
-        }
-        return newPercent;
-        });
-    };
-    const decline = () => {
-        setPercent((prevPercent) => {
-        const newPercent = prevPercent - 10;
-        if (newPercent < 0) {
-            return 0;
-        }
-        return newPercent;
-        });
-    };
+
+    const checkFilled = () => {
+        let i = 0;
+        if (name)
+            i++;
+        if (selectedValue)
+            i++;
+        if (age > 0)
+            i++;
+        if (height > 0)
+            i++;
+        if (weight > 0)
+            i++;
+        if (exercise)
+            i++;
+        if (aim)
+            i++;
+        console.log("i: " + i);
+        if (i==7)
+            return true;
+        return false;
+    }
 
     const handleSubmit = () => {
-        if(userData) {
-            UserService.updateNameUser(userData.id, name);
-            UserService.updateInfoUser(userData.id, age, selectedValue, height, weight, exercise);
-            UserService.updateAimUser(userData.id, aim);
-            message.success('Cập nhật thông tin thành công');
+        if(userData && checkFilled()) {
+            dispatch(updateName(userData.id, name));
+            dispatch(updateInfo(userData.id, age, selectedValue, height, weight, exercise));
+            dispatch(updateAim(userData.id, aim, navigate));
+            messages.success('Cập nhật thông tin thành công');
+            // UserService.updateNameUser(userData.id, name);
+            // UserService.updateInfoUser(userData.id, age, selectedValue, height, weight, exercise);
+            // UserService.updateAimUser(userData.id, aim);
             // navigate('/')
+        } else {
+            setShowError(true);
         }
 
     }
 
     return(
         <div className={styles.wrap}>
-            {/* <div className={styles.progress}>
-                <Progress className={styles.p_item} percent={45} />
-            </div> */}
             <p className={styles.txt}>Để HealthyPlus có thể hiểu rõ hơn về bạn, bạn hãy điền một số thông tin cơ bản sau đây:</p>
             <div className={styles.flex2}>
                 <span>Tên người dùng</span>
@@ -160,7 +177,15 @@ const GetUserInfoComponent = () => {
                             ]}
                         />
             </div>
+            {showError && (
+                    <Alert className={styles.alert}
+                    message="Lỗi!! Cập nhật thất bại"
+                    type="error"
+                    showIcon
+                  />
+            )}
             <button className={styles.pay_m} onClick={handleSubmit}>Hoàn tất</button >
+            {isLoading && <Spin size="large" ></Spin>}
             
             
         </div>

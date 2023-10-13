@@ -53,7 +53,7 @@ const RecommendDishComponent = () => {
   }, []);
 
   const isFavoriteDish = (did) => {
-    if (listFavo !== null) 
+    if (listFavo) 
       return listFavo.includes(did); // Check for null
     return false;
   };
@@ -64,10 +64,12 @@ const RecommendDishComponent = () => {
     let aimList = [];
     let rcmList = [];
   
-    listFavo.forEach(favo => {
-      const matchingObject = listDish.find(obj => obj.id === favo);
-      tempList.push(matchingObject);    
-    });
+    if (listFavo){
+      listFavo.forEach(favo => {
+        const matchingObject = listDish.find(obj => obj.id === favo);
+        tempList.push(matchingObject);    
+      });
+    }
     const matchList = tempList.concat(listDish);
 
     if(aim == "Tăng cân"){

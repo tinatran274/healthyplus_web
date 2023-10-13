@@ -57,7 +57,7 @@ const LishDishComponent = () => {
     }, [])
 
     const isFavoriteDish = (did) => {
-        if (listFavo !== null) 
+        if (listFavo && did) 
             return listFavo.includes(did); // Check for null
         return false;
     }

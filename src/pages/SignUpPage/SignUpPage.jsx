@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
 import styles from './style.module.css'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
+import { register } from '../../redux/auth/Auth';
 import logo from '../../image/Picture1.png'
+import { Alert, Space, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import * as UserService from '../../services/UserService'
 import * as message from '../../components/MessageComponent/MessageComponent'
+import { useDispatch, useSelector } from "react-redux";
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
@@ -14,21 +16,31 @@ const SignUpPage = () => {
     const auth = getAuth(app);
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
+    const { isLoading, error, status } = useSelector((state) => state.auth);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const navigate = useNavigate()
+    const [showError, setShowError] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // navigate('/')
-                // message.success("Đăng ký thành công")
+                navigate('/get_user_info')
+                message.success("Đăng ký thành công")
             }
             else 
                 console.log("Chưa đăng nhập");
         });
       }, [])
+
+    useEffect(() => {
+        if (!isLoading && error)
+            setShowError(true);
+        console.log("loading: "+ isLoading + " error: " + error + " status: " + status )
+            
+    }, [isLoading]);
 
     const getDateToday = () => {
         const currentDate = new Date();
@@ -53,7 +65,8 @@ const SignUpPage = () => {
     }
 
     const handleSignUp = () => {
-        UserService.signupUser(email, password, getDateToday());
+        dispatch(register(email, password, getDateToday(), navigate));
+        // UserService.signupUser(email, password, getDateToday());
         // navigate('/get_user_info')
     }
 
@@ -79,6 +92,14 @@ const SignUpPage = () => {
                     <InputFormComponent id="confirm_password" placeholder="Nhập lại mật khẩu" style={{ marginBottom: '10px' }} 
                     type={isShowPassword ? "text" : "password"} value={confirmPassword} onChange={handleOnchangeConfirmPassword}/>
                 </div>
+                {isLoading && <Spin size="large" ></Spin>}
+                {showError && (
+                    <Alert
+                    message="Lỗi!! Đăng ký thất bại"
+                    type="error"
+                    showIcon
+                  />
+                )}
                 <div className={styles.flex1}>
                     <button className={styles.signin_btn} onClick={handleSignUp} >Đăng ký</button >
                 </div>

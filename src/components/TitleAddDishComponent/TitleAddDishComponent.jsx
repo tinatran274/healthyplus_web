@@ -45,8 +45,8 @@ const TitleAddDishComponent = () => {
   }
   
   return (
-    <div hoverable className={styles.wrap}>
-        <Card hoverable className={styles.info} onClick={handleAddDish}>
+    <div hoverable="true" className={styles.wrap}>
+        <Card hoverable="true" className={styles.info} onClick={handleAddDish}>
             <div className={styles.flex1}>
                 <img className={styles.img_deco1} alt="example" src={imgUser} />
                 <p className={styles.te} >Hôm nay bạn sẽ nấu món gì?</p>

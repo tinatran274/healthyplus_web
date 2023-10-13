@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react'
 import styles from './style.module.css'
 import { WrapperButton, WrapperWhiteText, WrapperIndexText, WrapperFlexRow} from './style'
 import InputFormComponent from "../../components/InputFormComponent/InputFormComponent";
-import { Col, Row, Input, Dropdown, Space, message, Popconfirm, Select} from 'antd';
+import { Col, Row, Input, Popconfirm, Select } from 'antd';
 import app from '../../config/firebase'
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import * as UserService from '../../services/UserService'
 import bmiImg from '../../image/img_bmi.png'
 import questionImg from '../../image/img_question.png'
+import { updateName, updateInfo, updateAim } from '../../redux/user/User';
+import { useDispatch, useSelector } from "react-redux";
+import * as message from '../../components/MessageComponent/MessageComponent'
 
 const UserInfoComponent = () => {
 
     const auth = getAuth(app);
+    const dispatch = useDispatch();
+    const { isLoading, error, status } = useSelector((state) => state.user);
     const [userData, setUserData] = useState(null);
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
@@ -24,7 +29,6 @@ const UserInfoComponent = () => {
     const [bmi, setBMI] = useState('1');
     const [tdee, setTDEE] = useState('1');
     const [calo, setCalo] = useState('1');
-
 
     const handleAuth = () => {
         onAuthStateChanged(auth, async (user) => {
@@ -51,9 +55,6 @@ const UserInfoComponent = () => {
         handleAuth()
     }, [])
 
-    if(userData){
-        console.log("udat: ", userData);
-    }
     const handleOnchangeName = (value) => {
         setName(value)
     }
@@ -77,16 +78,13 @@ const UserInfoComponent = () => {
     }
 
     const handleUpdateName = () => {
-        UserService.updateNameUser(userData.id, name);
-        handleAuth()
+        dispatch(updateName(userData.id, name));
     }
     const handleUpdateInfo = () => {
-        UserService.updateInfoUser(userData.id, age, gender, height, weight, exercise);
-        handleAuth()
+        dispatch(updateInfo(userData.id, age, gender, height, weight, exercise));
     }
-    const handleUpdateAim = (value) => {
-        UserService.updateAimUser(userData.id, aim);
-        handleAuth()
+    const handleUpdateAim = () => {
+        dispatch(updateAim(userData.id, aim));
     }
     const confirmAccount = (e) => {
         handleUpdateName();

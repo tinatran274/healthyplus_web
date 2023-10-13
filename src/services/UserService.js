@@ -20,50 +20,80 @@ import UserConverter from "../models/UserModel";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export const signupUser = async (email, password, date) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      const userData = {
-        id: user.uid,
-        name: "",
-        age: 1,
-        gender: "Nữ",
-        height: 1,
-        weight: 1,
-        aim: "Giữ cân",
-        exercise: "Không vận động",
-        premium: 0,
-      };
-      await setDoc(doc(db, "user", user.uid), userData);
+export const signupUser = (email, password, date) => {
+    return new Promise(async (resolve, reject) => {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(async (userCredential) => {
+            const user = userCredential.user;
+            const userData = {
+              id: user.uid,
+              name: "",
+              age: 1,
+              gender: "Nữ",
+              height: 1,
+              weight: 1,
+              aim: "Giữ cân",
+              exercise: "Không vận động",
+              premium: 0,
+            };
+            await setDoc(doc(db, "user", user.uid), userData);
 
-      const uRef = doc(db, "statistic", user.uid);
-      const caloRef = doc(uRef, "dailyData", date);
-      const dataToUpdate = {
-        calories: 0,
-        breakfast: 0,
-        noon: 0,
-        dinner: 0,
-        snack: 0,
-        water: 0,
-      };
-      await setDoc(caloRef, dataToUpdate);
+            const uRef = doc(db, "statistic", user.uid);
+            const caloRef = doc(uRef, "dailyData", date);
+            const dataToUpdate = {
+              calories: 0,
+              breakfast: 0,
+              noon: 0,
+              dinner: 0,
+              snack: 0,
+              water: 0,
+            };
+            await setDoc(caloRef, dataToUpdate);
+
+            const result = {
+              uid: user.uid,
+              status: true,
+              message: "Đăng ký thành công"
+          };
+          resolve(result);
+
+          })
+          .catch((error) => {
+            const result = {
+              status: false,
+              error: error.message,
+              message: "Đăng ký thất bại"
+            };
+            reject(result);
+          });
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      return null;
-    });
 };
-export const signinUser = async (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+export const userLogin = (email, password) => {
+  return new Promise(async (resolve, reject) => {
+      signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          if (user) {
+              const result = {
+                  uid: user.uid,
+                  status: true,
+                  message: "Đăng nhập thành công"
+              };
+              resolve(result);
+          }
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        const result = {
+          status: false,
+          error: errorMessage,
+          message: "Đăng nhập thất bại"
+        };
+        reject(result);
+      });
+  });
+
 };
 
 export const getDetailUser = async (uid) => {
@@ -78,19 +108,60 @@ export const getDetailUser = async (uid) => {
   }
 };
 
-export const updateNameUser = async (uid, newname) => {
-  const uRef = doc(db, "user", uid);
-  await updateDoc(uRef, {
-    name: newname,
+// export const updateNameUser = async (uid, newname) => {
+//   const uRef = doc(db, "user", uid);
+//   await updateDoc(uRef, {
+//     name: newname,
+//   });
+// };
+export const updateNameUser = (uid, newname) => {
+  return new Promise(async (resolve, reject) => {
+    const uRef = doc(db, "user", uid);
+    const docSnap = await getDoc(uRef);
+    if (docSnap.exists()) {
+        const uRef = doc(db, "user", uid);
+        await updateDoc(uRef, {
+          name: newname,
+      })
+      const result = {
+        status: true,
+        message: "Cập nhật thành công"
+      }
+      resolve(result);
+    } else {
+      const result = {
+        status: false,
+        message: "Cập nhật thất bại"
+      };
+      reject(result);
+    }
   });
+
 };
-export const updateAimUser = async (uid, naim) => {
-  const uRef = doc(db, "user", uid);
-  await updateDoc(uRef, {
-    aim: naim,
-  });
+export const updateAimUser = (uid, naim) => {
+  return new Promise(async (resolve, reject) => {
+    const uRef = doc(db, "user", uid);
+    const docSnap = await getDoc(uRef);
+    if (docSnap.exists()) {
+      await updateDoc(uRef, {
+        aim: naim,
+      });
+      const result = {
+        status: true,
+        message: "Cập nhật thành công"
+      }
+      resolve(result);
+
+    } else {
+      const result = {
+        status: false,
+        message: "Cập nhật thất bại"
+      };
+      reject(result);
+    }
+  })
 };
-export const updateInfoUser = async (
+export const updateInfoUser = (
   uid,
   nage,
   ngender,
@@ -98,14 +169,31 @@ export const updateInfoUser = async (
   nweight,
   nexercise
 ) => {
-  const uRef = doc(db, "user", uid);
-  await updateDoc(uRef, {
-    age: parseInt(nage),
-    gender: ngender,
-    height: parseInt(nheight),
-    weight: parseInt(nweight),
-    exercise: nexercise,
-  });
+  return new Promise(async (resolve, reject) => {
+    const uRef = doc(db, "user", uid);
+    const docSnap = await getDoc(uRef);
+    if (docSnap.exists()) {
+      await updateDoc(uRef, {
+        age: parseInt(nage),
+        gender: ngender,
+        height: parseInt(nheight),
+        weight: parseInt(nweight),
+        exercise: nexercise,
+      })
+      const result = {
+        status: true,
+        message: "Cập nhật thành công"
+      }
+      resolve(result);
+    }
+    else {
+      const result = {
+        status: false,
+        message: "Cập nhật thất bại"
+      };
+      reject(result);
+    }
+  })
 };
 export const getUserCalories = async (uid, date) => {
   const uRef = doc(db, "statistic", uid);

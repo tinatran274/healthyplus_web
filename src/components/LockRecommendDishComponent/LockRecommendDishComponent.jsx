@@ -49,8 +49,8 @@ const LockRecommendDishComponent = () => {
 
   
   return (
-    <div hoverable className={styles.wrap}>
-        <Card hoverable className={styles.info}>
+    <div hoverable="true" className={styles.wrap}>
+        <Card hoverable="true" className={styles.info}>
             <p>Mục tiêu của bạn là: <span className={styles.span}>{aim}</span></p>
             <p>Bạn cần ăn {state} <span className={styles.span}>{tdee}</span> kcal/ngày</p>
             <div className={styles.flex1}>
