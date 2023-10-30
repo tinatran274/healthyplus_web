@@ -1,0 +1,40 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.img_deco {
+  width: 20px;
+  position: absolute;
+  align-items: center;
+}
+.check_in {
+  display: flex;
+}
+
+.checked_item {
+  z-index: 2;
+}
+.day {
+  padding-top: 10px;
+  text-align: center;
+}
+.done_icon {
+  position: absolute;
+}
+.check {
+  text-align: center;
+  display: inline-block;
+  border-radius: 8px;
+  border: 1px solid black;
+  width: fit-content;
+  padding: 5px;
+  margin-top: 5px;
+}
+.container {
+  position: relative;
+  width: 100%;
+
+  text-align: center;
+}

@@ -44,17 +44,6 @@ const ChangCaloriesComponent = () => {
     return formattedDate;
   };
 
-  const setChangPercent = (data, tdee) => {
-    setPercent((prevPercent) => {
-      const add = parseInt((data / tdee) * 100);
-      const newPercent = prevPercent + add;
-      if (newPercent > 100) {
-        return 100;
-      }
-      return newPercent;
-    });
-  };
-
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -65,6 +54,7 @@ const ChangCaloriesComponent = () => {
         );
         setUserData(userData);
         setTDEE(userData.getTDEE());
+
         let userCalo = 0;
         if (userData && userCalories) {
           if (userCalories.morning) {
@@ -96,6 +86,17 @@ const ChangCaloriesComponent = () => {
   useEffect(() => {
     handleAuth();
   }, []);
+  const setChangPercent = (data, tdee) => {
+    setPercent((prevPercent) => {
+      const add = parseInt((data / tdee) * 100);
+      const newPercent = prevPercent + add;
+
+      if (newPercent > 100) {
+        return 100;
+      }
+      return newPercent;
+    });
+  };
 
   const increase100Calories = () => {
     if (userData) {
@@ -103,6 +104,7 @@ const ChangCaloriesComponent = () => {
       setChangPercent(100, tdee);
       const currentTime = new Date();
       const hours = currentTime.getHours();
+
       if (hours <= 10) {
         UserService.updateUserMorning(
           userData.id,
@@ -133,6 +135,7 @@ const ChangCaloriesComponent = () => {
       setChangPercent(200, tdee);
       const currentTime = new Date();
       const hours = currentTime.getHours();
+
       if (hours <= 10) {
         UserService.updateUserMorning(
           userData.id,
@@ -177,6 +180,7 @@ const ChangCaloriesComponent = () => {
     if (userData) {
       setTotalCalories(totalCalories + parseInt(morning));
       setChangPercent(morning, tdee);
+
       UserService.updateUserMorning(
         userData.id,
         getDateToday(),
@@ -190,6 +194,7 @@ const ChangCaloriesComponent = () => {
     if (userData) {
       setTotalCalories(totalCalories + parseInt(noon));
       setChangPercent(noon, tdee);
+
       UserService.updateUserNoon(
         userData.id,
         getDateToday(),
@@ -203,6 +208,7 @@ const ChangCaloriesComponent = () => {
     if (userData) {
       setTotalCalories(totalCalories + parseInt(dinner));
       setChangPercent(dinner, tdee);
+
       UserService.updateUserDinner(
         userData.id,
         getDateToday(),
@@ -216,6 +222,7 @@ const ChangCaloriesComponent = () => {
     if (userData) {
       setTotalCalories(totalCalories + parseInt(snack));
       setChangPercent(snack, tdee);
+
       UserService.updateUserSnack(
         userData.id,
         getDateToday(),
@@ -229,6 +236,7 @@ const ChangCaloriesComponent = () => {
     if (userData) {
       setTotalCalories(totalCalories - parseInt(exercise));
       setChangPercent(-1 * exercise, tdee);
+
       UserService.updateUserExercise(
         userData.id,
         getDateToday(),
@@ -296,11 +304,11 @@ const ChangCaloriesComponent = () => {
         <div className={styles.info}>
           <p>Hôm nay là ngày: {getDateToday()}</p>
           <p>
-            Lượng calories bạn đã nạp trong bữa sáng:{" "}
+            Lượng calories bạn đã nạp trong bữa sáng:
             <span className={styles.text}>{morningSeted}</span> kcal
           </p>
           <p>
-            Lượng calories bạn đã nạp trong bữa trưa:{" "}
+            Lượng calories bạn đã nạp trong bữa trưa:
             <span className={styles.text}>{noonSeted}</span> kcal
           </p>
           <p>
@@ -343,10 +351,14 @@ const ChangCaloriesComponent = () => {
             onChange={handleOnchangeMorning}
           />
           <div className={styles.wrap_add}>
-            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
-            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+            <span className={styles.add} onClick={handleDishPage}>
+              Chọn món ăn
+            </span>
+            <span className={styles.add} onClick={handleIngredientPage}>
+              Chọn nguyên liệu
+            </span>
           </div>
-          
+
           <button className={styles.pay_m} onClick={handleAddMorning}>
             Thêm
           </button>
@@ -365,8 +377,12 @@ const ChangCaloriesComponent = () => {
             onChange={handleOnchangeNoon}
           />
           <div className={styles.wrap_add}>
-            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
-            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+            <span className={styles.add} onClick={handleDishPage}>
+              Chọn món ăn
+            </span>
+            <span className={styles.add} onClick={handleIngredientPage}>
+              Chọn nguyên liệu
+            </span>
           </div>
           <button className={styles.pay_m} onClick={handleAddNoon}>
             Thêm
@@ -386,8 +402,12 @@ const ChangCaloriesComponent = () => {
             onChange={handleOnchangeDinner}
           />
           <div className={styles.wrap_add}>
-            <span className={styles.add} onClick={handleDishPage}>Chọn món ăn</span>
-            <span className={styles.add} onClick={handleIngredientPage}>Chọn nguyên liệu</span>
+            <span className={styles.add} onClick={handleDishPage}>
+              Chọn món ăn
+            </span>
+            <span className={styles.add} onClick={handleIngredientPage}>
+              Chọn nguyên liệu
+            </span>
           </div>
           <button className={styles.pay_m} onClick={handleAddDinner}>
             Thêm
