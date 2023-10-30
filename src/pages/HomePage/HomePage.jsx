@@ -17,25 +17,36 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import RecommendDishComponent from "../../components/RecommendDishComponent/RecommendDishComponent";
 import LockRecommendDishComponent from "../../components/LockRecommendDishComponent/LockRecommendDishComponent";
+import CheckInComponent from "../../components/CheckInComponent/CheckInComponent";
 
 const HomePage = () => {
   const auth = getAuth(app);
   const [userData, setUserData] = useState(null);
   const [premium, setPremium] = useState(0);
-
+  const [check, setCheck] = useState(0);
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userData = await UserService.getDetailUser(user.uid);
         setUserData(userData);
         setPremium(userData.getPremium());
+        await UserService.createCheck(userData.id, getDateToday());
+        setCheck(await UserService.getCheck(userData.id, getDateToday()));
       } else console.log("Chưa đăng nhập");
     });
+  };
+  const getDateToday = () => {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Month is zero-based, so add 1
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate;
   };
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // Smooth scrolling animation
+      behavior: "smooth", // Smooth scrolling animation
     });
   };
 
@@ -49,13 +60,15 @@ const HomePage = () => {
       <HeaderComponent />
       <NavComponent />
       <SliderComponent arrImage={[slider1, slider2, slider3]} />
-      <TitleAddDishComponent/>
-      {(premium==0) ? (
-        <LockRecommendDishComponent/>
-        ) : (
-          <RecommendDishComponent />
-        )}
-    
+      <TitleAddDishComponent />
+      {premium == 0 ? (
+        <LockRecommendDishComponent />
+      ) : (
+        <RecommendDishComponent />
+      )}
+
+      {!userData || check === 0 ? " " : <CheckInComponent />}
+
       <ListProductComponent />
       <FooterComponent />
     </div>
