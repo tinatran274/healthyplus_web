@@ -18,20 +18,22 @@ import {
 import RecommendDishComponent from "../../components/RecommendDishComponent/RecommendDishComponent";
 import LockRecommendDishComponent from "../../components/LockRecommendDishComponent/LockRecommendDishComponent";
 import CheckInComponent from "../../components/CheckInComponent/CheckInComponent";
+import ChekInComponent from "../../components/ChekInComponent/ChekInComponent";
 
 const HomePage = () => {
   const auth = getAuth(app);
   const [userData, setUserData] = useState(null);
   const [premium, setPremium] = useState(0);
-  const [check, setCheck] = useState(0);
+  const [check, setCheck] = useState(1);
+
   const handleAuth = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userData = await UserService.getDetailUser(user.uid);
         setUserData(userData);
         setPremium(userData.getPremium());
-        await UserService.createCheck(userData.id, getDateToday());
-        setCheck(await UserService.getCheck(userData.id, getDateToday()));
+        // await UserService.createCheck(user.uid, getDateToday());
+        setCheck(await UserService.getCheck(user.uid, getDateToday()));
       } else console.log("Chưa đăng nhập");
     });
   };
@@ -55,6 +57,7 @@ const HomePage = () => {
     handleAuth();
   }, []);
 
+
   return (
     <div>
       <HeaderComponent />
@@ -66,8 +69,7 @@ const HomePage = () => {
       ) : (
         <RecommendDishComponent />
       )}
-
-      {!userData || check === 0 ? " " : <CheckInComponent />}
+      {userData && check === 0 ? <CheckInComponent /> : " " }
 
       <ListProductComponent />
       <FooterComponent />

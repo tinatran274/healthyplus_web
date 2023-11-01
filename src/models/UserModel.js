@@ -9,7 +9,8 @@ class User {
     aim,
     exercise,
     premium,
-    coin
+    coin,
+    stateCheck,
   ) {
     this.id = id;
     this.name = name;
@@ -21,6 +22,7 @@ class User {
     this.exercise = exercise;
     this.premium = premium; //0:free 1:premium
     this.coin = coin;
+    this.stateCheck = stateCheck;
   }
   toString() {
     return this.id + ", " + this.name;
@@ -112,6 +114,7 @@ const UserConverter = {
       exercise: user.exercise,
       premium: user.premium,
       coin: user.coin,
+      stateCheck: user.stateCheck,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -126,7 +129,8 @@ const UserConverter = {
       data.aim,
       data.exercise,
       data.premium,
-      data.coin
+      data.coin,
+      data.stateCheck
     );
   },
 };

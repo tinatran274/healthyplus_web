@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import CloseIcon from "@mui/icons-material/Close";
 
-function PopUpComponent(props) {
+const PopUpComponent = (props) => {
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">

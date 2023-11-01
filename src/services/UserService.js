@@ -36,6 +36,7 @@ export const signupUser = (email, password, date) => {
           exercise: "Không vận động",
           premium: 0,
           coin: 0,
+          stateCheck: 0,
         };
         await setDoc(doc(db, "user", user.uid), userData);
 
@@ -288,15 +289,13 @@ export const updateUserWater = async (uid, date, calo) => {
   else await setDoc(caloRef, dataToUpdate);
 };
 export const updateUserCheck = async (uid, date, values) => {
+
   const uRef = doc(db, "statistic", uid);
   const caloRef = doc(uRef, "dailyData", date);
   const docSnap = await getDoc(caloRef);
-  const user = docSnap.data();
-  if (user) {
-    const dataToUpdate = { check: parseInt(values) };
-    if (docSnap.exists()) await updateDoc(caloRef, dataToUpdate);
-    else await setDoc(caloRef, dataToUpdate);
-  }
+  const dataToUpdate = { check: parseInt(values) };
+  if (docSnap.exists()) await updateDoc(caloRef, dataToUpdate);
+  else await setDoc(caloRef, dataToUpdate);
 };
 
 export const updateUserCoin = async (uid, coin) => {
@@ -404,6 +403,7 @@ export const getCoin = async (uid) => {
     if (user.coin) {
       return user.coin;
     }
+    else return 0
   } catch (e) {
     console.log("Error");
     const dataToUpdate = { coin: 0 };
@@ -438,12 +438,21 @@ export const getCheck = async (uid, date) => {
   const caloRef = doc(uRef, "dailyData", date);
   const docSnap = await getDoc(caloRef);
   const u = docSnap.data();
-  try {
+  if (u){
     if (u.check) {
       return u.check;
     }
-  } catch (e) {
-    console.log("Error");
     return 0;
   }
+  return 0;
 };
+
+export const updateStateCheck = async (uid, num) => {
+  const uRef = doc(db, "user", uid);
+  const docSnap = await getDoc(uRef);
+
+  const dataToUpdate = { stateCheck: num };
+  if (docSnap.exists()) await updateDoc(uRef, dataToUpdate);
+  else await setDoc(uRef, dataToUpdate);
+};
+
